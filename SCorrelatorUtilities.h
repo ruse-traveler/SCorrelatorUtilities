@@ -158,6 +158,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
     /* FIXME these probaly should be split off into another file for ease of browsing */
 
+/* TODO uncomment once ready to remove these from SCorrelatorJetTree
     int GetEmbedID(PHCompositeNode* topNode, const int iEvtToGrab) {
 
       // grab mc event map
@@ -307,6 +308,7 @@ namespace SColdQcdCorrelatorAnalysis {
       return flowStore;
 
     }  // end 'GetFlowStore(PHCompositeNode*)'
+*/
 
   }  // end SCorrelatorUtilities namespace
 
