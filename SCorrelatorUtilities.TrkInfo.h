@@ -67,9 +67,9 @@ namespace SColdQcdCorrelatorAnalysis {
         m_vtxY     = vy;
         m_vtxZ     = vz;
         return;
-      }  // end 'SetInfo()'
+      }  // end 'SetInfo(int, int, int, double x 11)'
 
-      void Rest() {
+      void Reset() {
         m_nMvtxLyr = -1;
         m_nInttLyr = -1;
         m_nTpcLyr  = -1;
