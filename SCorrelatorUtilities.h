@@ -73,148 +73,29 @@ using namespace findNode;
 
 
 namespace SColdQcdCorrelatorAnalysis {
-
   namespace SCorrelatorUtilities {
+
+    // constants, enums, etc. -------------------------------------------------
+
+    namespace {
+
+      // subsystem indices
+      enum class Subsys {Mvtx, Intt, Tpc, EMCal, IHCal, OHCal};
+
+      // tracking-related constants
+      const uint16_t NMvtxLayer = 3;
+      const uint16_t NInttLayer = 8;
+      const uint16_t NTpcLayer  = 48;
+      const uint16_t NTpcSector = 12;
+
+      // pion mass in GeV/c^2
+      const double MassPion = 0.140;
+
+    }  // end constants
 
     // methods ----------------------------------------------------------------
 
     /* FIXME these probaly should be split off into another file for ease of browsing */
-
-    int GetEmbedID(PHCompositeNode* topNode, const int iEvtToGrab) {
-
-      // grab mc event map
-      PHHepMCGenEventMap* mapMcEvts = findNode::getClass<PHHepMCGenEventMap>(topNode, "PHHepMCGenEventMap");
-      if (!mapMcEvts) {
-        cerr << PHWHERE
-             << "PANIC: HEPMC event map node is missing!"
-             << endl;
-        assert(mapMcEvts);
-      }
-
-      // grab mc event & return embedding id
-      PHHepMCGenEvent* mcEvtStart = mapMcEvts -> get(iEvtToGrab);
-      if (!mcEvtStart) {
-        cerr << PHWHERE
-             << "PANIC: Couldn't grab start of mc events!"
-             << endl;
-        assert(mcEvtStart);
-      }
-      return mcEvtStart -> get_embedding_id();
-
-    }  // end 'GetEmbedID(PHCompositeNode*, int)'
-
-
-
-    SvtxTrackMap* GetTrackMap(PHCompositeNode* topNode) {
-
-      // grab track map
-      SvtxTrackMap* mapTrks = findNode::getClass<SvtxTrackMap>(topNode, "SvtxTrackMap");
-      if (!mapTrks) {
-        cerr << PHWHERE
-             << "PANIC: SvtxTrackMap node is missing!"
-             << endl;
-        assert(mapTrks);
-      }
-      return mapTrks;
-
-    }  // end 'GetTrackMap(PHCompositeNode*)'
-
-
-
-    GlobalVertexMap* GetVertexMap(PHCompositeNode* topNode) {
-
-      // get vertex map
-      GlobalVertexMap* mapVtx = findNode::getClass<GlobalVertexMap>(topNode, "GlobalVertexMap");
-
-      // check if good
-      const bool isVtxMapGood = (mapVtx && !(mapVtx -> empty()));
-      if (!isVtxMapGood) {
-        cerr << PHWHERE
-             << "PANIC: GlobalVertexMap node is missing or empty!\n"
-             << "       Please turn on the do_global flag in the main macro in order to reconstruct the global vertex!"
-             << endl;
-        assert(isVtxMapGood);
-      }
-      return mapVtx;
-
-    }  // end 'GetVertexMap(PHCompositeNode*)'
-
-
-
-    GlobalVertex* GetGlobalVertex(PHCompositeNode* topNode, const int iVtxToGrab) {
-
-      // get vertex map
-      GlobalVertexMap* mapVtx = GetVertexMap(topNode);
-
-      // get specified vertex
-      GlobalVertex* vtx = NULL;
-      if (iVtxToGrab < 0) {
-        vtx = mapVtx -> begin() -> second;
-      } else {
-        vtx = mapVtx -> get(iVtxToGrab);
-      }
-
-      // check if good
-      if (!vtx) {
-        cerr << PHWHERE
-             << "PANIC: no vertex!"
-             << endl;
-        assert(vtx);
-      }
-      return vtx;
-
-    }  // end 'GetGlobalVertex(PHCompositeNode*, int)'
-  
-
-
-    HepMC::GenEvent* GetMcEvent(PHCompositeNode* topNode, const int iEvtToGrab) {
-
-      // grab mc event map
-      PHHepMCGenEventMap* mapMcEvts = findNode::getClass<PHHepMCGenEventMap>(topNode, "PHHepMCGenEventMap");
-      if (!mapMcEvts) {
-        cerr << PHWHERE
-             << "PANIC: HEPMC event map node is missing!"
-             << endl;
-        assert(mapMcEvts);
-      }
-
-      // grab mc event & check if good
-      PHHepMCGenEvent* mcEvtStart = mapMcEvts -> get(iEvtToGrab);
-      if (!mcEvtStart) {
-        cerr << PHWHERE
-             << "PANIC: Couldn't grab start of mc events!"
-             << endl;
-        assert(mcEvtStart);
-      }
-
-      HepMC::GenEvent* mcEvt = mcEvtStart -> getEvent();
-      if (!mcEvt) {
-        cerr << PHWHERE
-             << "PANIC: Couldn't grab HepMC event!"
-             << endl;
-        assert(mcEvt);
-      }
-      return mcEvt;
-
-    }  // end 'GetMcEvent(PHCompositeNode*, int)'
-
-
-
-    RawClusterContainer* GetClusterStore(PHCompositeNode* topNode, const TString sNodeName) {
-
-      // grab clusters
-      RawClusterContainer *clustStore = findNode::getClass<RawClusterContainer>(topNode, sNodeName.Data());
-      if (!clustStore) {
-        cout << PHWHERE
-             << "PANIC: " << sNodeName.Data() << " node is missing!"
-             << endl;
-        assert(clustStore);
-      }
-      return clustStore;
-
-    }  // end 'GetClusterStore(PHCompositeNode*, TString)'
-
-
 
     ParticleFlowElementContainer* GetFlowStore(PHCompositeNode* topNode) {
 
@@ -231,7 +112,6 @@ namespace SColdQcdCorrelatorAnalysis {
     }  // end 'GetFlowStore(PHCompositeNode*)'
 
   }  // end SCorrelatorUtilities namespace
-
 }  // end SColdQcdCorrealtorAnalysis namespace
 
 #endif

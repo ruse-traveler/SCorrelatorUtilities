@@ -1,5 +1,5 @@
 // ----------------------------------------------------------------------------
-// 'SCorrelatorUtilities.EvtInfo.h'
+// 'SCorrelatorUtilities.JetInfo.h'
 // Derek Anderson
 // 10.22.2023
 //
