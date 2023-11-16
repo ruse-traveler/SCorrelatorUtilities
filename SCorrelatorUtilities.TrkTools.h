@@ -3,20 +3,196 @@
 // Derek Anderson
 // 10.30.2023
 //
-// Collection of frequent track-related methods utilized
-// in the sPHENIX Cold QCD Energy-Energy Correlator analysis.
+// Definition of TrkInfo class and collection of frequent track-
+// related methods utilized in the sPHENIX Cold QCD Energy-Energy
+// Correlator analysis.
 // ----------------------------------------------------------------------------
 
 #pragma once
+
+// c++ utilities
+#include <cassert>
+#include <utilities>
+// root utilities
+#include <TF1.h>
+// f4a libraries
+#include <fun4all/SubsysReco.h>
+// phool libraries
+#include <phool/phool.h>
+#include <phool/getClass.h>
+#include <phool/PHIODataNode.h>
+#include <phool/PHNodeIterator.h>
+#include <phool/PHCompositeNode.h>
+// tracking libraries
+#include <trackbase_historic/SvtxTrack.h>
+#include <trackbase_historic/SvtxTrackMap.h>
+#include <trackbase_historic/TrackAnalysisUtils.h>
+// analysis utilities
+#include "SCorrelatorUtilites.Constants.h"
 
 // make common namespaces implicit
 using namespace std;
 using namespace findNode;
 
+// set up aliases
+using CLVec3  = CLHEP::Hep3Vector;  // FIXME replace CLHEP vectors with ROOT XYZVectors
+using DcaPair = pair<double, double>;
+
 
 
 namespace SColdQcdCorrelatorAnalysis {
   namespace SCorrelatorUtilities {
+
+    // TrkInfo definition -----------------------------------------------------
+
+    struct TrkInfo {
+
+      // data members
+      int    id         = -1;
+      int    nMvtxLayer = -1;
+      int    nInttLayer = -1;
+      int    nTpcLayer  = -1;
+      int    nMvtxClust = -1;
+      int    nInttClust = -1;
+      int    nTpcClust  = -1;
+      double phi        = -999.;
+      double ene        = -999.;
+      double px         = -999.;
+      double py         = -999.;
+      double pz         = -999.;
+      double pt         = -999.;
+      double eta        = -999.;
+      double dcaXY      = -999.;
+      double dcaZ       = -999.;
+      double ptErr      = -999.;
+      double quality    = -999.;
+      double vtxX       = -999.;
+      double vtxY       = -999.;
+      double vtxZ       = -999.;
+
+      void SetInfo(SvtxTrack* track, PHCompositeNode* topNode) {
+
+        // do relevant calculations
+        const CLVec3  trkVtx     = GetTrackVertex(track, topNode);
+        const DcaPair trkDcaPair = GetTrackDcaPair(track, topNode);
+
+        // set track info
+        id         = track -> get_id();
+        quality    = track -> get_quality();
+        eta        = track -> get_eta();
+        phi        = track -> get_phi();
+        px         = track -> get_px();
+        py         = track -> get_py();
+        pz         = track -> get_pz();
+        pt         = track -> get_pt();
+        ene        = sqrt((px * px) + (py * py) + (pz * pz) + (MassPion * MassPion));
+        vtxX       = trkVtx.x();
+        vtxY       = trkVtx.y();
+        vtxZ       = trkVtx.z();
+        dcaXY      = trkDcaPair.first;
+        dcaZ       = trkDcaPair.second;
+        nMvtxLayer = GetNumLayer(track, Subsys::Mvtx);
+        nInttLayer = GetNumLayer(track, Subsys::Intt);
+        nTpcLayer  = GetNumLayer(track, Subsys::Tpc);
+        nMvtxClust = GetNumClust(track, Subsys::Mvtx);
+        nInttClust = GetNumClust(track, Subsys::Intt);
+        nTpcClust  = GetNumClust(track, Subsys::Tpc);
+        ptErr      = GetTrackDeltaPt(track);
+        return;
+      }  // end 'SetInfo(SvtxTrack*)'
+
+      void Reset() {
+        id         = -1;
+        nMvtxLayer = -1;
+        nInttLayer = -1;
+        nTpcLayer  = -1;
+        nMvtxClust = -1;
+        nInttClust = -1;
+        nTpcClust  = -1;
+        eta        = -999.;
+        phi        = -999.;
+        px         = -999.;
+        py         = -999.;
+        pz         = -999.;
+        pt         = -999.;
+        ene        = -999.;
+        dcaXY      = -999.;
+        dcaZ       = -999.;
+        ptErr      = -999.;
+        quality    = -999.;
+        vtxX       = -999.;
+        vtxY       = -999.;
+        vtxZ       = -999.;
+        return;
+      }  // end 'Reset()'
+
+      // overloaded < operator
+      friend bool operator<(const TrkInfo& lhs, const TrkInfo& rhs) {
+
+        // note that some quantities aren't relevant for this comparison
+        const bool isLessThan = (
+          (lhs.nMvtxLayer < rhs.nMvtxLayer) &&
+          (lhs.nInttLayer < rhs.nInttLayer) &&
+          (lhs.nTpcLayer  < rhs.nTpcLayer)  &&
+          (lhs.nMvtxClust < rhs.nMvtxClust) &&
+          (lhs.nInttClust < rhs.nInttClust) &&
+          (lhs.nTpcClust  < rhs.nTpcClust)  &&
+          (lhs.eta        < rhs.eta)        &&
+          (lhs.phi        < rhs.phi)        &&
+          (lhs.px         < rhs.px)         &&
+          (lhs.py         < rhs.py)         &&
+          (lhs.pz         < rhs.pz)         &&
+          (lhs.pt         < rhs.pt)         &&
+          (lhs.ene        < rhs.ene)        &&
+          (lhs.dcaXY      < rhs.dcaXY)      &&
+          (lhs.dcaZ       < rhs.dcaZ)       &&
+          (lhs.ptErr      < rhs.ptErr)      &&
+          (lhs.quality    < rhs.quality)    &&
+          (lhs.vtxX       < rhs.vtxX)       &&
+          (lhs.vtxY       < rhs.vtxY)       &&
+          (lhs.vtxZ       < rhs.vtxZ)
+        );
+        return isLessThan;
+
+      }  // end 'operator<(TrkInfo&, TrkInfo&)'
+
+      // overloaded > operator
+      friend bool operator>(const TrkInfo& lhs, const TrkInfo& rhs) {
+
+        // note that some quantities aren't relevant for this comparison
+        const bool isGreaterThan = (
+          (lhs.nMvtxLayer > rhs.nMvtxLayer) &&
+          (lhs.nInttLayer > rhs.nInttLayer) &&
+          (lhs.nTpcLayer  > rhs.nTpcLayer)  &&
+          (lhs.nMvtxClust > rhs.nMvtxClust) &&
+          (lhs.nInttClust > rhs.nInttClust) &&
+          (lhs.nTpcClust  > rhs.nTpcClust)  &&
+          (lhs.eta        > rhs.eta)        &&
+          (lhs.phi        > rhs.phi)        &&
+          (lhs.px         > rhs.px)         &&
+          (lhs.py         > rhs.py)         &&
+          (lhs.pz         > rhs.pz)         &&
+          (lhs.pt         > rhs.pt)         &&
+          (lhs.ene        > rhs.ene)        &&
+          (lhs.dcaXY      > rhs.dcaXY)      &&
+          (lhs.dcaZ       > rhs.dcaZ)       &&
+          (lhs.ptErr      > rhs.ptErr)      &&
+          (lhs.quality    > rhs.quality)    &&
+          (lhs.vtxX       > rhs.vtxX)       &&
+          (lhs.vtxY       > rhs.vtxY)       &&
+          (lhs.vtxZ       > rhs.vtxZ)
+        );
+        return isGreaterThan;
+
+      }  // end 'operator>(TrkInfo&, TrkInfo&)'
+
+      // overloaded, <=, >= operators
+      inline bool operator<=(const TrkInfo& lhs, const TrkInfo& rhs) {return !(lhs > rhs);}
+      inline bool operator>=(const TrkInfo& lhs, const TrkInfo& rhs) {return !(rhs < lhs);}
+
+    };  // end TrkInfo def
+
+
 
     // track methods ----------------------------------------------------------
 
@@ -36,89 +212,33 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-    /* TODO
-     *   - replace most of this with comparison b/n TrkInfo objects
-     *   - remove/factorize out blocks specific to SCorrelatorJetTree
-     */ 
-    bool IsGoodTrack(SvtxTrack* track, PHCompositeNode* topNode) {
+    bool IsInTrackAcceptance(const TrkInfo& trk, const TrkInfo& minimum, const TrkInfo& maximum) {
 
-      // grab track info
-      const double trkPt      = track -> get_pt();
-      const double trkEta     = track -> get_eta();
-      const double trkQual    = track -> get_quality();
-      const double trkDeltaPt = GetTrackDeltaPt(track);
-      const int    trkNMvtx   = GetNumLayer(track, Subsys::Mvtx);
-      const int    trkNIntt   = GetNumLayer(track, Subsys::Intt);
-      const int    trkNTpc    = GetNumLayer(track, Subsys::Tpc);
+      // compare track against limits
+      const bool isInAcceptance = ((trk >= minimum) && (trk <= maximum));
+      return isInAcceptance;
 
-      // grab track dca
-      const auto   trkDca   = GetTrackDcaPair(track, topNode);
-      const double trkDcaXY = trkDca.first;
-      const double trkDcaZ  = trkDca.second;
-
-
-      // if above max pt used to fit dca width,
-      // use value of fit at max pt
-      double ptEvalXY = (trkPt > m_dcaPtFitMaxXY) ? m_dcaPtFitMaxXY : trkPt;
-      double ptEvalZ  = (trkPt > m_dcaPtFitMaxZ)  ? m_dcaPtFitMaxZ  : trkPt;
-
-      // check if dca is good
-      bool isInDcaRangeXY = false;
-      bool isInDcaRangeZ  = false;
-      if (m_doDcaSigmaCut) {
-        isInDcaRangeXY = (abs(trkDcaXY) < (m_nSigCutXY * (m_fSigDcaXY -> Eval(ptEvalXY))));
-        isInDcaRangeZ  = (abs(trkDcaZ)  < (m_nSigCutZ  * (m_fSigDcaZ  -> Eval(ptEvalZ))));
-      } else {
-        isInDcaRangeXY = ((trkDcaXY > m_trkDcaRangeXY[0]) && (trkDcaXY < m_trkDcaRangeXY[1]));
-        isInDcaRangeZ  = ((trkDcaZ  > m_trkDcaRangeZ[0])  && (trkDcaZ  < m_trkDcaRangeZ[1]));
-      }  
-
-      // if applying vertex cuts, grab track
-      // vertex and check if good
-      bool isInVtxRange = true;
-      if (m_doVtxCut) {
-        CLHEP::Hep3Vector trkVtx = GetTrackVertex(track, topNode);
-        isInVtxRange = IsGoodVertex(trkVtx);
-      }
-
-      // if using only primary vertex,
-      // ignore tracks from other vertices
-      if (m_useOnlyPrimVtx) {
-        const bool isFromPrimVtx = IsFromPrimaryVtx(track, topNode);
-        if (!isFromPrimVtx) {
-          isInVtxRange = false;
-        }
-      }
-
-      // if masking tpc sector boundaries,
-      // ignore tracks near boundaries
-      bool isGoodPhi = true;
-      if (m_maskTpcSectors) {
-        isGoodPhi = IsGoodTrackPhi(track);
-      }
-
-      // apply cuts
-      const bool isSeedGood       = IsGoodTrackSeed(track);
-      const bool isInPtRange      = ((trkPt      > m_trkPtRange[0])      && (trkPt      <  m_trkPtRange[1]));
-      const bool isInEtaRange     = ((trkEta     > m_trkEtaRange[0])     && (trkEta     <  m_trkEtaRange[1]));
-      const bool isInQualRange    = ((trkQual    > m_trkQualRange[0])    && (trkQual    <  m_trkQualRange[1]));
-      const bool isInNMvtxRange   = ((trkNMvtx   > m_trkNMvtxRange[0])   && (trkNMvtx   <= m_trkNMvtxRange[1]));
-      const bool isInNInttRange   = ((trkNIntt   > m_trkNInttRange[0])   && (trkNIntt   <= m_trkNInttRange[1]));
-      const bool isInNTpcRange    = ((trkNTpc    > m_trkNTpcRange[0])    && (trkNTpc    <= m_trkNTpcRange[1]));
-      const bool isInDeltaPtRange = ((trkDeltaPt > m_trkDeltaPtRange[0]) && (trkDeltaPt <  m_trkDeltaPtRange[1]));
-      const bool isInNumRange     = (isInNMvtxRange && isInNInttRange && isInNTpcRange);
-      const bool isInDcaRange     = (isInDcaRangeXY && isInDcaRangeZ);
-      const bool isGoodTrack      = (isSeedGood && isGoodPhi && isInPtRange && isInEtaRange && isInQualRange && isInNumRange && isInDcaRange && isInDeltaPtRange && isInVtxRange);
-      return isGoodTrack;
-
-    }  // end 'IsGoodTrack(SvtxTrack*)'
+    }  // end 'IsInTrackAcceptance(TrkInfo&, TrkInfo&, TrkInfo&)'
 
 
 
-    /* TODO
-     *   - remove/factorize out blocks specific to SCorrelatorJetTree
-     */ 
-    bool IsGoodTrackSeed(SvtxTrack* track) {
+    bool IsInSigmaDcaCut(const TrkInfo& trk, const pair<float, float> nSigCut, const pair<float, float> ptFitMax, const pair<TF1*, TF1*> fSigmaDca) {
+
+      // if above max pt used to fit dca width, use value of fit at max pt
+      const double ptEvalXY = (trk.pt > ptFitMax.first)  ? ptFitMax : trkPt;
+      const double ptEvalZ  = (trk.pt > ptFitMax.second) ? ptFitMax : trkPt;
+
+      // check if dca is in cut
+      const bool isInDcaRangeXY  = (abs(trk.dcaXY) < (nSigCut.first  * (fSigmaDca.first  -> Eval(ptEvalXY))));
+      const bool isInDcaRangeZ   = (abs(trk.dcaZ)  < (nSigcut.second * (fSigmaDca.second -> Eval(ptEvalZ))));
+      const bool isInSigmaDcaCut = (isInDcaRangeXY && isInDcaRangeZ);
+      return isInSigmaDcaCut;
+
+    }  // end 'IsInSigmaDcaCut(TrkInfo&, pair<float, float>, pair<float, float>, pair<TF1*, TF1*>)'
+
+
+
+    bool IsGoodTrackSeed(const SvtxTrack* track, const bool requireSiSeeds = true) {
 
       // get track seeds
       TrackSeed* trkSiSeed  = track -> get_silicon_seed();
@@ -126,7 +246,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
       // check if one or both seeds are present as needed
       bool isSeedGood = (trkSiSeed && trkTpcSeed);
-      if (!m_requireSiSeeds) {
+      if (!requireSiSeeds) {
         isSeedGood = (trkSiSeed || trkTpcSeed);
       }
       return isSeedGood;
@@ -461,7 +581,7 @@ namespace SColdQcdCorrelatorAnalysis {
     int GetMatchID(SvtxTrack* track) {
 
       // get best match from truth particles
-      PHG4Particle *bestMatch = m_trackEval -> max_truth_particle_by_nclusters(track);
+      PHG4Particle* bestMatch = m_trackEval -> max_truth_particle_by_nclusters(track);
 
       // grab barcode of best match
       int matchID;
