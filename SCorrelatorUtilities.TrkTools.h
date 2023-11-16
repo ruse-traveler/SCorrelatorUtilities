@@ -12,7 +12,7 @@
 
 // c++ utilities
 #include <cassert>
-#include <utilities>
+#include <utility>
 // root utilities
 #include <TF1.h>
 // f4a libraries
@@ -28,7 +28,7 @@
 #include <trackbase_historic/SvtxTrackMap.h>
 #include <trackbase_historic/TrackAnalysisUtils.h>
 // analysis utilities
-#include "SCorrelatorUtilites.Constants.h"
+#include "SCorrelatorUtilities.Constants.h"
 
 // make common namespaces implicit
 using namespace std;
@@ -252,48 +252,6 @@ namespace SColdQcdCorrelatorAnalysis {
       return isSeedGood;
 
     }  // end 'IsGoodSeed(SvtxTrack*)'
-
-
-
-    /* TODO
-     *   - remove/factorize out blocks specific to SCorrelatorJetTree
-     */ 
-    bool IsGoodTrackPhi(SvtxTrack* track, const float phiMaskSize) {
-
-      // Tpc sector boundaries:
-      //   12 sectors --> ~0.523 rad/sector,
-      //   assumed to be symmetric about phi = 0
-      // FIXME move to constant in utilities namespace
-      const array<float, NTpcSector> phiSectorBoundaries = {
-        -2.877,
-        -2.354,
-        -1.831,
-        -1.308,
-        -0.785,
-        -0.262,
-        0.262,
-        0.785,
-        1.308,
-        1.831,
-        2.354,
-        2.877
-      };
-
-      // flag phi as bad if within boundary +- (phiMaskSize / 2)
-      const double halfMaskSize = phiMaskSize / 2.;
-      const double trkPhi       = track -> get_phi();
-
-      // loop over sector boundaries and check phi
-      bool isGoodPhi = true;
-      for (const float boundary : phiSectorBoundaries) {
-        if ((trkPhi > (boundary - halfMaskSize)) && (trkPhi < (boundary + halfMaskSize))) {
-          isGoodPhi = false;
-          break;
-        }
-      }
-      return isGoodPhi;
-
-    }  // end 'IsGoodTrackPhi(SvtxTrack*, float)'
 
 
 
