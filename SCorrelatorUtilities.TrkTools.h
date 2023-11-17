@@ -11,6 +11,7 @@
 #pragma once
 
 // c++ utilities
+#include <array>
 #include <cassert>
 #include <utility>
 // root utilities
@@ -27,6 +28,18 @@
 #include <trackbase_historic/SvtxTrack.h>
 #include <trackbase_historic/SvtxTrackMap.h>
 #include <trackbase_historic/TrackAnalysisUtils.h>
+// track evaluator utilities
+#include <g4eval/SvtxTrackEval.h>
+#include <g4eval/SvtxEvalStack.h>
+// vertex libraries
+#include <globalvertex/GlobalVertex.h>
+#include <globalvertex/GlobalVertexMap.h>
+// phenix Geant4 utilities
+#include <g4main/PHG4Particle.h>
+// hepmc libraries
+#include <HepMC/GenEvent.h>
+#include <HepMC/GenVertex.h>
+#include <HepMC/GenParticle.h>
 // analysis utilities
 #include "SCorrelatorUtilities.Constants.h"
 
@@ -324,25 +337,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-    /* TODO
-     *   - refactor/clean up
-     *   - remove/factorize out blocks specific to SCorrelatorJetTree
-     */
-    int GetNumLayer(SvtxTrack* track, const Subsys sys) {
-
-      // issue warning if sys is not set correctly
-      const bool isSubsysWrong = (sys > 2);
-      if (isSubsysWrong && m_doDebug && (Verbosity() > 3)) {
-        cerr << "GetNumLayer(SvtxTrack*, uint8_t) PANIC: trying to determine no. of clusters for an unknown system (sys = " << sys << ")! Aborting!" << endl;
-        assert(sys <= 2);
-      }
-
-      // check if seed is good
-      const bool isSeedGood = IsGoodTrackSeed(track);
-      if (!isSeedGood && m_doDebug && (Verbosity() > 3)) {
-        cerr << "GetNumLayer(SvtxTrack*, uint8_t) PANIC: track seed(s) is (are) no good! Aborting!" << endl;
-        assert(isSeedGood);
-      }
+    TrackSeed* GetTrackSeed(SvtxTrack*, const Subsys sys) {
 
       // get both track seeds
       TrackSeed* trkSiSeed  = track -> get_silicon_seed();
@@ -365,34 +360,29 @@ namespace SColdQcdCorrelatorAnalysis {
         case Subsys::Tpc:
           seed = trkTpcSeed;
           break;
+        default:
+          seed = NULL;
+          break;
       }
-      if (!seed && m_doDebug && (Verbosity() > 3)) {
-        cerr << "GetNumLayer(SvtxTrack*, uint8_t) PANIC: couldn't set seed! Aborting!" << endl;
-        assert(seed);
-      }
+      return seed;
+
+    }  // end 'GetTrackSeed(SvtxTrack*, Subsys)'
+
+
+
+    int GetNumLayer(SvtxTrack* track, const Subsys sys) {
+
+      // grab track seed
+      TrackSeed* seed = GetTrackSeed(track, sys);
 
       // set min no. of layers
-      const int minInttLayer = CONST::NMvtxLayer;
-      const int minTpcLayer  = CONST::NMvtxLayer + CONST::NInttLayer;
+      const int minInttLayer = NMvtxLayer;
+      const int minTpcLayer  = NMvtxLayer + NInttLayer;
 
-      // reset hit flags
-      switch (sys) {
-        case Subsys::Mvtx:
-          for (int iMvtxLayer = 0; iMvtxLayer < CONST::NMvtxLayer; iMvtxLayer++) {
-            isMvtxLayerHit[iMvtxLayer] = false;
-          }
-          break;
-        case Subsys::Intt:
-          for (int iInttLayer = 0; iInttLayer < CONST::NInttLayer; iInttLayer++) {
-            isInttLayerHit[iInttLayer] = false;
-          }
-          break;
-        case Subsys::Tpc:
-          for (int iTpcLayer = 0; iTpcLayer < CONST::NTpcLayer; iTpcLayer++) {
-            isTpcLayerHit[iTpcLayer] = false;
-          }
-          break;
-      }
+      // initialize hit flags
+      array<bool, NMvtxLayer> isMvtxLayerHit = {false};
+      array<bool, NInttLayer> isInttLayerHit = {false};
+      array<bool, NTpcLayer>  isTpcLayerHit  = {false};
 
       // determine which layers were hit
       unsigned int layer     = 0;
@@ -407,7 +397,7 @@ namespace SColdQcdCorrelatorAnalysis {
         // increment accordingly
         switch (sys) {
           case Subsys::Mvtx:
-            if (layer < CONST::NMvtxLayer) {
+            if (layer < NMvtxLayer) {
               mvtxLayer                 = layer;
               isMvtxLayerHit[mvtxLayer] = true;
             }
@@ -424,6 +414,8 @@ namespace SColdQcdCorrelatorAnalysis {
               isTpcLayerHit[tpcLayer] = true;
             }
             break;
+          default:
+            break;
         }
       }  // end cluster loop
 
@@ -431,19 +423,21 @@ namespace SColdQcdCorrelatorAnalysis {
       int nLayer = 0;
       switch (sys) {
         case Subsys::Mvtx:
-          for (int iMvtxLayer = 0; iMvtxLayer < CONST::NMvtxLayer; iMvtxLayer++) {
+          for (int iMvtxLayer = 0; iMvtxLayer < NMvtxLayer; iMvtxLayer++) {
             if (isMvtxLayerHit[iMvtxLayer]) ++nLayer;
           }
           break;
         case Subsys::Intt:
-          for (int iInttLayer = 0; iInttLayer < CONST::NInttLayer; iInttLayer++) {
+          for (int iInttLayer = 0; iInttLayer < NInttLayer; iInttLayer++) {
             if (isInttLayerHit[iInttLayer]) ++nLayer;
           }
           break;
         case Subsys::Tpc:
-          for (int iTpcLayer = 0; iTpcLayer < CONST::NTpcLayer; iTpcLayer++) {
+          for (int iTpcLayer = 0; iTpcLayer < NTpcLayer; iTpcLayer++) {
             if (isTpcLayerHit[iTpcLayer]) ++nLayer;
           }
+          break;
+        default:
           break;
       }
       return nLayer;
@@ -452,56 +446,14 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-    /* TODO
-     *   - refactor/clean up
-     *   - remove/factorize out blocks specific to SCorrelatorJetTree
-     */
     int GetNumClust(SvtxTrack* track, const uint8_t subsys = 0) {
 
-      // issue warning if subsys is not set correctly
-      const bool isSubsysWrong = (subsys > 2);
-      if (isSubsysWrong && m_doDebug && (Verbosity() > 3)) {
-        cerr << "GetNumLClust(SvtxTrack*, uint8_t) PANIC: trying to determine no. of clusters for an unknown subsystem (subsys = " << subsys << ")! Aborting!" << endl;
-        assert(subsys <= 2);
-      }
-
-      // check if seed is good
-      const bool isSeedGood = IsGoodTrackSeed(track);
-      if (!isSeedGood && m_doDebug && (Verbosity() > 3)) {
-        cerr << "GetNumLayer(SvtxTrack*, uint8_t) PANIC: track seed(s) is (are) no good! Aborting!" << endl;
-        assert(isSeedGood);
-      }
-
-      // get both track seeds
-      TrackSeed* trkSiSeed  = track -> get_silicon_seed();
-      TrackSeed* trkTpcSeed = track -> get_tpc_seed();
-
-      // select relevant seed
-      const bool hasBothSeeds   = (trkSiSeed  && trkTpcSeed);
-      const bool hasOnlyTpcSeed = (!trkSiSeed && trkTpcSeed);
-
-      TrackSeed* seed = NULL;
-      switch (subsys) {
-        case SUBSYS::MVTX:
-          if (hasBothSeeds)   seed = trkSiSeed;
-          if (hasOnlyTpcSeed) seed = trkTpcSeed;
-          break;
-        case SUBSYS::INTT:
-          if (hasBothSeeds)   seed = trkSiSeed;
-          if (hasOnlyTpcSeed) seed = trkTpcSeed;
-          break;
-        case SUBSYS::TPC:
-          seed = trkTpcSeed;
-          break;
-      }
-      if (!seed && m_doDebug && (Verbosity() > 3)) {
-        cerr << "GetNumClust(SvtxTrack*, uint8_t) PANIC: couldn't set seed! Aborting!" << endl;
-        assert(seed);
-      }
+      // grab track seed
+      TrackSeed* seed = GetTrackSeed(track, sys);
 
       // set min no. of layers
-      const int minInttLayer = CONST::NMvtxLayer;
-      const int minTpcLayer  = CONST::NMvtxLayer + CONST::NInttLayer;
+      const int minInttLayer = NMvtxLayer;
+      const int minTpcLayer  = NMvtxLayer + NInttLayer;
 
       // determine no. of clusters for a given layer
       unsigned int layer    = 0;
@@ -513,20 +465,22 @@ namespace SColdQcdCorrelatorAnalysis {
 
         // increment accordingly
         switch (subsys) {
-          case SUBSYS::MVTX:
-            if (layer < CONST::NMvtxLayer) {
+          case Subsys::Mvtx:
+            if (layer < NMvtxLayer) {
               ++nCluster;
             }
             break;
-          case SUBSYS::INTT:
+          case Subsys::Intt:
             if ((layer >= minInttLayer) && (layer < minTpcLayer)) {
               ++nCluster;
             }
             break;
-          case SUBSYS::TPC:
+          case Subsys::Tpc:
             if (layer >= minTpcLayer) {
               ++nCluster;
             }
+            break;
+          default:
             break;
         }
       }  // end cluster loop

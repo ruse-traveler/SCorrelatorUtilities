@@ -18,7 +18,7 @@ namespace SColdQcdCorrelatorAnalysis {
   namespace {
 
     // subsystem indices
-    enum class Subsys {Mvtx, Intt, Tpc, EMCal, IHCal, OHCal};
+    enum Subsys {Mvtx, Intt, Tpc, EMCal, IHCal, OHCal};
 
     // tracking-related constants
     const uint16_t NMvtxLayer = 3;
