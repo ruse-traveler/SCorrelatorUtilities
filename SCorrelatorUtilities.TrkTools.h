@@ -16,6 +16,7 @@
 #include <utility>
 // root utilities
 #include <TF1.h>
+#include <Math/Vector3D.h>
 // f4a libraries
 #include <fun4all/SubsysReco.h>
 // phool libraries
@@ -36,10 +37,6 @@
 #include <globalvertex/GlobalVertexMap.h>
 // phenix Geant4 utilities
 #include <g4main/PHG4Particle.h>
-// hepmc libraries
-#include <HepMC/GenEvent.h>
-#include <HepMC/GenVertex.h>
-#include <HepMC/GenParticle.h>
 // analysis utilities
 #include "SCorrelatorUtilities.Constants.h"
 #include "SCorrelatorUtilities.EvtTools.h"
@@ -47,11 +44,6 @@
 // make common namespaces implicit
 using namespace std;
 using namespace findNode;
-
-// set up aliases
-using CLVec3  = CLHEP::Hep3Vector;  // FIXME replace CLHEP vectors with ROOT XYZVectors
-using DcaPair = pair<double, double>;
-
 
 
 namespace SColdQcdCorrelatorAnalysis {
@@ -87,8 +79,8 @@ namespace SColdQcdCorrelatorAnalysis {
       void SetInfo(SvtxTrack* track, PHCompositeNode* topNode) {
 
         // do relevant calculations
-        const CLVec3  trkVtx     = GetTrackVertex(track, topNode);
-        const DcaPair trkDcaPair = GetTrackDcaPair(track, topNode);
+        const ROOT::Math::XYZVector trkVtx     = GetTrackVertex(track, topNode);
+        const pair<double, double>  trkDcaPair = GetTrackDcaPair(track, topNode);
 
         // set track info
         id         = track -> get_id();
@@ -201,8 +193,8 @@ namespace SColdQcdCorrelatorAnalysis {
       }  // end 'operator>(TrkInfo&, TrkInfo&)'
 
       // overloaded, <=, >= operators
-      inline bool operator<=(const TrkInfo& lhs, const TrkInfo& rhs) {return !(lhs > rhs);}
-      inline bool operator>=(const TrkInfo& lhs, const TrkInfo& rhs) {return !(lhs < rhs);}
+      inline friend bool operator<=(const TrkInfo& lhs, const TrkInfo& rhs) {return !(lhs > rhs);}
+      inline friend bool operator>=(const TrkInfo& lhs, const TrkInfo& rhs) {return !(lhs < rhs);}
 
     };  // end TrkInfo def
 
@@ -239,12 +231,12 @@ namespace SColdQcdCorrelatorAnalysis {
     bool IsInSigmaDcaCut(const TrkInfo& trk, const pair<float, float> nSigCut, const pair<float, float> ptFitMax, const pair<TF1*, TF1*> fSigmaDca) {
 
       // if above max pt used to fit dca width, use value of fit at max pt
-      const double ptEvalXY = (trk.pt > ptFitMax.first)  ? ptFitMax : trk.pt;
-      const double ptEvalZ  = (trk.pt > ptFitMax.second) ? ptFitMax : trk.pt;
+      const double ptEvalXY = (trk.pt > ptFitMax.first)  ? ptFitMax.first  : trk.pt;
+      const double ptEvalZ  = (trk.pt > ptFitMax.second) ? ptFitMax.second : trk.pt;
 
       // check if dca is in cut
       const bool isInDcaRangeXY  = (abs(trk.dcaXY) < (nSigCut.first  * (fSigmaDca.first  -> Eval(ptEvalXY))));
-      const bool isInDcaRangeZ   = (abs(trk.dcaZ)  < (nSigcut.second * (fSigmaDca.second -> Eval(ptEvalZ))));
+      const bool isInDcaRangeZ   = (abs(trk.dcaZ)  < (nSigCut.second * (fSigmaDca.second -> Eval(ptEvalZ))));
       const bool isInSigmaDcaCut = (isInDcaRangeXY && isInDcaRangeZ);
       return isInSigmaDcaCut;
 
@@ -252,7 +244,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-    bool IsGoodTrackSeed(const SvtxTrack* track, const bool requireSiSeeds = true) {
+    bool IsGoodTrackSeed(SvtxTrack* track, const bool requireSiSeeds = true) {
 
       // get track seeds
       TrackSeed* trkSiSeed  = track -> get_silicon_seed();
@@ -300,16 +292,15 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-    // FIXME replace CLHEP vectors with ROOT GenVectors
-    CLHEP::Hep3Vector GetTrackVertex(SvtxTrack* track, PHCompositeNode* topNode) {
+    ROOT::Math::XYZVector GetTrackVertex(SvtxTrack* track, PHCompositeNode* topNode) {
 
       // get vertex associated with track
       const int     vtxID = (int) track -> get_vertex_id();
       GlobalVertex* vtx   = GetGlobalVertex(topNode, vtxID);
 
       // return vertex 3-vector
-      CLHEP::Hep3Vector hepVecVtx = CLHEP::Hep3Vector(vtx -> get_x(), vtx -> get_y(), vtx -> get_z());
-      return hepVecVtx;
+      ROOT::Math::XYZVector xyzVtx = ROOT::Math::XYZVector(vtx -> get_x(), vtx -> get_y(), vtx -> get_z());
+      return xyzVtx;
 
     }  // end 'GetTrackVertex(SvtxTrack*, PHCompositeNode*)'
 

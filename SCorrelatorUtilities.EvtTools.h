@@ -90,7 +90,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-    GlobalVertex* GetGlobalVertex(PHCompositeNode* topNode, const int iVtxToGrab) {
+    GlobalVertex* GetGlobalVertex(PHCompositeNode* topNode, const int iVtxToGrab = -1) {
 
       // get vertex map
       GlobalVertexMap* mapVtx = GetVertexMap(topNode);
