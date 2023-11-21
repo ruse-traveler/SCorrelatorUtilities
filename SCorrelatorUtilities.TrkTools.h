@@ -42,6 +42,7 @@
 #include <HepMC/GenParticle.h>
 // analysis utilities
 #include "SCorrelatorUtilities.Constants.h"
+#include "SCorrelatorUtilities.EvtTools.h"
 
 // make common namespaces implicit
 using namespace std;
@@ -201,7 +202,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
       // overloaded, <=, >= operators
       inline bool operator<=(const TrkInfo& lhs, const TrkInfo& rhs) {return !(lhs > rhs);}
-      inline bool operator>=(const TrkInfo& lhs, const TrkInfo& rhs) {return !(rhs < lhs);}
+      inline bool operator>=(const TrkInfo& lhs, const TrkInfo& rhs) {return !(lhs < rhs);}
 
     };  // end TrkInfo def
 
@@ -238,8 +239,8 @@ namespace SColdQcdCorrelatorAnalysis {
     bool IsInSigmaDcaCut(const TrkInfo& trk, const pair<float, float> nSigCut, const pair<float, float> ptFitMax, const pair<TF1*, TF1*> fSigmaDca) {
 
       // if above max pt used to fit dca width, use value of fit at max pt
-      const double ptEvalXY = (trk.pt > ptFitMax.first)  ? ptFitMax : trkPt;
-      const double ptEvalZ  = (trk.pt > ptFitMax.second) ? ptFitMax : trkPt;
+      const double ptEvalXY = (trk.pt > ptFitMax.first)  ? ptFitMax : trk.pt;
+      const double ptEvalZ  = (trk.pt > ptFitMax.second) ? ptFitMax : trk.pt;
 
       // check if dca is in cut
       const bool isInDcaRangeXY  = (abs(trk.dcaXY) < (nSigCut.first  * (fSigmaDca.first  -> Eval(ptEvalXY))));
