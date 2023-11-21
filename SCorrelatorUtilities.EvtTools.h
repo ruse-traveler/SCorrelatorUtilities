@@ -9,6 +9,22 @@
 
 #pragma once
 
+// c++ utilities
+#include <array>
+#include <cassert>
+#include <utility>
+// phool libraries
+#include <phool/phool.h>
+#include <phool/getClass.h>
+#include <phool/PHIODataNode.h>
+#include <phool/PHNodeIterator.h>
+#include <phool/PHCompositeNode.h>
+// vertex libraries
+#include <globalvertex/GlobalVertex.h>
+#include <globalvertex/GlobalVertexMap.h>
+// analysis utilities
+#include "SCorrelatorUtilities.Constants.h"
+
 // make common namespaces implicit
 using namespace std;
 using namespace findNode;
@@ -17,6 +33,40 @@ using namespace findNode;
 
 namespace SColdQcdCorrelatorAnalysis {
   namespace SCorrelatorUtilities {
+
+    // EvtInfo definition -----------------------------------------------------
+
+    struct EvtInfo {
+
+      // data members
+      // TODO add energy sums, etc
+      int    m_numJets = -1;
+      int    m_numTrks = -1;
+      double m_vtxX    = -999.;
+      double m_vtxY    = -999.;
+      double m_vtxZ    = -999.;
+
+      void SetInfo(int nJet, int nTrk, double vX, double vY, double vZ) {
+        m_numJets = nJet;
+        m_numTrks = nTrk;
+        m_vtxX    = vX;
+        m_vtxY    = vY;
+        m_vtxZ    = vZ;
+        return;
+      }  // end 'SetInfo(int, int, double, double, double)'
+
+      void Reset() {
+        m_numJets = -1;
+        m_numTrks = -1;
+        m_vtxX    = -999.;
+        m_vtxY    = -999.;
+        m_vtxZ    = -999.;
+        return;
+      }  // end 'Reset()'
+
+    };  // end EvtInfo def
+
+
 
     // event methods ----------------------------------------------------------
 
