@@ -114,7 +114,6 @@ namespace SColdQcdCorrelatorAnalysis {
 
     }  // end 'GetGlobalVertex(PHCompositeNode*, int)'
 
-
   }  // end SCorrelatorUtilities namespace
 }  // end SColdQcdCorrealtorAnalysis namespace
 
