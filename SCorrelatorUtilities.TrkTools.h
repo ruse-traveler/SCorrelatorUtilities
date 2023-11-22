@@ -110,7 +110,7 @@ namespace SColdQcdCorrelatorAnalysis {
         nTpcClust  = GetNumClust(track, Subsys::Tpc);
         ptErr      = GetTrackDeltaPt(track);
         return;
-      }  // end 'SetInfo(SvtxTrack*)'
+      }  // end 'SetInfo(SvtxTrack*, PHCompositeNode*)'
 
       void Reset() {
         id         = -1;
@@ -200,6 +200,15 @@ namespace SColdQcdCorrelatorAnalysis {
       // overloaded, <=, >= operators
       inline friend bool operator<=(const TrkInfo& lhs, const TrkInfo& rhs) {return !(lhs > rhs);}
       inline friend bool operator>=(const TrkInfo& lhs, const TrkInfo& rhs) {return !(lhs < rhs);}
+
+      // default ctor/dtor
+      TrkInfo()  {};
+      ~TrkInfo() {};
+
+      // ctor accepting SvtxTracks
+      TrkInfo(SvtxTrack* track, PHCompositeNode* topNode) {
+        SetInfo(track, topNode);
+      }
 
     };  // end TrkInfo def
 
