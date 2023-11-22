@@ -17,8 +17,6 @@
 // root utilities
 #include <TF1.h>
 #include <Math/Vector3D.h>
-// f4a libraries
-#include <fun4all/SubsysReco.h>
 // phool libraries
 #include <phool/phool.h>
 #include <phool/getClass.h>
@@ -31,7 +29,6 @@
 #include <trackbase_historic/TrackAnalysisUtils.h>
 // track evaluator utilities
 #include <g4eval/SvtxTrackEval.h>
-#include <g4eval/SvtxEvalStack.h>
 // vertex libraries
 #include <globalvertex/GlobalVertex.h>
 #include <globalvertex/GlobalVertexMap.h>
@@ -46,8 +43,16 @@ using namespace std;
 using namespace findNode;
 
 
+
 namespace SColdQcdCorrelatorAnalysis {
   namespace SCorrelatorUtilities {
+
+    // forward declarations used in TrkInfo
+    pair<double, double>  GetTrackDcaPair(SvtxTrack* track, PHCompositeNode* topNode);
+    ROOT::Math::XYZVector GetTrackVertex(SvtxTrack* track, PHCompositeNode* topNode);
+    double                GetTrackDeltaPt(SvtxTrack* track);
+    int                   GetNumLayer(SvtxTrack* track, const uint8_t sys);
+    int                   GetNumClust(SvtxTrack* track, const uint8_t sys);
 
     // TrkInfo definition -----------------------------------------------------
 
@@ -329,7 +334,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-    TrackSeed* GetTrackSeed(SvtxTrack*, const Subsys sys) {
+    TrackSeed* GetTrackSeed(SvtxTrack* track, const uint8_t sys) {
 
       // get both track seeds
       TrackSeed* trkSiSeed  = track -> get_silicon_seed();
@@ -358,11 +363,11 @@ namespace SColdQcdCorrelatorAnalysis {
       }
       return seed;
 
-    }  // end 'GetTrackSeed(SvtxTrack*, Subsys)'
+    }  // end 'GetTrackSeed(SvtxTrack*, uint8_t)'
 
 
 
-    int GetNumLayer(SvtxTrack* track, const Subsys sys) {
+    int GetNumLayer(SvtxTrack* track, const uint8_t sys = 0) {
 
       // grab track seed
       TrackSeed* seed = GetTrackSeed(track, sys);
@@ -438,7 +443,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-    int GetNumClust(SvtxTrack* track, const uint8_t subsys = 0) {
+    int GetNumClust(SvtxTrack* track, const uint8_t sys = 0) {
 
       // grab track seed
       TrackSeed* seed = GetTrackSeed(track, sys);
@@ -456,7 +461,7 @@ namespace SColdQcdCorrelatorAnalysis {
         layer = TrkrDefs::getLayer(*itClustKey);
 
         // increment accordingly
-        switch (subsys) {
+        switch (sys) {
           case Subsys::Mvtx:
             if (layer < NMvtxLayer) {
               ++nCluster;
@@ -482,10 +487,10 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-    int GetMatchID(SvtxTrack* track) {
+    int GetMatchID(SvtxTrack* track, SvtxTrackEval* trackEval) {
 
       // get best match from truth particles
-      PHG4Particle* bestMatch = m_trackEval -> max_truth_particle_by_nclusters(track);
+      PHG4Particle* bestMatch = trackEval -> max_truth_particle_by_nclusters(track);
 
       // grab barcode of best match
       int matchID;
