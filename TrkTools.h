@@ -35,8 +35,8 @@
 // phenix Geant4 utilities
 #include <g4main/PHG4Particle.h>
 // analysis utilities
-#include "SCorrelatorUtilities.Constants.h"
-#include "SCorrelatorUtilities.EvtTools.h"
+#include "Constants.h"
+#include "EvtTools.h"
 
 // make common namespaces implicit
 using namespace std;

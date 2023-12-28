@@ -23,7 +23,7 @@
 #include <globalvertex/GlobalVertex.h>
 #include <globalvertex/GlobalVertexMap.h>
 // analysis utilities
-#include "SCorrelatorUtilities.Constants.h"
+#include "Constants.h"
 
 // make common namespaces implicit
 using namespace std;
