@@ -36,7 +36,7 @@
 #include <g4main/PHG4Particle.h>
 // analysis utilities
 #include "Constants.h"
-#include "EvtTools.h"
+#include "VtxTools.h"
 
 // make common namespaces implicit
 using namespace std;
