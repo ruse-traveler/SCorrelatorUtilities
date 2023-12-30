@@ -12,7 +12,14 @@
 // c++ utilities
 #include <string>
 #include <vector>
+#include <cassert>
 #include <optional>
+// phool libraries
+#include <phool/phool.h>
+#include <phool/getClass.h>
+#include <phool/PHIODataNode.h>
+#include <phool/PHNodeIterator.h>
+#include <phool/PHCompositeNode.h>
 // CaloBase libraries
 #include <calobase/RawCluster.h>
 #include <calobase/RawClusterUtility.h>
@@ -142,20 +149,29 @@ namespace SColdQcdCorrelatorAnalysis {
 
     // cluster methods --------------------------------------------------------
 
-    RawClusterContainer* GetClusterStore(PHCompositeNode* topNode, const TString sNodeName) {
+    RawClusterContainer* GetClusterStore(PHCompositeNode* topNode, const string node) {
 
       // grab clusters
-      RawClusterContainer* clustStore = findNode::getClass<RawClusterContainer>(topNode, sNodeName.Data());
+      RawClusterContainer* clustStore = getClass<RawClusterContainer>(topNode, node.data());
       if (!clustStore) {
         cout << PHWHERE
-             << "PANIC: " << sNodeName.Data() << " node is missing!"
+             << "PANIC: " << node << " node is missing!"
              << endl;
         assert(clustStore);
       }
       return clustStore;
 
-    }  // end 'GetClusterStore(PHCompositeNode*, TString)'
+    }  // end 'GetClusterStore(PHCompositeNode*, string)'
 
+
+
+    RawClusterContainer::ConstRange GetClusters(PHCompositeNode* topNode, const string store) {
+
+      // get store and return range of clusters
+      RawClusterContainer* store = GetClusterStore(topNode, store);
+      return store -> getClusters();
+
+    }  // end 'GetClusters(PHCompositeNode*, string)'
 
   }  // end SCorrelatorUtilities namespace
 }  // end SColdQcdCorrealtorAnalysis namespace
