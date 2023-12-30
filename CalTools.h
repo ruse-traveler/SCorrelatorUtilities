@@ -9,6 +9,17 @@
 
 #pragma once
 
+// c++ utilities
+#include <string>
+#include <vector>
+#include <optional>
+// CaloBase libraries
+#include <calobase/RawCluster.h>
+#include <calobase/RawClusterUtility.h>
+#include <calobase/RawClusterContainer.h>
+// analysis utilities
+#include "Constants.h"
+
 // make common namespaces implicit
 using namespace std;
 using namespace findNode;
@@ -20,38 +31,110 @@ namespace SColdQcdCorrelatorAnalysis {
 
     // ClustInfo definition ---------------------------------------------------
 
-    /* TODO
-     *   - add overloaded <, > operators for applying cuts
-     *   - add SetInfo(RawClusterContainer::ConstIterator*) method
-     *   - add TypeDef for Cluster = RawClusterContainer::ConstIterator
-     *   - add enums for calo to namespace
-     */
     struct ClustInfo {
 
       // data members
-      int    m_sys = -1;
-      double m_pt  = -999.;
-      double m_eta = -999.;
-      double m_phi = -999.;
-      double m_ene = -999.;
+      int    system = -1;
+      size_t nTwr   = -1;
+      double ene    = -999.;
+      double rho    = -999.;
+      double eta    = -999.;
+      double phi    = -999.;
+      double rx     = -999.;
+      double ry     = -999.;
+      double rz     = -999.;
 
-      void SetInfo(const int sys, const double pt, const double eta, const double phi, const double ene) {
-        m_sys = -1;
-        m_pt  = pt;
-        m_eta = eta;
-        m_phi = phi;
-        m_ene = ene;
+      void SetInfo(const RawCluster* clust, optional<int> sys) {
+        if (sys.has_value()) {
+          system = sys.value();
+        }
+        nTwr = clust -> getNTowers();
+        ene  = clust -> get_energy();
+        rho  = clust -> get_r();
+        eta  = -999.;  // FIXME add method to calculate eta
+        phi  = clust -> get_phi();
+        rx   = clust -> get_position().x();
+        ry   = clust -> get_position().y();
+        rz   = clust -> get_position().z();
         return;
-      }  // end 'SetInfo(int, double, double, double, double)'
+      };
 
       void Reset() {
-        m_sys = -1;
-        m_pt  = -999.;
-        m_eta = -999.;
-        m_phi = -999.;
-        m_ene = -999.;
+        system  = -1;
+        nTwr    = -1;
+        ene     = -999.;
+        rho     = -999.;
+        eta     = -999.;
+        phi     = -999.;
+        rx      = -999.;
+        ry      = -999.;
+        rz      = -999.;
         return;
       }  // end 'Reset()'
+
+      static vector<string> GetListOfMembers() {
+        vector<string> members = {
+          "sys",
+          "nTwr",
+          "ene",
+          "rho",
+          "eta",
+          "phi",
+          "rx",
+          "ry",
+          "rz"
+        };
+        return members;
+      }  // end 'GetListOfMembers()'
+
+      // overloaded < operator
+      friend bool operator<(const ClustInfo& lhs, const ClustInfo& rhs) {
+
+        // note that some quantities aren't relevant for this comparison
+        const bool isLessThan = (
+          (lhs.nTwr < rhs.nTwr) &&
+          (lhs.ene  < rhs.ene)  &&
+          (lhs.rho  < rhs.rho)  &&
+          (lhs.eta  < rhs.eta)  &&
+          (lhs.phi  < rhs.phi)  &&
+          (lhs.rx   < rhs.rx)   &&
+          (lhs.ry   < rhs.ry)   &&
+          (lhs.rz   < rhs.rz)
+        );
+        return isLessThan;
+
+      }  // end 'operator<(ClustInfo&, ClustInfo&)'
+
+      // overloaded > operator
+      friend bool operator>(const ClustInfo& lhs, const ClustInfo& rhs) {
+
+        // note that some quantities aren't relevant for this comparison
+        const bool isGreaterThan = (
+          (lhs.nTwr > rhs.nTwr) &&
+          (lhs.ene  > rhs.ene)  &&
+          (lhs.rho  > rhs.rho)  &&
+          (lhs.eta  > rhs.eta)  &&
+          (lhs.phi  > rhs.phi)  &&
+          (lhs.rx   > rhs.rx)   &&
+          (lhs.ry   > rhs.ry)   &&
+          (lhs.rz   > rhs.rz)
+        );
+        return isGreaterThan;
+
+      }  // end 'operator>(ClustInfo&, ClustInfo&)'
+
+      // overloaded, <=, >= operators
+      inline friend bool operator<=(const ClustInfo& lhs, const ClustInfo& rhs) {return !(lhs > rhs);}
+      inline friend bool operator>=(const ClustInfo& lhs, const ClustInfo& rhs) {return !(lhs < rhs);}
+
+      // default ctor/dtor
+      ClustInfo()  {};
+      ~ClustInfo() {};
+
+      // ctor accepting RawClusters
+      ClustInfo(RawCluster* clust, optional<int> sys) {
+        SetInfo(clust, sys);
+      }
 
     };  // end ClustInfo def
 
@@ -62,7 +145,7 @@ namespace SColdQcdCorrelatorAnalysis {
     RawClusterContainer* GetClusterStore(PHCompositeNode* topNode, const TString sNodeName) {
 
       // grab clusters
-      RawClusterContainer *clustStore = findNode::getClass<RawClusterContainer>(topNode, sNodeName.Data());
+      RawClusterContainer* clustStore = findNode::getClass<RawClusterContainer>(topNode, sNodeName.Data());
       if (!clustStore) {
         cout << PHWHERE
              << "PANIC: " << sNodeName.Data() << " node is missing!"

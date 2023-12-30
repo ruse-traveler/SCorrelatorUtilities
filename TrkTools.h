@@ -137,6 +137,33 @@ namespace SColdQcdCorrelatorAnalysis {
         return;
       }  // end 'Reset()'
 
+      static vector<string> GetListOfMembers() {
+        vector<string> members = {
+          "id",
+          "nMvtxLayer",
+          "nInttLayer",
+          "nTpcLayer",
+          "nMvtxClust",
+          "nInttClust",
+          "nTpcClust",
+          "eta",
+          "phi",
+          "px",
+          "py",
+          "pz",
+          "pt",
+          "ene",
+          "dcaXY",
+          "dcaZ",
+          "ptErr",
+          "quality",
+          "vtxX",
+          "vtxY",
+          "vtxZ"
+        };
+        return members;
+      }  // end 'GetListOfMembers()'
+
       // overloaded < operator
       friend bool operator<(const TrkInfo& lhs, const TrkInfo& rhs) {
 
