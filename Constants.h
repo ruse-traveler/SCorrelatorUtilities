@@ -1,10 +1,10 @@
 // ----------------------------------------------------------------------------
-// 'SCorrelatorUtilities.Constants.h'
+// 'Constants.h'
 // Derek Anderson
 // 11.16.2023
 //
-// A namespace to collect various useful structs, methods, etc.
-// for the sPHENIX Cold QCD Energy-Energy Correlator analysis.
+// Various constants used throughout the SColdQcdCorrelatorAnalysis
+// namespace are collected here.
 // ----------------------------------------------------------------------------
 
 #pragma once

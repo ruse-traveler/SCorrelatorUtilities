@@ -1,5 +1,5 @@
 // ----------------------------------------------------------------------------
-// 'SCorrelatorUtilities.ClustTools.h'
+// 'CalTools.h'
 // Derek Anderson
 // 10.30.2023
 //
