@@ -10,9 +10,10 @@
 #pragma once
 
 // c++ utilities
-#include <array>
+#include <vector>
 #include <cassert>
 #include <utility>
+#include <optional>
 // phool libraries
 #include <phool/phool.h>
 #include <phool/getClass.h>
@@ -24,6 +25,10 @@
 #include <globalvertex/GlobalVertexMap.h>
 // analysis utilities
 #include "Constants.h"
+#include "CalTools.h"
+#include "TrkTools.h"
+#include "VtxTools.h"
+#include "GenTools.h"
 
 // make common namespaces implicit
 using namespace std;
@@ -38,31 +43,49 @@ namespace SColdQcdCorrelatorAnalysis {
 
     struct EvtInfo {
 
-      // data members
-      // TODO add energy sums, etc
-      int    m_numJets = -1;
-      int    m_numTrks = -1;
-      double m_vtxX    = -999.;
-      double m_vtxY    = -999.;
-      double m_vtxZ    = -999.;
+      // reco data members
+      int    nTrks     = -1;
+      int    nRecJets  = -1;
+      bool   isSimEvt  = false;
+      double eSumEMCal = -999.;
+      double eSumIHCal = -999.;
+      double eSumOHCal = -999.;
 
-      void SetInfo(int nJet, int nTrk, double vX, double vY, double vZ) {
-        m_numJets = nJet;
-        m_numTrks = nTrk;
-        m_vtxX    = vX;
-        m_vtxY    = vY;
-        m_vtxZ    = vZ;
+      void SetRecInfo(PHCompositeNode* topNode) {
+        nTrks     = GetNumTrks(topNode);
+        eSumEMCal = GetSumCaloEne(topNode, "CLUSTER_CEMC");
+        eSumIHCal = GetSumCaloEne(topNode, "CLUSTER_HCALIN");
+        eSumOHCal = GetSumCaloEne(topNode, "CLUSTER_HCALOUT");
         return;
-      }  // end 'SetInfo(int, int, double, double, double)'
+      }  // end 'SetRecoInfo(PHCompositeNode*)'
+
+      void SetGenInfo(PHCompositeNode* topNode) {
+        /* will go here */
+        return; 
+      }  // end 'SetGenInfo(PHCompositeNode*)'
+
+      void SetInfo(PHCompositeNode* topNode, const bool sim) {
+        isSimEvt = sim;
+        if (isSimEvt) {
+          SetGenInfo(topNode);
+        }
+        SetRecInfo(topNode);
+        return;
+      }  // end 'SetInfo(PHCompositeNode*)'
 
       void Reset() {
-        m_numJets = -1;
-        m_numTrks = -1;
-        m_vtxX    = -999.;
-        m_vtxY    = -999.;
-        m_vtxZ    = -999.;
+        /* will go here */
         return;
       }  // end 'Reset()'
+
+      // default ctor/dtor
+      EvtInfo()  {};
+      ~EvtInfo() {};
+
+      // ctor accepting PHCompositeNode* &
+      EvtInfo(PHCompositeNode* topNode, const bool sim) {
+        SetInfo(topNode, sim);
+      };
 
     };  // end EvtInfo def
 
@@ -70,49 +93,74 @@ namespace SColdQcdCorrelatorAnalysis {
 
     // event methods ----------------------------------------------------------
 
-    GlobalVertexMap* GetVertexMap(PHCompositeNode* topNode) {
+    long GetNumTrks(PHCompositeNode* topNode) {
 
-      // get vertex map
-      GlobalVertexMap* mapVtx = findNode::getClass<GlobalVertexMap>(topNode, "GlobalVertexMap");
+      // loop over tracks
+      SvtxTrackMap* mapTrks = GetTrackMap(topNode);
+      return mapTrks.size();
 
-      // check if good
-      const bool isVtxMapGood = (mapVtx && !(mapVtx -> empty()));
-      if (!isVtxMapGood) {
-        cerr << PHWHERE
-             << "PANIC: GlobalVertexMap node is missing or empty!\n"
-             << "       Please turn on the do_global flag in the main macro in order to reconstruct the global vertex!"
-             << endl;
-        assert(isVtxMapGood);
-      }
-      return mapVtx;
-
-    }  // end 'GetVertexMap(PHCompositeNode*)'
+    }  // end 'GetNumTrks(PHCompositeNode*)'
 
 
 
-    GlobalVertex* GetGlobalVertex(PHCompositeNode* topNode, const int iVtxToGrab = -1) {
+    long GetNumFinalStatePars(PHCompositeNode* topNode, vector<int> evtsToGrab, optional<float> charge) {
 
-      // get vertex map
-      GlobalVertexMap* mapVtx = GetVertexMap(topNode);
+      // loop over subevents
+      long nPar = 0;
+      for (const int evtToGrab : evtsToGrab) {
 
-      // get specified vertex
-      GlobalVertex* vtx = NULL;
-      if (iVtxToGrab < 0) {
-        vtx = mapVtx -> begin() -> second;
-      } else {
-        vtx = mapVtx -> get(iVtxToGrab);
-      }
+        // loop over particles
+        HepMC::GenEvent* mcEvt = GetGenEvent(topNode, evtToGrab);
+        for (
+          HepMC::GenEvent::particle_const_iterator particle = mcEvt -> particles_begin();
+          particle != mcEvt -> particles_end();
+          ++particle
+        ) {
 
-      // check if good
-      if (!vtx) {
-        cerr << PHWHERE
-             << "PANIC: no vertex!"
-             << endl;
-        assert(vtx);
-      }
-      return vtx;
+          // check if particle is final state
+          if (!IsFinalState(*particle -> status())) continue;
 
-    }  // end 'GetGlobalVertex(PHCompositeNode*, int)'
+          // if charge provided, count only particles with charge
+          if (charge.has_value()) {
+            if (GetParticleCharge(*particle -> pid()) == charge.value()) {
+              ++nPar;
+            }
+          } else {
+            ++nPar;
+          }
+        }  // end particle loop
+      }  // end subevent loop
+      return nPar;
+
+    }  // end 'GetNumFinalStatePars(PHCompositeNode*, vector<int>, optional<float>)'
+
+
+
+
+    double GetSumCaloEne(PHCompositeNode* topNode, const string store) {
+
+      // grab clusters
+      RawClusterContainer::ConstRange clusters = GetClusters(topNode, store);
+
+      // loop over emcal clusters
+      double eSum = 0.;
+      for (
+        RawClusterContainer::ConstIterator itClust = clusters.first;
+        itClust != clusters.second;
+        itClust++
+      ) {
+
+        // grab cluster and increment sum
+        const RawCluster* cluster = itClust -> second;
+        if (!cluster) {
+          continue;
+        } else {
+          eSum += cluster -> get_energy();
+        }
+      }  // end cluster loop
+      return eSum;
+
+    }  // end 'GetSumCaloEne(PHCompositeNode*, string)'
 
   }  // end SCorrelatorUtilities namespace
 }  // end SColdQcdCorrealtorAnalysis namespace
