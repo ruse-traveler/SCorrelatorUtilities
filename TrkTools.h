@@ -261,9 +261,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
     bool IsInTrackAcceptance(const TrkInfo& trk, const TrkInfo& minimum, const TrkInfo& maximum) {
 
-      // compare track against limits
-      const bool isInAcceptance = ((trk >= minimum) && (trk <= maximum));
-      return isInAcceptance;
+      return ((trk >= minimum) && (trk <= maximum));
 
     }  // end 'IsInTrackAcceptance(TrkInfo&, TrkInfo&, TrkInfo&)'
 
