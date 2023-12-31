@@ -173,6 +173,14 @@ namespace SColdQcdCorrelatorAnalysis {
 
     }  // end 'GetClusters(PHCompositeNode*, string)'
 
+
+
+    bool IsInClusterAcceptance(const ClustInfo& cluster, const ClustInfo& minimum, const ClustInfo& maximum) {
+
+      return ((cluster >= minimum) && (cluster <= maximum));
+
+    }  // end 'IsInClusterAcceptance(ClustInfo&, ClustInfo&, ClustInfo&)'
+
   }  // end SCorrelatorUtilities namespace
 }  // end SColdQcdCorrealtorAnalysis namespace
 
