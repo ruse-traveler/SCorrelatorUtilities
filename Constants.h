@@ -22,6 +22,21 @@ namespace SColdQcdCorrelatorAnalysis {
     // subsystem indices
     enum Subsys {Mvtx, Intt, Tpc, EMCal, IHCal, OHCal};
 
+    // particle charge subsets
+    enum Subset {All, Charged, Neutral};
+
+    // signal event indices
+    enum Signal {
+      NotEmbed = 1,
+      Embed    = 2
+    };
+
+    // hard scatter product statuses
+    enum HardScatterStatus {
+      First  = 23,
+      Second = 24
+    };
+
     // tracking-related constants
     const uint16_t NMvtxLayer = 3;
     const uint16_t NInttLayer = 8;
