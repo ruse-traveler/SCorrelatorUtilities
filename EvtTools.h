@@ -14,6 +14,8 @@
 #include <cassert>
 #include <utility>
 #include <optional>
+// root libraries
+#include <Math/Vector3D.h>
 // phool libraries
 #include <phool/phool.h>
 #include <phool/getClass.h>
@@ -63,16 +65,24 @@ namespace SColdQcdCorrelatorAnalysis {
       double eSumEMCal = -999.;
       double eSumIHCal = -999.;
       double eSumOHCal = -999.;
-      double vtxX      = -999.;
-      double vtxY      = -999.;
-      double vtxZ      = -999.;
+      double vx        = -999.;
+      double vy        = -999.;
+      double vz        = -999.;
 
       void SetInfo(PHCompositeNode* topNode) {
+
+        // get sums
         nTrks     = GetNumTrks(topNode);
         pSumTrks  = GetSumTrkMomentum(topNode);
         eSumEMCal = GetSumCaloEne(topNode, "CLUSTER_CEMC");
         eSumIHCal = GetSumCaloEne(topNode, "CLUSTER_HCALIN");
         eSumOHCal = GetSumCaloEne(topNode, "CLUSTER_HCALOUT");
+
+        // get vertex
+        ROOT::Math::XYZVector vtx = GetRecoVtx(topNode);
+        vx = vtx.x;
+        vy = vtx.y;
+        vz = vtx.z;
         return;
       }  // end 'SetInfo(PHCompositeNode*)'
 
@@ -82,9 +92,9 @@ namespace SColdQcdCorrelatorAnalysis {
         eSumEMCal = -999.;
         eSumIHCal = -999.;
         eSumOHCal = -999.;
-        vtxX      = -999.;
-        vtxY      = -999.;
-        vtxZ      = -999.;
+        vx        = -999.;
+        vy        = -999.;
+        vz        = -999.;
         return;
       }  // end 'Reset()'
 
@@ -95,9 +105,9 @@ namespace SColdQcdCorrelatorAnalysis {
           "eSumEMCal",
           "eSumIHCal",
           "eSumOHCal",
-          "vtxX",
-          "vtxY",
-          "vtxZ"
+          "vx",
+          "vy",
+          "vz"
         };
         return members;
       }  // end 'GetListOfMembers()'
@@ -122,29 +132,53 @@ namespace SColdQcdCorrelatorAnalysis {
       // atomic data members
       int    nChrgPar = -1;
       int    nNeuPar  = -1;
+      bool   isEmbed  = false;
       double eSumChrg = -999.;
       double eSumNeu  = -999.;
-      double vtxX     = -999.;
-      double vtxY     = -999.;
-      double vtxZ     = -999.;
 
       // hard scatter products
       pair<ParInfo, ParInfo> partons;
 
-      void SetInfo(PHCompositeNode* topNode, vector<int> evtsToGrab) {
-        nChrgPar = GetNumFinalStatePars(topNode, evtsToGrab, 1., true);
-        nNeuPar  = GetNumFinalStatePars(topNode, evtsToGrab, 0.);
-        eSumChrg = GetSumFinalStateParEne(topNode, evtsToGrab, 1., true);
-        eSumNeu  = GetSumFinalStateParEne(topNode, evtsToGrab, 0.);
+      void SetInfo(PHCompositeNode* topNode, const bool embed, const vector<int> evtsToGrab) {
+
+        // set parton info
+        isEmbed  = embed;
+        if (isEmbed) {
+          partons.first  = GetPartonInfo(topNode, Signal::Embed, HardScatterStatus::First);
+          partons.second = GetPartonInfo(topNode, Signal::Embed, HardScatterStatus::Second);
+        } else {
+          partons.first  = GetPartonInfo(topNode, Signal::NotEmbed, HardScatterStatus::First);
+          partons.second = GetPartonInfo(topNode, Signal::NotEmbed, HardScatterStatus::Second);
+        }
+
+        // get sums
+        nChrgPar = GetNumFinalStatePars(topNode, evtsToGrab, Subset::Charged);
+        nNeuPar  = GetNumFinalStatePars(topNode, evtsToGrab, Subset::Neutral);
+        eSumChrg = GetSumFinalStateParEne(topNode, evtsToGrab, Subset::Charged);
+        eSumNeu  = GetSumFinalStateParEne(topNode, evtsToGrab, Subset::Neutral);
+        return;
       }  // end 'SetInfo(PHCompositeNode*, vector<int>)'
+
+      static vector<string> GetListOfMembers() {
+        vector<string> members = {
+          "nChargPar",
+          "nNeuPar",
+          "isEmbed",
+          "eSumChrg",
+          "esumNeu"
+        };
+        AddLeavesToVector<ParInfo>(members, "PartonA");
+        AddLeavesToVector<ParInfo>(members, "PartonB");
+        return members;
+      }  // end 'GetListOfMembers()'
 
       // default ctor/dtor
       GenInfo()  {};
       ~GenInfo() {};
 
       // ctor accepting PHCompositeNode* and list of subevents
-      GenInfo(PHCompositeNode* topNode, vector<int> evtsToGrab) {
-        SetInfo(topNode, evtsToGrab);
+      GenInfo(PHCompositeNode* topNode, const bool embed, const vector<int> evtsToGrab) {
+        SetInfo(topNode, embed, evtsToGrab);
       };
     };  // end GenInfo definition
 
@@ -159,10 +193,10 @@ namespace SColdQcdCorrelatorAnalysis {
       GenInfo  gen;
       bool     isSimEvt = false;
 
-      void SetInfo(PHCompositeNode* topNode, const bool sim, optional<vector<int>> evtsToGrab) {
+      void SetInfo(PHCompositeNode* topNode, const bool sim, optional<float> embed, optional<vector<int>> evtsToGrab) {
         isSimEvt = sim;
         if (isSimEvt) {
-          gen.SetInfo(topNode, evtsToGrab.value());
+          gen.SetInfo(topNode, embed.value(), evtsToGrab.value());
         }
         reco.SetInfo(topNode);
         return;
@@ -190,7 +224,7 @@ namespace SColdQcdCorrelatorAnalysis {
       // ctor accepting PHCompositeNode* & bool
       EvtInfo(PHCompositeNode* topNode, optional<bool> sim, optional<vector<int>> evtsToGrab) {
         if (sim.has_value() {
-          SetInfo(topNode, sim.value(), evtsToGrab.value());
+          SetInfo(topNode, sim, embed.value(), evtsToGrab.value());
         } else {
           SetInfo(topNode, false);
         }
@@ -212,7 +246,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-    long GetNumFinalStatePars(PHCompositeNode* topNode, vector<int> evtsToGrab, optional<float> charge, optional<bool> doAllCharge) {
+    long GetNumFinalStatePars(PHCompositeNode* topNode, const vector<int> evtsToGrab, const int subset = 0, optional<float> chargeToGrab) {
 
       // loop over subevents
       long nPar = 0;
@@ -229,20 +263,39 @@ namespace SColdQcdCorrelatorAnalysis {
           // check if particle is final state
           if (!IsFinalState(*particle -> status())) continue;
 
-          // if doAllCharge flag is set and true, count all charged particles
-          //   else if charge provided, count only particles with matching charge
-          //   otherwise count all final state particles
-          if (doAllCharge.has_value() && doAllCharge.value()) {
-            if (GetParticleCharge(*particle -> pid()) != 0.) {
-              ++nPar;
-            }
-          } else if (charge.has_value()) {
-            if (GetParticleCharge(*particle -> pid()) == charge.value()) {
+          // if chargeToGrab is set, select only particle with charge
+          const float charge = GetParticleCharge(*particle -> pid());
+          if (charge.has_value()) {
+            if (charge == chargeToGrab.value()) {
               ++nPar;
             }
           } else {
-            ++nPar;
-          }
+            switch subset {
+
+              // everything
+              case Subset::All:
+                ++nPar;
+                break;
+
+              // all charged
+              case Subset::Charged:
+                if (charge != 0.) {
+                  ++nPar;
+                }
+                break;
+
+              // only neutral
+              case Subset::Neutral:
+                if (charge == 0.) {
+                  ++nPar;
+                }
+                break;
+
+              default:
+                ++nPar;
+                break;
+            }
+          }  // end if-else chargeToGrab.has_value()
         }  // end particle loop
       }  // end subevent loop
       return nPar;
@@ -305,7 +358,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-    double GetSumFinalStateParEne(PHCompositeNode* topNode, vector<int> evtsToGrab, optional<float> charge, optional<bool> doAllCharge) {
+    double GetSumFinalStateParEne(PHCompositeNode* topNode, const vector<int> evtsToGrab, const int subset = 0, optional<float> chargeToGrab) {
 
       // loop over subevents
       double eSum = 0.;
@@ -321,26 +374,45 @@ namespace SColdQcdCorrelatorAnalysis {
           // check if particle is final state
           if (!IsFinalState(*particle -> status()) continue;
 
-          // if doAllCharge flag is set and true, count all charged particles
-          //   else if charge provided, count only particles with matching charge
-          //   otherwise count all final state particles
-          if (doAllCharge.has_value() && doAllCharge.value()) {
-            if (GetParticleCharge(*particle -> pid()) != 0.) {
-              eSum += *particle -> momentum().e();
-            }
-          } else if (charge.has_value()) {
-            if (GetParticleCharge(*particle -> pid()) == charge.value()) {
-              eSum += *particle -> momentum().e();
+          // if chargeToGrab is set, select only particle with charge
+          const float charge = GetParticleCharge(*particle -> pid());
+          const float energy = *particle -> momentum().e();
+          if (charge.has_value()) {
+            if (charge == chargeToGrab.value()) {
+              eSum += energy;
             }
           } else {
-            eSum += *particle -> momentum().e();
-          }
+            switch subset {
 
+              // everything
+              case Subset::All:
+                eSum += energy;
+                break;
+
+              // all charged
+              case Subset::Charged:
+                if (charge != 0.) {
+                  eSum += energy;
+                }
+                break;
+
+              // only neutral
+              case Subset::Neutral:
+                if (charge == 0.) {
+                  eSum += energy;
+                }
+                break;
+
+              default:
+                eSum += energy;
+                break;
+            }
+          }  // end if-else chargeToGrab.has_value()
         }  // end particle loop
       }  // end subevent loop
       return eSum;
 
-    }  // end 'GetSumFinalStateParEne(PHCompositeNode*, vector<int>, optional<float>, optional<bool>)'
+    }  // end 'GetSumFinalStateParEne(PHCompositeNode*, vector<int>, int, optional<float>)'
 
 
 
