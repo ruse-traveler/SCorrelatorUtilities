@@ -14,7 +14,7 @@
 #include <cassert>
 #include <utility>
 #include <optional>
-// root utilities
+// root libraries
 #include <Math/Vector3D.h>
 // phool libraries
 #include <phool/phool.h>
@@ -83,7 +83,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-    ROOT::Math::XYZVector SCorrelatorJetTree::GetRecoVtx(PHCompositeNode* topNode) {
+    ROOT::Math::XYZVector GetRecoVtx(PHCompositeNode* topNode) {
 
       const GlobalVertex* vtx = GetGlobalVertex(topNode);
       return ROOT::Math::XYZVector(vtxX -> get_x(), vtxY -> get_y(), vtxZ -> get_z());
