@@ -161,11 +161,11 @@ namespace SColdQcdCorrelatorAnalysis {
 
       static vector<string> GetListOfMembers() {
         vector<string> members = {
-          "nChargPar",
+          "nChrgPar",
           "nNeuPar",
           "isEmbed",
           "eSumChrg",
-          "esumNeu"
+          "eSumNeu"
         };
         AddLeavesToVector<ParInfo>(members, "PartonA");
         AddLeavesToVector<ParInfo>(members, "PartonB");
