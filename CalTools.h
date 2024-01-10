@@ -168,8 +168,8 @@ namespace SColdQcdCorrelatorAnalysis {
     RawClusterContainer::ConstRange GetClusters(PHCompositeNode* topNode, const string store) {
 
       // get store and return range of clusters
-      RawClusterContainer* store = GetClusterStore(topNode, store);
-      return store -> getClusters();
+      RawClusterContainer* clustStore = GetClusterStore(topNode, store);
+      return clustStore -> getClusters();
 
     }  // end 'GetClusters(PHCompositeNode*, string)'
 

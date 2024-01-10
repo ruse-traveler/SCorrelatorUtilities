@@ -57,7 +57,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-    GlobalVertex* GetGlobalVertex(PHCompositeNode* topNode, optional<int> iVtxToGrab) {
+    GlobalVertex* GetGlobalVertex(PHCompositeNode* topNode, optional<int> iVtxToGrab = nullopt) {
 
       // get vertex map
       GlobalVertexMap* mapVtx = GetVertexMap(topNode);
@@ -86,7 +86,7 @@ namespace SColdQcdCorrelatorAnalysis {
     ROOT::Math::XYZVector GetRecoVtx(PHCompositeNode* topNode) {
 
       const GlobalVertex* vtx = GetGlobalVertex(topNode);
-      return ROOT::Math::XYZVector(vtxX -> get_x(), vtxY -> get_y(), vtxZ -> get_z());
+      return ROOT::Math::XYZVector(vtx -> get_x(), vtx -> get_y(), vtx -> get_z());
 
     }  // end 'GetRecoVtx(PHCompositeNode*)'
 

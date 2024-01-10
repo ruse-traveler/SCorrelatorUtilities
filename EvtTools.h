@@ -55,6 +55,16 @@ using namespace findNode;
 namespace SColdQcdCorrelatorAnalysis {
   namespace SCorrelatorUtilities {
 
+    // forward declarations used in Reco/GenInfo
+    long                  GetNumTrks(PHCompositeNode* topNode);
+    long                  GetNumFinalStatePars(PHCompositeNode* topNode, const vector<int> evtsToGrab, const int subset, optional<float> chargeToGrab);
+    double                GetSumTrkMomentum(PHCompositeNode* topNode);
+    double                GetSumCaloEne(PHCompositeNode* topNode, const string store);
+    double                GetSumFinalStateParEne(PHCompositeNode* topNode, const vector<int> evtsToGrab, const int subset, optional<float> chargeToGrab);
+    ParInfo               GetPartonInfo(PHCompositeNode* topNode, const int event, const int status);
+    ROOT::Math::XYZVector GetRecoVtx(PHCompositeNode* topNode);
+
+
     // RecoInfo definition ----------------------------------------------------
 
     struct RecoInfo {
@@ -193,7 +203,7 @@ namespace SColdQcdCorrelatorAnalysis {
       GenInfo  gen;
       bool     isSimEvt = false;
 
-      void SetInfo(PHCompositeNode* topNode, const bool sim, optional<float> embed, optional<vector<int>> evtsToGrab) {
+      void SetInfo(PHCompositeNode* topNode, const bool sim, optional<float> embed = nullopt, optional<vector<int>> evtsToGrab = nullopt) {
         isSimEvt = sim;
         if (isSimEvt) {
           gen.SetInfo(topNode, embed.value(), evtsToGrab.value());
@@ -222,8 +232,8 @@ namespace SColdQcdCorrelatorAnalysis {
       ~EvtInfo() {};
 
       // ctor accepting PHCompositeNode* & bool
-      EvtInfo(PHCompositeNode* topNode, optional<bool> sim, optional<vector<int>> evtsToGrab) {
-        if (sim.has_value() {
+      EvtInfo(PHCompositeNode* topNode, optional<bool> sim = nullopt, optional<vector<int>> evtsToGrab = nullopt) {
+        if (sim.has_value()) {
           SetInfo(topNode, sim, embed.value(), evtsToGrab.value());
         } else {
           SetInfo(topNode, false);
@@ -246,7 +256,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-    long GetNumFinalStatePars(PHCompositeNode* topNode, const vector<int> evtsToGrab, const int subset = 0, optional<float> chargeToGrab) {
+    long GetNumFinalStatePars(PHCompositeNode* topNode, const vector<int> evtsToGrab, const int subset = 0, optional<float> chargeToGrab = nullopt) {
 
       // loop over subevents
       long nPar = 0;
@@ -382,7 +392,7 @@ namespace SColdQcdCorrelatorAnalysis {
               eSum += energy;
             }
           } else {
-            switch subset {
+            switch (subset) {
 
               // everything
               case Subset::All:
