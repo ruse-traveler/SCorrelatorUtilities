@@ -57,10 +57,10 @@ namespace SColdQcdCorrelatorAnalysis {
 
     // forward declarations used in Reco/GenInfo
     long                  GetNumTrks(PHCompositeNode* topNode);
-    long                  GetNumFinalStatePars(PHCompositeNode* topNode, const vector<int> evtsToGrab, const int subset, optional<float> chargeToGrab);
+    long                  GetNumFinalStatePars(PHCompositeNode* topNode, const vector<int> evtsToGrab, const int subset = 0, optional<float> chargeToGrab = nullopt);
     double                GetSumTrkMomentum(PHCompositeNode* topNode);
     double                GetSumCaloEne(PHCompositeNode* topNode, const string store);
-    double                GetSumFinalStateParEne(PHCompositeNode* topNode, const vector<int> evtsToGrab, const int subset, optional<float> chargeToGrab);
+    double                GetSumFinalStateParEne(PHCompositeNode* topNode, const vector<int> evtsToGrab, const int subset, optional<float> chargeToGrab = nullopt);
     ParInfo               GetPartonInfo(PHCompositeNode* topNode, const int event, const int status);
     ROOT::Math::XYZVector GetRecoVtx(PHCompositeNode* topNode);
 
@@ -196,7 +196,7 @@ namespace SColdQcdCorrelatorAnalysis {
       ~GenInfo() {};
 
       // ctor accepting PHCompositeNode* and list of subevents
-      GenInfo(PHCompositeNode* topNode, const bool embed, const vector<int> evtsToGrab) {
+      GenInfo(PHCompositeNode* topNode, const bool embed, vector<int> evtsToGrab) {
         SetInfo(topNode, embed, evtsToGrab);
       };
     };  // end GenInfo definition
@@ -215,7 +215,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-    long GetNumFinalStatePars(PHCompositeNode* topNode, const vector<int> evtsToGrab, const int subset = 0, optional<float> chargeToGrab = nullopt) {
+    long GetNumFinalStatePars(PHCompositeNode* topNode, const vector<int> evtsToGrab, const int subset, optional<float> chargeToGrab) {
 
       // loop over subevents
       long nPar = 0;
@@ -327,7 +327,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-    double GetSumFinalStateParEne(PHCompositeNode* topNode, const vector<int> evtsToGrab, const int subset = 0, optional<float> chargeToGrab = nullopt) {
+    double GetSumFinalStateParEne(PHCompositeNode* topNode, const vector<int> evtsToGrab, const int subset, optional<float> chargeToGrab) {
 
       // loop over subevents
       double eSum = 0.;
