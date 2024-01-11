@@ -179,7 +179,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
     PHHepMCGenEvent* GetMcEvent(PHCompositeNode* topNode, const int iEvtToGrab) {
 
-      PHHepMcGenEventMap* mcEvtMap = GetMcEventMap(topNode);
+      PHHepMCGenEventMap* mcEvtMap = GetMcEventMap(topNode);
       PHHepMCGenEvent*    mcEvt    = mapMcEvts -> get(iEvtToGrab);
       if (!mcEvt) {
         cerr << PHWHERE

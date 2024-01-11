@@ -59,7 +59,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
     // generic function to create vector of leaf names
-    template <typename T> vector<string> MakeLeafVector(optional<string> tag) {
+    template <typename T> vector<string> MakeLeafVector(optional<string> tag = nullopt) {
 
       vector<string> leaves = T::GetListOfMembers();
       if (tag.has_value()) {
@@ -72,7 +72,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
     // generic function to append leaf names onto a vector
-    template <typename T> void AddLeavesToVector(vector<string>& vecToAddTo, optional<string> tag) {
+    template <typename T> void AddLeavesToVector(vector<string>& vecToAddTo, optional<string> tag = nullopt) {
 
       vector<string> addends = MakeLeafVector<T>(tag);
       for (auto addend : addends) {

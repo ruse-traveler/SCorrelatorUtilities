@@ -169,6 +169,15 @@ namespace SColdQcdCorrelatorAnalysis {
         return;
       }  // end 'SetInfo(PHCompositeNode*, vector<int>)'
 
+      void Reset() {
+        nChrgPar = -1;
+        nNeuPar  = -1;
+        isEmbed  = false;
+        eSumChrg = -999.;
+        eSumNeu  = -999.;
+        return;
+      }  // end 'Reset()'
+
       static vector<string> GetListOfMembers() {
         vector<string> members = {
           "nChrgPar",
@@ -199,9 +208,9 @@ namespace SColdQcdCorrelatorAnalysis {
     struct EvtInfo {
 
       // data members
-      RecoInfo reco;
-      GenInfo  gen;
-      bool     isSimEvt = false;
+      static bool     isSimEvt = false;
+      static RecoInfo reco;
+      static GenInfo  gen;
 
       void SetInfo(PHCompositeNode* topNode, const bool sim, optional<float> embed = nullopt, optional<vector<int>> evtsToGrab = nullopt) {
         isSimEvt = sim;
@@ -224,6 +233,7 @@ namespace SColdQcdCorrelatorAnalysis {
         if (isSimEvt) {
           AddLeavesToVector<GenInfo>(members);
         }
+        members.push_back("isSimEvt");
         return members;
       }  // end 'GetListOfMembers()'
 
@@ -232,7 +242,7 @@ namespace SColdQcdCorrelatorAnalysis {
       ~EvtInfo() {};
 
       // ctor accepting PHCompositeNode* & bool
-      EvtInfo(PHCompositeNode* topNode, optional<bool> sim = nullopt, optional<vector<int>> evtsToGrab = nullopt) {
+      EvtInfo(PHCompositeNode* topNode, optional<bool> sim = nullopt, optional<bool> embed = nullopt, optional<vector<int>> evtsToGrab = nullopt) {
         if (sim.has_value()) {
           SetInfo(topNode, sim, embed.value(), evtsToGrab.value());
         } else {
@@ -250,7 +260,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
       // grab size of track map
       SvtxTrackMap* mapTrks = GetTrackMap(topNode);
-      return mapTrks.size();
+      return mapTrks -> size();
 
     }  // end 'GetNumTrks(PHCompositeNode*)'
 
@@ -271,16 +281,16 @@ namespace SColdQcdCorrelatorAnalysis {
         ) {
 
           // check if particle is final state
-          if (!IsFinalState(*particle -> status())) continue;
+          if (!IsFinalState(particle.status())) continue;
 
           // if chargeToGrab is set, select only particle with charge
-          const float charge = GetParticleCharge(*particle -> pid());
+          const float charge = GetParticleCharge(particle.pid());
           if (charge.has_value()) {
             if (charge == chargeToGrab.value()) {
               ++nPar;
             }
           } else {
-            switch subset {
+            switch (subset) {
 
               // everything
               case Subset::All:
@@ -368,13 +378,13 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-    double GetSumFinalStateParEne(PHCompositeNode* topNode, const vector<int> evtsToGrab, const int subset = 0, optional<float> chargeToGrab) {
+    double GetSumFinalStateParEne(PHCompositeNode* topNode, const vector<int> evtsToGrab, const int subset = 0, optional<float> chargeToGrab = nullopt) {
 
       // loop over subevents
       double eSum = 0.;
       for (const int evtToGrab : evtsToGrab) {
 
-        HepMC::GenEvent* genEvt = GetMcEvent(topNode, evtToGrab);
+        HepMC::GenEvent* genEvt = GetGenEvent(topNode, evtToGrab);
         for (
           HepMC::GenEvent::particle_const_iterator particle = genEvt -> particles_begin();
           particle != genEvt -> particles_end();
@@ -382,12 +392,12 @@ namespace SColdQcdCorrelatorAnalysis {
         ) {
 
           // check if particle is final state
-          if (!IsFinalState(*particle -> status()) continue;
+          if (!IsFinalState(particle.status())) continue;
 
           // if chargeToGrab is set, select only particle with charge
-          const float charge = GetParticleCharge(*particle -> pid());
-          const float energy = *particle -> momentum().e();
-          if (charge.has_value()) {
+          const float charge = GetParticleCharge(particle.pid());
+          const float energy = particle.momentum().e();
+          if (chargeToGrab.has_value()) {
             if (charge == chargeToGrab.value()) {
               eSum += energy;
             }
@@ -426,24 +436,24 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-    ParInfo GetPartonInfo(PHCompositeNode* topNode, const int event const int status) {
+    ParInfo GetPartonInfo(PHCompositeNode* topNode, const int event, const int status) {
 
       // pick out relevant sub-sevent to grab
-      HepMC::GenEvent* genEvt = GetMcEvent(topNode, event);
+      HepMC::GenEvent* genEvt = GetGenEvent(topNode, event);
 
       // loop over particles
       ParInfo parton;
       for (
         HepMC::GenEvent::particle_const_iterator particle = genEvt -> particles_begin();
-        particle != mcEvt -> particles_end();
+        particle != genEvt -> particles_end();
         ++particle
       ) {
 
         // ignore all non-partons
-        if (!IsParton(*particle -> pid())) continue;
+        if (!IsParton(particle.pid())) continue;
 
         // set info if parton is desired status
-        if ((*particle -> status()) == status) {
+        if ((particle.status()) == status) {
           parton.SetInfo(*particle);
         }
       }  // end particle loop
