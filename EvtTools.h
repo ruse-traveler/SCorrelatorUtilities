@@ -203,57 +203,6 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-    // EvtInfo definition -----------------------------------------------------
-
-    struct EvtInfo {
-
-      // data members
-      static bool     isSimEvt = false;
-      static RecoInfo reco;
-      static GenInfo  gen;
-
-      void SetInfo(PHCompositeNode* topNode, const bool sim, optional<float> embed = nullopt, optional<vector<int>> evtsToGrab = nullopt) {
-        isSimEvt = sim;
-        if (isSimEvt) {
-          gen.SetInfo(topNode, embed.value(), evtsToGrab.value());
-        }
-        reco.SetInfo(topNode);
-        return;
-      }  // end 'SetInfo(PHCompositeNode*)'
-
-      void Reset() {
-        reco.Reset();
-        gen.Reset();
-        isSimEvt = false;
-        return;
-      }  // end 'Reset()'
-
-      static vector<string> GetListOfMembers() {
-        vector<string> members = reco.GetListOfMembers();
-        if (isSimEvt) {
-          AddLeavesToVector<GenInfo>(members);
-        }
-        members.push_back("isSimEvt");
-        return members;
-      }  // end 'GetListOfMembers()'
-
-      // default ctor/dtor
-      EvtInfo()  {};
-      ~EvtInfo() {};
-
-      // ctor accepting PHCompositeNode* & bool
-      EvtInfo(PHCompositeNode* topNode, optional<bool> sim = nullopt, optional<bool> embed = nullopt, optional<vector<int>> evtsToGrab = nullopt) {
-        if (sim.has_value()) {
-          SetInfo(topNode, sim, embed.value(), evtsToGrab.value());
-        } else {
-          SetInfo(topNode, false);
-        }
-      };
-
-    };  // end EvtInfo def
-
-
-
     // event methods ----------------------------------------------------------
 
     long GetNumTrks(PHCompositeNode* topNode) {
