@@ -53,7 +53,7 @@ namespace SColdQcdCorrelatorAnalysis {
         status  = particle -> status();
         barcode = particle -> barcode();
         charge  = mapPidOntoCharge[pid];
-        mass    - particle -> momentum().m();
+        mass    = particle -> momentum().m();
         eta     = particle -> momentum().eta();
         phi     = particle -> momentum().phi();
         ene     = particle -> momentum().e();
@@ -180,7 +180,7 @@ namespace SColdQcdCorrelatorAnalysis {
     PHHepMCGenEvent* GetMcEvent(PHCompositeNode* topNode, const int iEvtToGrab) {
 
       PHHepMCGenEventMap* mcEvtMap = GetMcEventMap(topNode);
-      PHHepMCGenEvent*    mcEvt    = mapMcEvts -> get(iEvtToGrab);
+      PHHepMCGenEvent*    mcEvt    = mcEvtMap -> get(iEvtToGrab);
       if (!mcEvt) {
         cerr << PHWHERE
              << "PANIC: Couldn't grab mc event!"
@@ -196,7 +196,7 @@ namespace SColdQcdCorrelatorAnalysis {
     HepMC::GenEvent* GetGenEvent(PHCompositeNode* topNode, const int iEvtToGrab) {
 
       PHHepMCGenEvent* mcEvt  = GetMcEvent(topNode, iEvtToGrab);
-      HepMC::GenEvent* genEvt = mcEvtStart -> getEvent();
+      HepMC::GenEvent* genEvt = mcEvt -> getEvent();
       if (!genEvt) {
         cerr << PHWHERE
              << "PANIC: Couldn't grab HepMC event!"
@@ -212,7 +212,7 @@ namespace SColdQcdCorrelatorAnalysis {
     int GetEmbedID(PHCompositeNode* topNode, const int iEvtToGrab) {
 
       // grab mc event & return embedding id
-      PHHepMCGenEvent* mcEvt = GetMcEvent(topNode, iEvtTograb);
+      PHHepMCGenEvent* mcEvt = GetMcEvent(topNode, iEvtToGrab);
       return mcEvt -> get_embedding_id();
 
     }  // end 'GetEmbedID(PHCompositeNode*, int)'

@@ -90,9 +90,9 @@ namespace SColdQcdCorrelatorAnalysis {
 
         // get vertex
         ROOT::Math::XYZVector vtx = GetRecoVtx(topNode);
-        vx = vtx.x;
-        vy = vtx.y;
-        vz = vtx.z;
+        vx = vtx.x();
+        vy = vtx.y();
+        vz = vtx.z();
         return;
       }  // end 'SetInfo(PHCompositeNode*)'
 
@@ -234,7 +234,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
           // if chargeToGrab is set, select only particle with charge
           const float charge = GetParticleCharge(particle.pid());
-          if (charge.has_value()) {
+          if (chargeToGrab.has_value()) {
             if (charge == chargeToGrab.value()) {
               ++nPar;
             }
