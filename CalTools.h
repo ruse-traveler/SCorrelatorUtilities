@@ -51,7 +51,7 @@ namespace SColdQcdCorrelatorAnalysis {
       double ry     = -999.;
       double rz     = -999.;
 
-      void SetInfo(const RawCluster* clust, optional<int> sys) {
+      void SetInfo(const RawCluster* clust, optional<int> sys = nullopt) {
         if (sys.has_value()) {
           system = sys.value();
         }
@@ -139,7 +139,7 @@ namespace SColdQcdCorrelatorAnalysis {
       ~ClustInfo() {};
 
       // ctor accepting RawClusters
-      ClustInfo(RawCluster* clust, optional<int> sys) {
+      ClustInfo(const RawCluster* clust, optional<int> sys = nullopt) {
         SetInfo(clust, sys);
       }
 
