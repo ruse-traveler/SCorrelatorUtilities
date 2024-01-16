@@ -14,6 +14,12 @@
 
 // c++ utilities
 #include <cmath>
+// phool libraries
+#include <phool/phool.h>
+#include <phool/getClass.h>
+#include <phool/PHIODataNode.h>
+#include <phool/PHNodeIterator.h>
+#include <phool/PHCompositeNode.h>
 // hepmc includes
 #include <HepMC/GenEvent.h>
 #include <HepMC/GenVertex.h>
@@ -53,10 +59,11 @@ namespace SColdQcdCorrelatorAnalysis {
       float vy      = -999.;
       float vz      = -999.;
 
-      void SetInfo(const HepMC::GenParticle* particle) {
+      void SetInfo(const HepMC::GenParticle* particle, const int event) {
         pid     = particle -> pdg_id();
         status  = particle -> status();
         barcode = particle -> barcode();
+        embedID = event;
         charge  = mapPidOntoCharge[pid];
         mass    = particle -> momentum().m();
         eta     = particle -> momentum().eta();
@@ -156,9 +163,8 @@ namespace SColdQcdCorrelatorAnalysis {
       ParInfo()  {};
       ~ParInfo() {};
 
-      // ctor accepting HepMC::GenParticle
-      ParInfo(const HepMC::GenParticle* particle) {
-        SetInfo(particle);
+      ParInfo(HepMC::GenParticle* particle, const int event) {
+        SetInfo(particle, event);
       };
 
     };  // end ParInfo definition

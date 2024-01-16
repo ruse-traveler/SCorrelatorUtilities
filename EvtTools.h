@@ -156,11 +156,15 @@ namespace SColdQcdCorrelatorAnalysis {
 
       void SetInfo(PHCompositeNode* topNode, const bool embed, const vector<int> evtsToGrab) {
 
+        // set embed flag
+        isEmbed = embed;
+
         // set parton info
         isEmbed  = embed;
         if (isEmbed) {
           partons.first  = GetPartonInfo(topNode, Signal::Embed, HardScatterStatus::First);
           partons.second = GetPartonInfo(topNode, Signal::Embed, HardScatterStatus::Second);
+
         } else {
           partons.first  = GetPartonInfo(topNode, Signal::NotEmbed, HardScatterStatus::First);
           partons.second = GetPartonInfo(topNode, Signal::NotEmbed, HardScatterStatus::Second);
@@ -408,7 +412,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
         // set info if parton is desired status
         if (((*particle) -> status()) == status) {
-          parton.SetInfo(*particle);
+          parton.SetInfo(*particle, event);
         }
       }  // end particle loop
       return parton;
