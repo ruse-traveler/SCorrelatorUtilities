@@ -79,6 +79,13 @@ namespace SColdQcdCorrelatorAnalysis {
       {700302, 3.}
     };
 
+    // map of node name onto subsystem index
+    map<string, int> mapNodeOntoIndex = {
+      {"CLUSTER_CEMC", Subsys::EMCal},
+      {"CLUSTER_HCALIN", Subsys::IHCal},
+      {"CLUSTER_HCALOUT", Subsys::OHCal}
+    };
+
   }  // end constants
 
 }  // end SColdQcdCorrealtorAnalysis namespace
