@@ -314,7 +314,7 @@ namespace SColdQcdCorrelatorAnalysis {
       // grab clusters
       RawClusterContainer::ConstRange clusters = GetClusters(topNode, store);
 
-      // loop over emcal clusters
+      // loop over clusters
       double eSum = 0.;
       for (
         RawClusterContainer::ConstIterator itClust = clusters.first;
