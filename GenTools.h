@@ -9,6 +9,9 @@
 
 #pragma once
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+
 // c++ utilities
 #include <cmath>
 // hepmc includes
@@ -17,6 +20,8 @@
 #include <HepMC/GenParticle.h>
 #include <phhepmc/PHHepMCGenEvent.h>
 #include <phhepmc/PHHepMCGenEventMap.h>
+
+#pragma GCC diagnostic pop
 
 // make common namespaces implicit
 using namespace std;

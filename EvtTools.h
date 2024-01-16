@@ -9,6 +9,9 @@
 
 #pragma once
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+
 // c++ utilities
 #include <vector>
 #include <cassert>
@@ -45,6 +48,8 @@
 #include "TrkTools.h"
 #include "VtxTools.h"
 #include "GenTools.h"
+
+#pragma GCC diagnostic pop
 
 // make common namespaces implicit
 using namespace std;
@@ -230,10 +235,10 @@ namespace SColdQcdCorrelatorAnalysis {
         ) {
 
           // check if particle is final state
-          if (!IsFinalState(particle.status())) continue;
+          if (!IsFinalState((*particle) -> status())) continue;
 
           // if chargeToGrab is set, select only particle with charge
-          const float charge = GetParticleCharge(particle.pid());
+          const float charge = GetParticleCharge((*particle) -> pdg_id());
           if (chargeToGrab.has_value()) {
             if (charge == chargeToGrab.value()) {
               ++nPar;
@@ -341,11 +346,11 @@ namespace SColdQcdCorrelatorAnalysis {
         ) {
 
           // check if particle is final state
-          if (!IsFinalState(particle.status())) continue;
+          if (!IsFinalState((*particle) -> status())) continue;
 
           // if chargeToGrab is set, select only particle with charge
-          const float charge = GetParticleCharge(particle.pid());
-          const float energy = particle.momentum().e();
+          const float charge = GetParticleCharge((*particle) -> pdg_id());
+          const float energy = (*particle) -> momentum().e();
           if (chargeToGrab.has_value()) {
             if (charge == chargeToGrab.value()) {
               eSum += energy;
@@ -399,10 +404,10 @@ namespace SColdQcdCorrelatorAnalysis {
       ) {
 
         // ignore all non-partons
-        if (!IsParton(particle.pid())) continue;
+        if (!IsParton((*particle) -> pdg_id())) continue;
 
         // set info if parton is desired status
-        if ((particle.status()) == status) {
+        if (((*particle) -> status()) == status) {
           parton.SetInfo(*particle);
         }
       }  // end particle loop
