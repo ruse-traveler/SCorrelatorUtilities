@@ -47,7 +47,7 @@ namespace SColdQcdCorrelatorAnalysis {
     const double MassPion = 0.140;
 
     // map of PID onto charges
-    map<int, float> mapPidOntoCharge = {
+    map<int, float> MapPidOntoCharge = {
       {11, -1.},
       {12, 0.},
       {13, -1.},
@@ -80,10 +80,20 @@ namespace SColdQcdCorrelatorAnalysis {
     };
 
     // map of node name onto subsystem index
-    map<string, int> mapNodeOntoIndex = {
+    map<string, int> MapNodeOntoIndex = {
       {"CLUSTER_CEMC", Subsys::EMCal},
       {"CLUSTER_HCALIN", Subsys::IHCal},
       {"CLUSTER_HCALOUT", Subsys::OHCal}
+    };
+
+    // map of forbidden strings onto good ones
+    map<string, string> <apBadOntoGoodStrings = {
+      {"/", "_"},
+      {"(", "_"},
+      {")", ""},
+      {"+", "plus"},
+      {"-", "minus"},
+      {"*", "star"},
     };
 
   }  // end constants

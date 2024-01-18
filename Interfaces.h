@@ -27,6 +27,44 @@ namespace SColdQcdCorrelatorAnalysis {
 
     // correlator object-data structure interfaces ----------------------------
 
+    /* TODO will go here */
+
+
+
+    // f4a interfaces ---------------------------------------------------------
+
+    // remove forbidden characters from a node name
+    void CleanseNodeName(string& nameToClean) {
+
+      for (const auto& [bad, good] : MapBadOntoGoodStrings) {
+        size_t position = nameToClean.begin();
+        while (position = nameToClean.find(bad) != string::npos) {
+          nameToClean.replace(position, 1, good);
+        }
+      }  // end bad-good pair loop
+      return;
+
+    }  // end 'CleanseNodeName(string&)'
+
+
+
+    template <typename T> void CreateNode(PHCompositeNode* topNode, string newNodeName, T& objectInNode) {
+
+      // make sure node name is okay
+      CleanseNodeName(newNodeName);
+
+      // find DST node
+      PHNodeIterator   itNode  = topNode;
+      PHCompositeNode* dstNode = dynamic_cast<PHCompositeNode*>(itNode.findFirst("PHCompositeNode", "DST");
+
+      // create node and exit
+      PHIODataNode<PHObject>* newNode = new PHIODataNode<PHObject>(objectInNode, newNodeName.c_str(), "PHObject");
+      dstNode -> addNode(newNode);
+      return;
+
+    }  // end 'CreateNode(PHCompositeNode*, string)'
+
+
 
     // data member-to-string methods ------------------------------------------
 
