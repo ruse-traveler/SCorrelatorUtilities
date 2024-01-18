@@ -14,6 +14,7 @@
 
 // c++ utilities
 #include <cmath>
+#include <utilities>
 // phool libraries
 #include <phool/phool.h>
 #include <phool/getClass.h>
@@ -292,6 +293,43 @@ namespace SColdQcdCorrelatorAnalysis {
       return charge;
 
     }  // end 'GetParticleCharge(int)'
+
+
+
+    vector<int> GrabSubevents(PHCompositeNode* topNode, optional<vector<int>> evtsToGrab) {
+
+      // instantiate vector to hold subevents
+      vector<int> subevents;
+  
+      PHHepMCGenEventMap* mcEvtMap = GetMcEventMap(topNode);
+      for (
+        PHHepMCGenEventMap::ConstIter itEvt = mcEvtMap -> begin();
+        itEvt != mcEvtMap -> second();
+        ++itEvt
+      ) {
+
+        // grab event id
+        const int embedID = itEvt -> second -> get_embedding_id();
+
+        // if selecting certain subevents, check if matched
+        bool addToList = false;
+        if (evtsToGrab.has_value()) {
+          for (const int idToCheck : evtsToGrab) {
+            if (embedID == idToCheckToCheck) {
+              addToList = true;
+              break;
+            }
+          }  // end evtsToGrab loop
+        } else {
+          addToList = true;
+        }
+
+        // add id to list if needed
+        if (addToList) subevents.push_back(embedID);
+      }
+      return subevents;
+
+    }  // end 'GrabSubevents(PHCompositeNode*, optional<vector<int>>)'
 
   }  // end SCorrelatorUtilities namespace
 }  // end SColdQcdCorrealtorAnalysis namespace
