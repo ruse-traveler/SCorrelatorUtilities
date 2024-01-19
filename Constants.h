@@ -25,16 +25,31 @@ namespace SColdQcdCorrelatorAnalysis {
     // particle charge subsets
     enum Subset {All, Charged, Neutral};
 
-    // signal event indices
-    enum Signal {
-      NotEmbed = 1,
-      Embed    = 2
+    // subevent options
+    enum SubEvtOpt {Everything, OnlySignal, AllBkgd, PrimaryBkgd, Pileup, Specific};
+
+    // special subevent indices
+    enum SubEvt {
+      Background     = 0,
+      NotEmbedSignal = 1,
+      EmbedSignal    = 2
     };
 
     // hard scatter product statuses
     enum HardScatterStatus {
       First  = 23,
       Second = 24
+    };
+
+    // parton pdg codes
+    enum Parton {
+      Down    = 1,
+      Up      = 2,
+      Strange = 3,
+      Charm   = 4,
+      Bottom  = 5,
+      Top     = 6,
+      Gluon   = 21
     };
 
     // tracking-related constants
