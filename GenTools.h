@@ -249,7 +249,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
     bool IsHardScatterProduct(const int status) {
 
-      return ((status == 23) || (status == 24));
+      return ((status == HardScatterStatus::First) || (status == HardScatterStatus::Second));
 
     }  // end 'IsHardScatterProduct(int)'
 
@@ -257,10 +257,10 @@ namespace SColdQcdCorrelatorAnalysis {
 
     bool IsParton(const int pid) {
 
-      const bool isLightQuark   = ((pid == 1) || (pid == 2));
-      const bool isStrangeQuark = ((pid == 3) || (pid == 4));
-      const bool isHeavyQuark   = ((pid == 5) || (pid == 6));
-      const bool isGluon        = (pid == 21);
+      const bool isLightQuark   = ((pid == Parton::Down)    || (pid == Parton::Up));
+      const bool isStrangeQuark = ((pid == Parton::Strange) || (pid == Parton::Charm));
+      const bool isHeavyQuark   = ((pid == Parton::Bottom)  || (pid == Parton::Top));
+      const bool isGluon        = (pid == Parton::Gluon);
       return (isLightQuark || isStrangeQuark || isHeavyQuark || isGluon);
 
     }  // end 'IsParton(int)'
@@ -330,6 +330,90 @@ namespace SColdQcdCorrelatorAnalysis {
       return subevents;
 
     }  // end 'GrabSubevents(PHCompositeNode*, optional<vector<int>>)'
+
+
+
+    /* TODO finish implementing
+    vector<int> SetSubEventsToUse(const uint16_t subEvtOpt, const vector<int> vecSubEvtsToUse) {
+
+      if (subEvtOpt != 0) {
+        m_selectSubEvts = true;
+      }
+
+      // if vector isn't empty, load specific emebedding IDs and set flags accordingly
+      if (vecSubEvtsToUse.size() > 0) {
+        m_selectSubEvts = true;
+        m_subEvtOpt     = 5;
+        for (const int subEvtToUse : vecSubEvtsToUse) {
+          m_subEvtsToUse.push_back(subEvtToUse);
+        }
+      }
+      return;
+
+    }  // end 'SetSubEventsToUse(uint16_t, vector<int>)'
+    */
+
+
+
+    bool IsSubEvtGood(const int embedID, const int option, const bool isEmbed) {
+
+      // set ID of signal
+      int signalID = SubEvt::NotEmbedSignal;
+      if (isEmbed) {
+        signalID = SubEvt::EmbedSignal;
+      }
+
+      bool isSubEvtGood = true;
+      switch (option) {
+
+        // consider everything
+        case SubEvtOpt::Everything:
+          isSubEvtGood = true;
+          break;
+
+        // only consider signal event
+        case SubEvtOpt::OnlySignal:
+          isSubEvtGood = (embedID == signalID);
+          break;
+
+        // only consider background events
+        case SubEvtOpt::AllBkgd:
+          isSubEvtGood = (embedID <= SubEvt::Background);
+          break;
+
+        // only consider primary background event
+        case SubEvtOpt::PrimaryBkgd:
+          isSubEvtGood = (embedID == bkgdID);
+          break;
+
+        // only consider pileup events
+        case SubEvtOpt::Pileup:
+          isSubEvtGood = (embedID < bkgdID);
+          break;
+
+        // by default do nothing
+        default:
+          isSubEvtGood = true;
+          break;
+      }
+      return isSubEvtGood;
+
+    }  // end 'IsSubEvtGood(int, int, bool)'
+
+
+
+    bool IsSubEvtGood(const int embedID, vector<int> subEvtsToUse) {
+
+      bool isSubEvtGood = false;
+      for (const int evtToUse : subEvtsToUse) {
+        if (embedID == evtToUse) {
+          isSubEvtGood = true;
+          break;
+        }
+      }
+      return;
+
+    }  // end 'IsSubEvtGood(int, vector<int>)'
 
   }  // end SCorrelatorUtilities namespace
 }  // end SColdQcdCorrealtorAnalysis namespace
