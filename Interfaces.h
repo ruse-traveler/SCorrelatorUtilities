@@ -3,8 +3,9 @@
 // Derek Anderson
 // 12.29.2023
 //
-// Various interfaces between objects and data structures (e.g.
-// TTree's) are collected here.
+// Various interfaces between sPHENIX Cold QCD Correlator
+// Analysis objects and data structures (e.g. TTree's) are
+// collected here.
 // ----------------------------------------------------------------------------
 
 #pragma once
@@ -62,7 +63,57 @@ namespace SColdQcdCorrelatorAnalysis {
       dstNode -> addNode(newNode);
       return;
 
-    }  // end 'CreateNode(PHCompositeNode*, string)'
+    }  // end 'CreateNode(PHCompositeNode*, string, T&)'
+
+
+
+    // TTree interfaces -------------------------------------------------------
+
+    // get entry from TTree, TChain, or TNtuple
+    template <typename T> int64_t GetEntry(const T* tree, const uint64_t entry) {
+
+      int64_t status(-1);
+      if (!tree) {
+        status = 0;
+      } else {
+        status = tree -> GetEntry(entry);
+      }
+      return status;
+
+    }  // end 'GetEntry(T*, uint64_t)'
+
+    template <> int64_t GetEntry(const TTree* tree, const uint64_t entry);
+    template <> int64_t GetEntry(const TChain* tree, const uint64_t entry);
+    template <> int64_t GetEntry(const TNtuple* tree, const uint64_t entry);
+
+
+
+    // load TTree, TChain, or TNtuple
+    template <typename T> int64_t LoadTree(const T* tree, const uint64_t entry, int& current) {
+
+      // check for tree & load
+      int     number(-1);
+      int64_t status(-1);
+      if (!tree) {
+        status = -5;
+      } else {
+        number = tree -> GetTreeNumber();
+        status = tree -> LoadTree(entry);
+      }
+
+      // update current tree number if need be
+      const bool isStatusGood = (status >= 0);
+      const bool isNotCurrent = (number != current);
+      if (isStatusGood && isNotCurrent) {
+        current = tree -> GetTreeNumber();
+      }
+      return status;
+
+    }  // end 'LoadTree(uint64_t)'
+
+    template <typename T> int64_t LoadTree(const TTree* tree, const uint64_t entry, int& current) {
+    template <typename T> int64_t LoadTree(const TChain* tree, const uint64_t entry, int& current) {
+    template <typename T> int64_t LoadTree(const TNtuple* tree, const uint64_t entry, int& current) {
 
 
 
