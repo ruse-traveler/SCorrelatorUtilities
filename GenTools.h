@@ -333,28 +333,6 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-    /* TODO finish implementing
-    vector<int> SetSubEventsToUse(const uint16_t subEvtOpt, const vector<int> vecSubEvtsToUse) {
-
-      if (subEvtOpt != 0) {
-        m_selectSubEvts = true;
-      }
-
-      // if vector isn't empty, load specific emebedding IDs and set flags accordingly
-      if (vecSubEvtsToUse.size() > 0) {
-        m_selectSubEvts = true;
-        m_subEvtOpt     = 5;
-        for (const int subEvtToUse : vecSubEvtsToUse) {
-          m_subEvtsToUse.push_back(subEvtToUse);
-        }
-      }
-      return;
-
-    }  // end 'SetSubEventsToUse(uint16_t, vector<int>)'
-    */
-
-
-
     bool IsSubEvtGood(const int embedID, const int option, const bool isEmbed) {
 
       // set ID of signal
