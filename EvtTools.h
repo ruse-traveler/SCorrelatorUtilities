@@ -162,12 +162,12 @@ namespace SColdQcdCorrelatorAnalysis {
         // set parton info
         isEmbed  = embed;
         if (isEmbed) {
-          partons.first  = GetPartonInfo(topNode, Signal::Embed, HardScatterStatus::First);
-          partons.second = GetPartonInfo(topNode, Signal::Embed, HardScatterStatus::Second);
+          partons.first  = GetPartonInfo(topNode, SubEvt::EmbedSignal, HardScatterStatus::First);
+          partons.second = GetPartonInfo(topNode, SubEvt::EmbedSignal, HardScatterStatus::Second);
 
         } else {
-          partons.first  = GetPartonInfo(topNode, Signal::NotEmbed, HardScatterStatus::First);
-          partons.second = GetPartonInfo(topNode, Signal::NotEmbed, HardScatterStatus::Second);
+          partons.first  = GetPartonInfo(topNode, SubEvt::NotEmbedSignal, HardScatterStatus::First);
+          partons.second = GetPartonInfo(topNode, SyvEvt::NotEmbedSignal, HardScatterStatus::Second);
         }
 
         // get sums
