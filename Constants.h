@@ -19,6 +19,9 @@ namespace SColdQcdCorrelatorAnalysis {
 
   namespace {
 
+    // object types
+    enum Object {Track, Cluster, Flow, Particle};
+
     // subsystem indices
     enum Subsys {Mvtx, Intt, Tpc, EMCal, IHCal, OHCal};
 
