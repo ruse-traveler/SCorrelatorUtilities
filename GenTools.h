@@ -14,6 +14,9 @@
 
 // c++ utilities
 #include <cmath>
+#include <limits>
+#include <string>
+#include <vector>
 #include <utilities>
 // phool libraries
 #include <phool/phool.h>
@@ -43,22 +46,22 @@ namespace SColdQcdCorrelatorAnalysis {
 
     struct ParInfo {
 
-      int   pid     = -1;
-      int   status  = 0;
-      int   barcode = -1;
-      int   embedID = -1;
-      float charge  = -999.;
-      float mass    = -999.;
-      float eta     = -999.;
-      float phi     = -999.;
-      float ene     = -999.;
-      float px      = -999.;
-      float py      = -999.;
-      float pz      = -999.;
-      float pt      = -999.;
-      float vx      = -999.;
-      float vy      = -999.;
-      float vz      = -999.;
+      int   pid     = numeric_limits<int>::max();
+      int   status  = numeric_limits<int>::max();
+      int   barcode = numeric_limits<int>::max();
+      int   embedID = numeric_limits<int>::max();
+      float charge  = numeric_limits<double>::max();
+      float mass    = numeric_limits<double>::max();
+      float eta     = numeric_limits<double>::max();
+      float phi     = numeric_limits<double>::max();
+      float ene     = numeric_limits<double>::max();
+      float px      = numeric_limits<double>::max();
+      float py      = numeric_limits<double>::max();
+      float pz      = numeric_limits<double>::max();
+      float pt      = numeric_limits<double>::max();
+      float vx      = numeric_limits<double>::max();
+      float vy      = numeric_limits<double>::max();
+      float vz      = numeric_limits<double>::max();
 
       void SetInfo(const HepMC::GenParticle* particle, const int event) {
         pid     = particle -> pdg_id();
@@ -81,22 +84,22 @@ namespace SColdQcdCorrelatorAnalysis {
       };
 
       void Reset() {
-        pid     = -1;
-        status  = 0;
-        barcode = -1;
-        embedID = -1;
-        charge  = -999.;
-        mass    = -999.;
-        eta     = -999.;
-        phi     = -999.;
-        ene     = -999.;
-        px      = -999.;
-        py      = -999.;
-        pz      = -999.;
-        pt      = -999.;
-        vx      = -999.;
-        vy      = -999.;
-        vz      = -999.;
+        pid     = numeric_limits<int>::max();
+        status  = numeric_limits<int>::max();
+        barcode = numeric_limits<int>::max();
+        embedID = numeric_limits<int>::max();
+        charge  = numeric_limits<double>::max();
+        mass    = numeric_limits<double>::max();
+        eta     = numeric_limits<double>::max();
+        phi     = numeric_limits<double>::max();
+        ene     = numeric_limits<double>::max();
+        px      = numeric_limits<double>::max();
+        py      = numeric_limits<double>::max();
+        pz      = numeric_limits<double>::max();
+        pt      = numeric_limits<double>::max();
+        vx      = numeric_limits<double>::max();
+        vy      = numeric_limits<double>::max();
+        vz      = numeric_limits<double>::max();
         return;
       };
 
@@ -231,11 +234,11 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-    bool IsInParAcceptance(const ParInfo& particle, const ParInfo& minimum, const ParInfo& maximum) {
+    bool IsInAcceptance(const ParInfo& particle, const ParInfo& minimum, const ParInfo& maximum) {
 
       return ((particle >= minimum) && (particle <= maximum));
 
-    }  // end 'IsInParAcceptance(ParInfo&, ParInfo&, ParInfo&)'
+    }  // end 'IsInAcceptance(ParInfo&, ParInfo&, ParInfo&)'
 
 
 
