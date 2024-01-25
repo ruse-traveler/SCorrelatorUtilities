@@ -49,23 +49,23 @@ namespace SColdQcdCorrelatorAnalysis {
 
     struct ParInfo {
 
-      int   pid     = numeric_limits<int>::max();
-      int   status  = numeric_limits<int>::max();
-      int   barcode = numeric_limits<int>::max();
-      int   embedID = numeric_limits<int>::max();
-      float charge  = numeric_limits<float>::max();
-      float mass    = numeric_limits<float>::max();
-      float eta     = numeric_limits<float>::max();
-      float phi     = numeric_limits<float>::max();
-      float ene     = numeric_limits<float>::max();
-      float px      = numeric_limits<float>::max();
-      float py      = numeric_limits<float>::max();
-      float pz      = numeric_limits<float>::max();
-      float pt      = numeric_limits<float>::max();
-      float vx      = numeric_limits<float>::max();
-      float vy      = numeric_limits<float>::max();
-      float vz      = numeric_limits<float>::max();
-      float vr      = numeric_limits<float>::max();
+      int    pid     = numeric_limits<int>::max();
+      int    status  = numeric_limits<int>::max();
+      int    barcode = numeric_limits<int>::max();
+      int    embedID = numeric_limits<int>::max();
+      float  charge  = numeric_limits<float>::max();
+      double mass    = numeric_limits<double>::max();
+      double eta     = numeric_limits<double>::max();
+      double phi     = numeric_limits<double>::max();
+      double ene     = numeric_limits<double>::max();
+      double px      = numeric_limits<double>::max();
+      double py      = numeric_limits<double>::max();
+      double pz      = numeric_limits<double>::max();
+      double pt      = numeric_limits<double>::max();
+      double vx      = numeric_limits<double>::max();
+      double vy      = numeric_limits<double>::max();
+      double vz      = numeric_limits<double>::max();
+      double vr      = numeric_limits<double>::max();
 
       void SetInfo(const HepMC::GenParticle* particle, const int event) {
         pid     = particle -> pdg_id();
@@ -94,18 +94,18 @@ namespace SColdQcdCorrelatorAnalysis {
         barcode = numeric_limits<int>::max();
         embedID = numeric_limits<int>::max();
         charge  = numeric_limits<float>::max();
-        mass    = numeric_limits<float>::max();
-        eta     = numeric_limits<float>::max();
-        phi     = numeric_limits<float>::max();
-        ene     = numeric_limits<float>::max();
-        px      = numeric_limits<float>::max();
-        py      = numeric_limits<float>::max();
-        pz      = numeric_limits<float>::max();
-        pt      = numeric_limits<float>::max();
-        vx      = numeric_limits<float>::max();
-        vy      = numeric_limits<float>::max();
-        vz      = numeric_limits<float>::max();
-        vr      = numeric_limits<float>::max();
+        mass    = numeric_limits<double>::max();
+        eta     = numeric_limits<double>::max();
+        phi     = numeric_limits<double>::max();
+        ene     = numeric_limits<double>::max();
+        px      = numeric_limits<double>::max();
+        py      = numeric_limits<double>::max();
+        pz      = numeric_limits<double>::max();
+        pt      = numeric_limits<double>::max();
+        vx      = numeric_limits<double>::max();
+        vy      = numeric_limits<double>::max();
+        vz      = numeric_limits<double>::max();
+        vr      = numeric_limits<double>::max();
         return;
       };
 

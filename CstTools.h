@@ -59,16 +59,16 @@ namespace SColdQcdCorrelatorAnalysis {
       }  // end 'SetInfo(int x 2, double x 6, optional<int> x 2)'
 
       void Rest() {
-        type  = numeric_limits<int>::max();
-        cstID = numeric_limits<int>::max();
-        pid   = numeric_limits<int>::max();
-        type  = numeric_limits<int>::max();
-        z     = numeric_limits<double>::max();
-        dr    = numeric_limits<double>::max();
-        ene   = numeric_limits<double>::max();
-        pt    = numeric_limits<double>::max();
-        eta   = numeric_limits<double>::max();
-        phi   = numeric_limits<double>::max();
+        type    = numeric_limits<int>::max();
+        cstID   = numeric_limits<int>::max();
+        embedID = numeric_limits<int>::max();
+        pid     = numeric_limits<int>::max();
+        z       = numeric_limits<double>::max();
+        dr      = numeric_limits<double>::max();
+        ene     = numeric_limits<double>::max();
+        pt      = numeric_limits<double>::max();
+        eta     = numeric_limits<double>::max();
+        phi     = numeric_limits<double>::max();
         return;
       }  // end 'Reset()'
 

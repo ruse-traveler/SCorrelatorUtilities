@@ -37,16 +37,16 @@ namespace SColdQcdCorrelatorAnalysis {
     struct FlowInfo {
 
       // data members
-      int   id   = numeric_limits<int>::max();
-      int   type = numeric_limits<int>::max();
-      float mass = numeric_limits<double>::max();
-      float eta  = numeric_limits<double>::max();
-      float phi  = numeric_limits<double>::max();
-      float ene  = numeric_limits<double>::max();
-      float px   = numeric_limits<double>::max();
-      float py   = numeric_limits<double>::max();
-      float pz   = numeric_limits<double>::max();
-      float pt   = numeric_limits<double>::max();
+      int    id   = numeric_limits<int>::max();
+      int    type = numeric_limits<int>::max();
+      double mass = numeric_limits<double>::max();
+      double eta  = numeric_limits<double>::max();
+      double phi  = numeric_limits<double>::max();
+      double ene  = numeric_limits<double>::max();
+      double px   = numeric_limits<double>::max();
+      double py   = numeric_limits<double>::max();
+      double pz   = numeric_limits<double>::max();
+      double pt   = numeric_limits<double>::max();
 
       void SetInfo(const ParticleFlowElement* flow) {
         id   = flow -> get_id();
