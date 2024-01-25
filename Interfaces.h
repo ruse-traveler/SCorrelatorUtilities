@@ -83,7 +83,7 @@ namespace SColdQcdCorrelatorAnalysis {
     // get entry from TTree, TChain, or TNtuple
     template <typename T> int64_t GetEntry(T* tree, const uint64_t entry) {
 
-      int64_t status(-1);
+      int64_t status = numeric_limits<int64_t>::min();
       if (!tree) {
         status = 0;
       } else {
@@ -103,8 +103,8 @@ namespace SColdQcdCorrelatorAnalysis {
     template <typename T> int64_t LoadTree(T* tree, const uint64_t entry, int& current) {
 
       // check for tree & load
-      int     number(-1);
-      int64_t status(-1);
+      int     number = numeric_limits<int>::min();
+      int64_t status = numeric_limits<int64_t>::min();
       if (!tree) {
         status = -5;
       } else {
