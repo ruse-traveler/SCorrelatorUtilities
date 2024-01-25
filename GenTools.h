@@ -17,7 +17,8 @@
 #include <limits>
 #include <string>
 #include <vector>
-#include <utilities>
+#include <utility>
+#include <optional>
 // phool libraries
 #include <phool/phool.h>
 #include <phool/getClass.h>
@@ -30,6 +31,8 @@
 #include <HepMC/GenParticle.h>
 #include <phhepmc/PHHepMCGenEvent.h>
 #include <phhepmc/PHHepMCGenEventMap.h>
+// analysis utilities
+#include "Constants.h"
 
 #pragma GCC diagnostic pop
 
@@ -68,7 +71,7 @@ namespace SColdQcdCorrelatorAnalysis {
         status  = particle -> status();
         barcode = particle -> barcode();
         embedID = event;
-        charge  = mapPidOntoCharge[pid];
+        charge  = MapPidOntoCharge[pid];
         mass    = particle -> momentum().m();
         eta     = particle -> momentum().eta();
         phi     = particle -> momentum().phi();
@@ -287,7 +290,7 @@ namespace SColdQcdCorrelatorAnalysis {
     float GetParticleCharge(const int pid) {
 
       // particle charge
-      float charge = mapPidOntoCharge[abs(pid)];
+      float charge = MapPidOntoCharge[abs(pid)];
 
       // if antiparticle, flip charge and return
       if (pid < 0) {
@@ -299,7 +302,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-    vector<int> GrabSubevents(PHCompositeNode* topNode, optional<vector<int>> evtsToGrab) {
+    vector<int> GrabSubevents(PHCompositeNode* topNode, optional<vector<int>> evtsToGrab = nullopt) {
 
       // instantiate vector to hold subevents
       vector<int> subevents;
@@ -307,7 +310,7 @@ namespace SColdQcdCorrelatorAnalysis {
       PHHepMCGenEventMap* mcEvtMap = GetMcEventMap(topNode);
       for (
         PHHepMCGenEventMap::ConstIter itEvt = mcEvtMap -> begin();
-        itEvt != mcEvtMap -> second();
+        itEvt != mcEvtMap -> end();
         ++itEvt
       ) {
 
@@ -317,8 +320,8 @@ namespace SColdQcdCorrelatorAnalysis {
         // if selecting certain subevents, check if matched
         bool addToList = false;
         if (evtsToGrab.has_value()) {
-          for (const int idToCheck : evtsToGrab) {
-            if (embedID == idToCheckToCheck) {
+          for (const int idToCheck : evtsToGrab.value()) {
+            if (embedID == idToCheck) {
               addToList = true;
               break;
             }
@@ -364,12 +367,12 @@ namespace SColdQcdCorrelatorAnalysis {
 
         // only consider primary background event
         case SubEvtOpt::PrimaryBkgd:
-          isSubEvtGood = (embedID == bkgdID);
+          isSubEvtGood = (embedID == SubEvt::Background);
           break;
 
         // only consider pileup events
         case SubEvtOpt::Pileup:
-          isSubEvtGood = (embedID < bkgdID);
+          isSubEvtGood = (embedID < SubEvt::Background);
           break;
 
         // by default do nothing
@@ -392,7 +395,7 @@ namespace SColdQcdCorrelatorAnalysis {
           break;
         }
       }
-      return;
+      return isSubEvtGood;
 
     }  // end 'IsSubEvtGood(int, vector<int>)'
 

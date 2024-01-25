@@ -12,6 +12,10 @@
 // c++ utilities
 #include <map>
 
+// make common namespaces implicit
+using namespace std;
+
+
 
 namespace SColdQcdCorrelatorAnalysis {
 
@@ -20,7 +24,7 @@ namespace SColdQcdCorrelatorAnalysis {
   namespace {
 
     // object types
-    enum Object {Track, Cluster, Flow, Particle};
+    enum Object {Track, Cluster, Flow, Particle, Unknown};
 
     // subsystem indices
     enum Subsys {Mvtx, Intt, Tpc, EMCal, IHCal, OHCal};
@@ -105,7 +109,7 @@ namespace SColdQcdCorrelatorAnalysis {
     };
 
     // map of forbidden strings onto good ones
-    map<string, string> <apBadOntoGoodStrings = {
+    map<string, string> MapBadOntoGoodStrings = {
       {"/", "_"},
       {"(", "_"},
       {")", ""},

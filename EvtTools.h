@@ -167,7 +167,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
         } else {
           partons.first  = GetPartonInfo(topNode, SubEvt::NotEmbedSignal, HardScatterStatus::First);
-          partons.second = GetPartonInfo(topNode, SyvEvt::NotEmbedSignal, HardScatterStatus::Second);
+          partons.second = GetPartonInfo(topNode, SubEvt::NotEmbedSignal, HardScatterStatus::Second);
         }
 
         // get sums

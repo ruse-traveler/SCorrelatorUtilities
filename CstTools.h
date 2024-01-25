@@ -15,6 +15,8 @@
 #include <string>
 #include <vector>
 #include <optional>
+// analysis utilities
+#include "Constants.h"
 
 // make common namespaces implicit
 using namespace std;
@@ -27,7 +29,7 @@ namespace SColdQcdCorrelatorAnalysis {
     struct CstInfo {
 
       // data members
-      Object type    = numeric_limits<int>::max();
+      int    type    = numeric_limits<int>::max();
       int    cstID   = numeric_limits<int>::max();
       int    embedID = numeric_limits<int>::max();
       int    pid     = numeric_limits<int>::max();
@@ -38,7 +40,7 @@ namespace SColdQcdCorrelatorAnalysis {
       double eta     = numeric_limits<double>::max();
       double phi     = numeric_limits<double>::max();
 
-      void SetInfo(Object t, int id, double z, double d, double e, double p, double h, double f, optional<int> eid = nullopt, optional<int> pdg = nullopt) {
+      void SetInfo(int t, int id, double z, double d, double e, double p, double h, double f, optional<int> eid = nullopt, optional<int> pdg = nullopt) {
         type  = t;
         cstID = id;
         z     = z;
@@ -54,9 +56,10 @@ namespace SColdQcdCorrelatorAnalysis {
           pid = pdg.value();
         }
         return;
-      }  // end 'SetInfo(Object, int, double x 6, optional<int>)'
+      }  // end 'SetInfo(int x 2, double x 6, optional<int> x 2)'
 
       void Rest() {
+        type  = numeric_limits<int>::max();
         cstID = numeric_limits<int>::max();
         pid   = numeric_limits<int>::max();
         type  = numeric_limits<int>::max();
@@ -126,8 +129,8 @@ namespace SColdQcdCorrelatorAnalysis {
       ~CstInfo() {};
 
       // ctor accepting arguments
-      CstInfo(Object t, int id, double z, double d, double e, double p, double h, double f, optional<int> pdg = nullopt) {
-        SetInfo(t, id, z, d, e, p, h, f, pdg);
+      CstInfo(int t, int id, double z, double d, double e, double p, double h, double f, optional<int> eid = nullopt, optional<int> pdg = nullopt) {
+        SetInfo(t, id, z, d, e, p, h, f, eid, pdg);
       }
 
     };  // end CstInfo def
@@ -136,7 +139,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
     // constituent methods ----------------------------------------------------
 
-    bool IsInAcceptance(const CstInfo& cst, const CstInfo&, minimum, const CstInfo& maximum) {
+    bool IsInAcceptance(const CstInfo& cst, const CstInfo& minimum, const CstInfo& maximum) {
 
       return ((cst >= minimum) && (cst <= maximum));
 

@@ -12,8 +12,19 @@
 
 // c++ utilities
 #include <string>
+#include <limits>
 #include <vector>
 #include <optional>
+// root libraries
+#include <TTree.h>
+#include <TChain.h>
+#include <TNtuple.h>
+// phool libraries
+#include <phool/phool.h>
+#include <phool/getClass.h>
+#include <phool/PHIODataNode.h>
+#include <phool/PHNodeIterator.h>
+#include <phool/PHCompositeNode.h>
 // analyis utilities
 #include "TrkTools.h"
 #include "CalTools.h"
@@ -38,8 +49,8 @@ namespace SColdQcdCorrelatorAnalysis {
     void CleanseNodeName(string& nameToClean) {
 
       for (const auto& [bad, good] : MapBadOntoGoodStrings) {
-        size_t position = nameToClean.begin();
-        while (position = nameToClean.find(bad) != string::npos) {
+        size_t position;
+        while ((position = nameToClean.find(bad)) != string::npos) {
           nameToClean.replace(position, 1, good);
         }
       }  // end bad-good pair loop
@@ -56,7 +67,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
       // find DST node
       PHNodeIterator   itNode  = topNode;
-      PHCompositeNode* dstNode = dynamic_cast<PHCompositeNode*>(itNode.findFirst("PHCompositeNode", "DST");
+      PHCompositeNode* dstNode = dynamic_cast<PHCompositeNode*>(itNode.findFirst("PHCompositeNode", "DST"));
 
       // create node and exit
       PHIODataNode<PHObject>* newNode = new PHIODataNode<PHObject>(objectInNode, newNodeName.c_str(), "PHObject");
@@ -70,7 +81,7 @@ namespace SColdQcdCorrelatorAnalysis {
     // TTree interfaces -------------------------------------------------------
 
     // get entry from TTree, TChain, or TNtuple
-    template <typename T> int64_t GetEntry(const T* tree, const uint64_t entry) {
+    template <typename T> int64_t GetEntry(T* tree, const uint64_t entry) {
 
       int64_t status(-1);
       if (!tree) {
@@ -82,14 +93,14 @@ namespace SColdQcdCorrelatorAnalysis {
 
     }  // end 'GetEntry(T*, uint64_t)'
 
-    template <> int64_t GetEntry(const TTree* tree, const uint64_t entry);
-    template <> int64_t GetEntry(const TChain* tree, const uint64_t entry);
-    template <> int64_t GetEntry(const TNtuple* tree, const uint64_t entry);
+    template int64_t GetEntry(TTree* tree, const uint64_t entry);
+    template int64_t GetEntry(TChain* tree, const uint64_t entry);
+    template int64_t GetEntry(TNtuple* tree, const uint64_t entry);
 
 
 
     // load TTree, TChain, or TNtuple
-    template <typename T> int64_t LoadTree(const T* tree, const uint64_t entry, int& current) {
+    template <typename T> int64_t LoadTree(T* tree, const uint64_t entry, int& current) {
 
       // check for tree & load
       int     number(-1);
@@ -111,9 +122,9 @@ namespace SColdQcdCorrelatorAnalysis {
 
     }  // end 'LoadTree(uint64_t)'
 
-    template <typename T> int64_t LoadTree(const TTree* tree, const uint64_t entry, int& current) {
-    template <typename T> int64_t LoadTree(const TChain* tree, const uint64_t entry, int& current) {
-    template <typename T> int64_t LoadTree(const TNtuple* tree, const uint64_t entry, int& current) {
+    template int64_t LoadTree(TTree* tree, const uint64_t entry, int& current);
+    template int64_t LoadTree(TChain* tree, const uint64_t entry, int& current);
+    template int64_t LoadTree(TNtuple* tree, const uint64_t entry, int& current);
 
 
 

@@ -123,7 +123,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
     // jet methods ------------------------------------------------------------
 
-    bool IsInAcceptance(const JetInfo& jet, const JetInfo&, minimum, const JetInfo& maximum) {
+    bool IsInAcceptance(const JetInfo& jet, const JetInfo& minimum, const JetInfo& maximum) {
 
       return ((jet >= minimum) && (jet <= maximum));
 
