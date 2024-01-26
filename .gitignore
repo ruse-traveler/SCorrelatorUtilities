@@ -1,2 +1,17 @@
 backup/*
 test/*
+src/*
+!src/CalTools.h
+!src/Constants.h
+!src/CstTools.h
+!src/EvtTools.h
+!src/FlowTools.h
+!src/GenTools.h
+!src/Interfaces.h
+!src/JetTools.h
+!src/TrkTools.h
+!src/VtxTools.h
+!src/SCorrelatorUtilitiesLinkDef.h
+!src/autogen.sh
+!src/configure.ac
+!src/Makefile.am

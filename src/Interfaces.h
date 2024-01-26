@@ -66,7 +66,7 @@ namespace SColdQcdCorrelatorAnalysis {
       CleanseNodeName(newNodeName);
 
       // find DST node
-      PHNodeIterator   itNode  = topNode;
+      PHNodeIterator   itNode(topNode);
       PHCompositeNode* dstNode = dynamic_cast<PHCompositeNode*>(itNode.findFirst("PHCompositeNode", "DST"));
 
       // create node and exit
