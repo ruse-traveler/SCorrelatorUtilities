@@ -24,7 +24,7 @@ to_copy = [
   "src/EvtTools.h",
   "src/FlowTools.h",
   "src/GenTools.h",
-  "src/Interfaces.h"
+  "src/Interfaces.h",
   "src/JetTools.h",
   "src/TrkTools.h",
   "src/VtxTools.h",
