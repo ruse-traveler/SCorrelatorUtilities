@@ -25,6 +25,8 @@
 #include <phool/PHIODataNode.h>
 #include <phool/PHNodeIterator.h>
 #include <phool/PHCompositeNode.h>
+// PHG4 libraries
+#include <g4main/PHG4Particle.h>
 // hepmc includes
 #include <HepMC/GenEvent.h>
 #include <HepMC/GenVertex.h>
@@ -82,12 +84,8 @@ namespace SColdQcdCorrelatorAnalysis {
         py      = particle -> momentum().py();
         pz      = particle -> momentum().pz();
         pt      = particle -> momentum().perp();
-        vx      = particle -> production_vertex() -> position().x();
-        vy      = particle -> production_vertex() -> position().y();
-        vz      = particle -> production_vertex() -> position().z();
-        vr      = hypot(vx, vy);
         return;
-      };
+      };  // end 'SetInfo(HepMC::GenParticle*, int)'
 
       void Reset() {
         pid     = numeric_limits<int>::max();
@@ -108,7 +106,7 @@ namespace SColdQcdCorrelatorAnalysis {
         vz      = numeric_limits<double>::max();
         vr      = numeric_limits<double>::max();
         return;
-      };
+      };  // end 'Reset()'
 
       static vector<string> GetListOfMembers() {
         vector<string> members = {
