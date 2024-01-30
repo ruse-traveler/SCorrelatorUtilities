@@ -13,6 +13,9 @@
 // c++ utilities
 #include <limits>
 #include <vector>
+#include <optional>
+// fastjet libraries
+#include <fastjet/PseudoJet.hh>
 // analysis utilities
 #include "CstTools.h"
 
@@ -32,26 +35,33 @@ namespace SColdQcdCorrelatorAnalysis {
       uint32_t jetID = numeric_limits<uint32_t>::max();
       uint64_t nCsts = numeric_limits<uint64_t>::max();
       double   ene   = numeric_limits<double>::max();
+      double   px    = numeric_limits<double>::max();
+      double   py    = numeric_limits<double>::max();
+      double   pz    = numeric_limits<double>::max();
       double   pt    = numeric_limits<double>::max();
       double   eta   = numeric_limits<double>::max();
       double   phi   = numeric_limits<double>::max();
       double   area  = numeric_limits<double>::max();
 
-      void SetInfo(uint32_t id, uint64_t nc, double e, double p, double h, double f, double a) {
-        jetID = id;
-        nCsts = nc;
-        ene   = e;
-        pt    = p;
-        eta   = h;
-        phi   = f;
-        area  = a;
+      void SetInfo(fastjet::PseudoJet& pseudojet) {
+        nCsts = pseudojet.constituents().size();
+        ene   = pseudojet.E();
+        px    = pseudojet.px();
+        py    = pseudojet.py();
+        pz    = pseudojet.pz();
+        pt    = pseudojet.perp();
+        eta   = pseudojet.pseudorapidity();
+        phi   = pseudojet.phi_std();
         return;
-      }  // end 'SetInfo(uint32_t, uint64_t, double, double, double, double, double)'
+      }  // end 'SetInfo(fastjet::PseudoJet)'
 
       void Reset() {
         jetID = numeric_limits<uint32_t>::max();
         nCsts = numeric_limits<uint64_t>::max();
         ene   = numeric_limits<double>::max();
+        px    = numeric_limits<double>::max();
+        py    = numeric_limits<double>::max();
+        pz    = numeric_limits<double>::max();
         pt    = numeric_limits<double>::max();
         eta   = numeric_limits<double>::max();
         phi   = numeric_limits<double>::max();
@@ -64,6 +74,9 @@ namespace SColdQcdCorrelatorAnalysis {
           "jetID",
           "nCsts",
           "ene",
+          "px",
+          "py",
+          "pz",
           "pt",
           "eta",
           "phi",
@@ -79,6 +92,9 @@ namespace SColdQcdCorrelatorAnalysis {
         const bool isLessThan = (
           (lhs.nCsts < rhs.nCsts) &&
           (lhs.ene   < rhs.ene)   &&
+          (lhs.px    < rhs.px)    &&
+          (lhs.py    < rhs.py)    &&
+          (lhs.pz    < rhs.pz)    &&
           (lhs.pt    < rhs.pt)    &&
           (lhs.eta   < rhs.eta)   &&
           (lhs.phi   < rhs.phi)   &&
@@ -95,6 +111,9 @@ namespace SColdQcdCorrelatorAnalysis {
         const bool isGreaterThan = (
           (lhs.nCsts > rhs.nCsts) &&
           (lhs.ene   > rhs.ene)   &&
+          (lhs.px    > rhs.px)    &&
+          (lhs.py    > rhs.py)    &&
+          (lhs.pz    > rhs.pz)    &&
           (lhs.pt    > rhs.pt)    &&
           (lhs.eta   > rhs.eta)   &&
           (lhs.phi   > rhs.phi)   &&
@@ -112,9 +131,9 @@ namespace SColdQcdCorrelatorAnalysis {
       JetInfo()  {};
       ~JetInfo() {};
 
-      // ctor accepting arguments
-      JetInfo(uint32_t id, uint64_t nc, double e, double p, double h, double f, double a) {
-        SetInfo(id, nc, e, p, h, f, a);
+      // ctor accepting fastjet pseudojets
+      JetInfo(fastjet::PseudoJet& pseudojet) {
+        SetInfo(pseudojet);
       }
 
     };  // end JetInfo def

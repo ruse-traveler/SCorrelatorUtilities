@@ -15,6 +15,8 @@
 #include <string>
 #include <vector>
 #include <optional>
+// fastjet libraries
+#include <fastjet/PseudoJet.hh>
 // analysis utilities
 #include "Constants.h"
 
@@ -36,27 +38,24 @@ namespace SColdQcdCorrelatorAnalysis {
       double z       = numeric_limits<double>::max();
       double dr      = numeric_limits<double>::max();
       double ene     = numeric_limits<double>::max();
+      double px      = numeric_limits<double>::max();
+      double py      = numeric_limits<double>::max();
+      double pz      = numeric_limits<double>::max();
       double pt      = numeric_limits<double>::max();
       double eta     = numeric_limits<double>::max();
       double phi     = numeric_limits<double>::max();
 
-      void SetInfo(int t, int id, double z, double d, double e, double p, double h, double f, optional<int> eid = nullopt, optional<int> pdg = nullopt) {
-        type  = t;
-        cstID = id;
-        z     = z;
-        dr    = d;
-        ene   = e;
-        pt    = p;
-        eta   = h;
-        phi   = f;
-        if (eid.has_value()) {
-          embedID = eid.value();
-        }
-        if (pdg.has_value()) {
-          pid = pdg.value();
-        }
+      void SetInfo(fastjet::PseudoJet& pseudojet) {
+        cstID = pseudojet.user_index();
+        ene   = pseudojet.E();
+        px    = pseudojet.px();
+        py    = pseudojet.py();
+        pz    = pseudojet.pz();
+        pt    = pseudojet.perp();
+        eta   = pseudojet.pseudorapidity();
+        phi   = pseudojet.phi_std();
         return;
-      }  // end 'SetInfo(int x 2, double x 6, optional<int> x 2)'
+      }  // end 'SetInfo(fastjet::PseudoJet)'
 
       void Rest() {
         type    = numeric_limits<int>::max();
@@ -66,6 +65,9 @@ namespace SColdQcdCorrelatorAnalysis {
         z       = numeric_limits<double>::max();
         dr      = numeric_limits<double>::max();
         ene     = numeric_limits<double>::max();
+        px      = numeric_limits<double>::max();
+        py      = numeric_limits<double>::max();
+        pz      = numeric_limits<double>::max();
         pt      = numeric_limits<double>::max();
         eta     = numeric_limits<double>::max();
         phi     = numeric_limits<double>::max();
@@ -81,6 +83,9 @@ namespace SColdQcdCorrelatorAnalysis {
           "z",
           "dr",
           "ene",
+          "px",
+          "py",
+          "pz",
           "pt",
           "eta",
           "phi"
@@ -96,6 +101,9 @@ namespace SColdQcdCorrelatorAnalysis {
           (lhs.z   < rhs.z)   &&
           (lhs.dr  < rhs.dr)  &&
           (lhs.ene < rhs.ene) &&
+          (lhs.px  < rhs.px)  &&
+          (lhs.py  < rhs.py)  &&
+          (lhs.pz  < rhs.pz)  &&
           (lhs.pt  < rhs.pt)  &&
           (lhs.eta < rhs.eta) &&
           (lhs.phi < rhs.phi)
@@ -112,6 +120,9 @@ namespace SColdQcdCorrelatorAnalysis {
           (lhs.z   > rhs.z)   &&
           (lhs.dr  > rhs.dr)  &&
           (lhs.ene > rhs.ene) &&
+          (lhs.px  > rhs.px)  &&
+          (lhs.py  > rhs.py)  &&
+          (lhs.pz  > rhs.pz)  &&
           (lhs.pt  > rhs.pt)  &&
           (lhs.eta > rhs.eta) &&
           (lhs.phi > rhs.phi)
@@ -128,9 +139,9 @@ namespace SColdQcdCorrelatorAnalysis {
       CstInfo()  {};
       ~CstInfo() {};
 
-      // ctor accepting arguments
-      CstInfo(int t, int id, double z, double d, double e, double p, double h, double f, optional<int> eid = nullopt, optional<int> pdg = nullopt) {
-        SetInfo(t, id, z, d, e, p, h, f, eid, pdg);
+      // ctor accepting fastjet pseudojets
+      CstInfo(fastjet::PseudoJet& pseudojet) {
+        SetInfo(pseudojet);
       }
 
     };  // end CstInfo def
