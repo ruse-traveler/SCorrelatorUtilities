@@ -27,7 +27,8 @@
 #include <phool/PHCompositeNode.h>
 // PHG4 libraries
 #include <g4main/PHG4Particle.h>
-// hepmc includes
+#include <g4main/PHG4TruthInfoContainer.h>
+// hepmc libraries
 #include <HepMC/GenEvent.h>
 #include <HepMC/GenVertex.h>
 #include <HepMC/GenParticle.h>
@@ -183,12 +184,27 @@ namespace SColdQcdCorrelatorAnalysis {
 
     // generator/mc methods ---------------------------------------------------
 
+    PHG4TruthInfoContainer* GetTruthContainer(PHCompositeNode* topNode) {
+
+      PHG4TruthInfoContainer* container = getClass<PHG4TruthInfoContainer>(topNode, "G4TruthInfo");
+      if (!container) {
+        cerr << PHWHERE
+             << "PANIC: G4 truth info container node is missing!"
+             << endl;
+        assert(container);
+      }
+      return container;
+
+    }  // end 'GetTruthContainer(PHCompositeNode*)'
+
+
+
     PHHepMCGenEventMap* GetMcEventMap(PHCompositeNode* topNode) {
 
       PHHepMCGenEventMap* mapMcEvts = getClass<PHHepMCGenEventMap>(topNode, "PHHepMCGenEventMap");
       if (!mapMcEvts) {
         cerr << PHWHERE
-             << "PANIC: HEPMC event map node is missing!"
+             << "PANIC: HepMC event map node is missing!"
              << endl;
         assert(mapMcEvts);
       }
@@ -305,44 +321,8 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-    vector<int> GrabSubevents(PHCompositeNode* topNode, optional<vector<int>> evtsToGrab = nullopt) {
-
-      // instantiate vector to hold subevents
-      vector<int> subevents;
-  
-      PHHepMCGenEventMap* mcEvtMap = GetMcEventMap(topNode);
-      for (
-        PHHepMCGenEventMap::ConstIter itEvt = mcEvtMap -> begin();
-        itEvt != mcEvtMap -> end();
-        ++itEvt
-      ) {
-
-        // grab event id
-        const int embedID = itEvt -> second -> get_embedding_id();
-
-        // if selecting certain subevents, check if matched
-        bool addToList = false;
-        if (evtsToGrab.has_value()) {
-          for (const int idToCheck : evtsToGrab.value()) {
-            if (embedID == idToCheck) {
-              addToList = true;
-              break;
-            }
-          }  // end evtsToGrab loop
-        } else {
-          addToList = true;
-        }
-
-        // add id to list if needed
-        if (addToList) subevents.push_back(embedID);
-      }
-      return subevents;
-
-    }  // end 'GrabSubevents(PHCompositeNode*, optional<vector<int>>)'
-
-
-
-    bool IsSubEvtGood(const int embedID, const int option, const bool isEmbed) {
+/* TODO uncomment when used
+    bool IsSubEvtGood(const int embedID, const SubEvtOpt option, const bool isEmbed) {
 
       // set ID of signal
       int signalID = SubEvt::NotEmbedSignal;
@@ -386,6 +366,7 @@ namespace SColdQcdCorrelatorAnalysis {
       return isSubEvtGood;
 
     }  // end 'IsSubEvtGood(int, int, bool)'
+*/
 
 
 
@@ -401,6 +382,118 @@ namespace SColdQcdCorrelatorAnalysis {
       return isSubEvtGood;
 
     }  // end 'IsSubEvtGood(int, vector<int>)'
+
+
+
+/* TODO uncomment when used
+    vector<int> GrabSubevents(PHCompositeNode* topNode, const SubEvtOpt option = SubEvtOpt::Everything, const bool isEmbed = false) {
+
+      // instantiate vector to hold subevents
+      vector<int> subevents;
+  
+      PHHepMCGenEventMap* mcEvtMap = GetMcEventMap(topNode);
+      for (
+        PHHepMCGenEventMap::ConstIter itEvt = mcEvtMap -> begin();
+        itEvt != mcEvtMap -> end();
+        ++itEvt
+      ) {
+
+        // grab event id
+        const int embedID = itEvt -> second -> get_embedding_id();
+
+        // if subevent satisfies option, add to list
+        const bool isSubEvtGood = IsSubEvtGood(embedID, option, isEmbed);
+        if (isSubEvtGood) subevents.push_back(embedID);
+      }
+      return subevents;
+
+    }  // end 'GrabSubevents(PHCompositeNode*, optional<vector<int>>)'
+*/
+
+
+
+    vector<int> GrabSubevents(PHCompositeNode* topNode, vector<int> subEvtsToUse) {
+
+      // instantiate vector to hold subevents
+      vector<int> subevents;
+  
+      PHHepMCGenEventMap* mcEvtMap = GetMcEventMap(topNode);
+      for (
+        PHHepMCGenEventMap::ConstIter itEvt = mcEvtMap -> begin();
+        itEvt != mcEvtMap -> end();
+        ++itEvt
+      ) {
+
+        // grab event id
+        const int embedID = itEvt -> second -> get_embedding_id();
+
+        // check to see if event is in provided list
+        bool addToList = false;
+        for (const int idToCheck : subEvtsToUse) {
+          if (embedID == idToCheck) {
+            addToList = true;
+            break;
+          }
+        }  // end evtsToGrab loop
+
+        // if on list, add to list of good subevents
+        if (addToList) subevents.push_back(embedID);
+
+      }
+      return subevents;
+
+    }  // end 'GrabSubevents(PHCompositeNode*, vector<int>)'
+
+
+
+    void GetParticleFromBarcode(const int barcode, PHCompositeNode* topNode, HepMC::GenParticle* parToGrab = NULL) {
+
+      // loop over all subevents to search
+      PHHepMCGenEventMap* mcEvtMap = GetMcEventMap(topNode);
+      for (
+        PHHepMCGenEventMap::ConstIter genEvt = mcEvtMap -> begin();
+        genEvt != mcEvtMap -> end();
+        ++genEvt
+      ) {
+        for (
+          HepMC::GenEvent::particle_const_iterator hepPar = genEvt -> second -> getEvent() -> particles_begin();
+          hepPar != genEvt -> second -> getEvent() -> particles_end();
+          ++hepPar
+        ) {
+          if ((*hepPar) -> barcode() == barcode) {
+            parToGrab = *hepPar;
+            break;
+          }
+        }  // end particle loop
+      }  // end subevent loop
+      cout << "CHECK parToGrab = " << parToGrab << endl;
+      return;
+
+    }  // end 'HepMC::GenParticle* GetParticleFromBarcode(int, PHCompositeNode*)'
+
+
+
+    void GetParticleFromBarcode(const int barcode, PHCompositeNode* topNode, PHG4Particle* parToGrab = NULL) {
+
+      // grab truth info container
+      PHG4TruthInfoContainer* container = GetTruthContainer(topNode);
+
+      // loop over all particles in container to search
+      PHG4TruthInfoContainer::ConstRange particles = container -> GetParticleRange();
+      for (
+        PHG4TruthInfoContainer::ConstIterator itPar = particles.first;
+        itPar != particles.second;
+        ++itPar
+      ) {
+        if (itPar -> second -> get_barcode() == barcode) {
+          parToGrab = itPar -> second;
+          break;
+        }
+      }  // end particle loop
+      cout << "CHECK parToGrab = " << parToGrab << endl;
+      return;
+
+    }  // end 'PG4Particle* GetParticleFromBarcode(int, PHCompositeNode*)'
 
   }  // end SCorrelatorUtilities namespace
 }  // end SColdQcdCorrealtorAnalysis namespace
