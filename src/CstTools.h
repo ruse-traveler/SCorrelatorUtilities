@@ -33,6 +33,7 @@ namespace SColdQcdCorrelatorAnalysis {
       // data members
       int    type    = numeric_limits<int>::max();
       int    cstID   = numeric_limits<int>::max();
+      int    jetID   = numeric_limits<int>::max();
       int    embedID = numeric_limits<int>::max();
       int    pid     = numeric_limits<int>::max();
       double z       = numeric_limits<double>::max();
@@ -60,6 +61,7 @@ namespace SColdQcdCorrelatorAnalysis {
       void Rest() {
         type    = numeric_limits<int>::max();
         cstID   = numeric_limits<int>::max();
+        jetID   = numeric_limits<int>::max();
         embedID = numeric_limits<int>::max();
         pid     = numeric_limits<int>::max();
         z       = numeric_limits<double>::max();
@@ -78,6 +80,7 @@ namespace SColdQcdCorrelatorAnalysis {
         vector<string> members = {
           "type",
           "cstID",
+          "jetID",
           "embedID",
           "pid",
           "z",
