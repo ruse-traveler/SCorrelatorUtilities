@@ -321,8 +321,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-/* TODO uncomment when used
-    bool IsSubEvtGood(const int embedID, const SubEvtOpt option, const bool isEmbed) {
+    bool IsSubEvtGood(const int embedID, const int option, const bool isEmbed) {
 
       // set ID of signal
       int signalID = SubEvt::NotEmbedSignal;
@@ -366,7 +365,6 @@ namespace SColdQcdCorrelatorAnalysis {
       return isSubEvtGood;
 
     }  // end 'IsSubEvtGood(int, int, bool)'
-*/
 
 
 
@@ -466,7 +464,6 @@ namespace SColdQcdCorrelatorAnalysis {
           }
         }  // end particle loop
       }  // end subevent loop
-      cout << "CHECK parToGrab = " << parToGrab << endl;
       return;
 
     }  // end 'HepMC::GenParticle* GetParticleFromBarcode(int, PHCompositeNode*)'
@@ -490,7 +487,6 @@ namespace SColdQcdCorrelatorAnalysis {
           break;
         }
       }  // end particle loop
-      cout << "CHECK parToGrab = " << parToGrab << endl;
       return;
 
     }  // end 'PG4Particle* GetParticleFromBarcode(int, PHCompositeNode*)'
