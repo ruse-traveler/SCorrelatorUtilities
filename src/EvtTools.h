@@ -71,7 +71,6 @@ namespace SColdQcdCorrelatorAnalysis {
     ParInfo               GetPartonInfo(PHCompositeNode* topNode, const int event, const int status);
     ROOT::Math::XYZVector GetRecoVtx(PHCompositeNode* topNode);
 
-
     // RecoInfo definition ----------------------------------------------------
 
     struct RecoInfo {
