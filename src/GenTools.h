@@ -444,7 +444,10 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-    void GetParticleFromBarcode(const int barcode, PHCompositeNode* topNode, HepMC::GenParticle* parToGrab = NULL) {
+    HepMC::GenParticle* GetHepMCGenParticleFromBarcode(const int barcode, PHCompositeNode* topNode) {
+
+      // by default, return null pointer
+      HepMC::GenParticle* parToGrab = NULL;
 
       // loop over all subevents to search
       PHHepMCGenEventMap* mcEvtMap = GetMcEventMap(topNode);
@@ -464,13 +467,16 @@ namespace SColdQcdCorrelatorAnalysis {
           }
         }  // end particle loop
       }  // end subevent loop
-      return;
+      return parToGrab;
 
-    }  // end 'HepMC::GenParticle* GetParticleFromBarcode(int, PHCompositeNode*)'
+    }  // end 'GetHepMCGenParticleFromBarcode(int, PHCompositeNode*)'
 
 
 
-    void GetParticleFromBarcode(const int barcode, PHCompositeNode* topNode, PHG4Particle* parToGrab = NULL) {
+    PHG4Particle* GetPHG4ParticleFromBarcode(const int barcode, PHCompositeNode* topNode) {
+
+      // by default, return null pointer
+      PHG4Particle* parToGrab = NULL;
 
       // grab truth info container
       PHG4TruthInfoContainer* container = GetTruthContainer(topNode);
@@ -487,9 +493,35 @@ namespace SColdQcdCorrelatorAnalysis {
           break;
         }
       }  // end particle loop
-      return;
+      return parToGrab;
 
-    }  // end 'PG4Particle* GetParticleFromBarcode(int, PHCompositeNode*)'
+    }  // end 'GetPHG4ParticleFromBarcode(int, PHCompositeNode*)'
+
+
+
+    PHG4Particle* GetPHG4ParticleFromTrackID(const int id, PHCompositeNode* topNode) {
+
+      // by default, return null pointer
+      PHG4Particle* parToGrab = NULL;
+
+      // grab truth info container
+      PHG4TruthInfoContainer* container = GetTruthContainer(topNode);
+
+      // loop over all particles in container to search
+      PHG4TruthInfoContainer::ConstRange particles = container -> GetParticleRange();
+      for (
+        PHG4TruthInfoContainer::ConstIterator itPar = particles.first;
+        itPar != particles.second;
+        ++itPar
+      ) {
+        if (itPar -> second -> get_track_id() == id) {
+          parToGrab = itPar -> second;
+          break;
+        }
+      }  // end particle loop
+      return parToGrab;
+
+    }  // end 'GetPHG4ParticleFromTrackID(int, PHCompositeNode*)'
 
   }  // end SCorrelatorUtilities namespace
 }  // end SColdQcdCorrealtorAnalysis namespace
