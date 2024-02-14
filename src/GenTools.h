@@ -147,7 +147,24 @@ namespace SColdQcdCorrelatorAnalysis {
         );
         return isLessThan;
 
-      }  // end 'operator>(ParInfo&, ParInfo&)'
+      }  // end 'operator<(ParInfo&, ParInfo&)'
+
+      // overloaded <= operator
+      friend bool operator<=(const ParInfo& lhs, const ParInfo& rhs) {
+
+        // note that some quantities aren't relevant for this comparison
+        const bool isLessThanOrEqualTo = (
+          (lhs.eta  <= rhs.eta)  &&
+          (lhs.phi  <= rhs.phi)  &&
+          (lhs.ene  <= rhs.ene)  &&
+          (lhs.px   <= rhs.px)   &&
+          (lhs.py   <= rhs.py)   &&
+          (lhs.pz   <= rhs.pz)   &&
+          (lhs.pt   <= rhs.pt)
+        );
+        return isLessThanOrEqualTo;
+
+      }  // end 'operator<=(ParInfo&, ParInfo&)'
 
       // overloaded > operator
       friend bool operator>(const ParInfo& lhs, const ParInfo& rhs) {
@@ -166,9 +183,22 @@ namespace SColdQcdCorrelatorAnalysis {
 
       }  // end 'operator>(ParInfo&, ParInfo&)'
 
-      // overloaded, <=, >= operators
-      inline friend bool operator<=(const ParInfo& lhs, const ParInfo& rhs) {return !(lhs > rhs);}
-      inline friend bool operator>=(const ParInfo& lhs, const ParInfo& rhs) {return !(lhs < rhs);}
+      // overloaded >= operator
+      friend bool operator>=(const ParInfo& lhs, const ParInfo& rhs) {
+
+        // note that some quantities aren't relevant for this comparison
+        const bool isGreaterThanOrEqualTo = (
+          (lhs.eta  >= rhs.eta)  &&
+          (lhs.phi  >= rhs.phi)  &&
+          (lhs.ene  >= rhs.ene)  &&
+          (lhs.px   >= rhs.px)   &&
+          (lhs.py   >= rhs.py)   &&
+          (lhs.pz   >= rhs.pz)   &&
+          (lhs.pt   >= rhs.pt)
+        );
+        return isGreaterThanOrEqualTo;
+
+      }  // end 'operator>=(ParInfo&, ParInfo&)'
 
       // default ctor/dtor
       ParInfo()  {};
