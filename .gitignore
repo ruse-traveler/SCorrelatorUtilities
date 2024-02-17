@@ -11,6 +11,7 @@ src/*
 !src/JetTools.h
 !src/TrkTools.h
 !src/VtxTools.h
+!src/SCorrelatorUtilities.h
 !src/SCorrelatorUtilitiesLinkDef.h
 !src/autogen.sh
 !src/configure.ac

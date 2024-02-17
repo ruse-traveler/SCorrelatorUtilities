@@ -22,7 +22,8 @@ pkginclude_HEADERS = \
   Interfaces.h \
   JetTools.h \
   TrkTools.h \
-  VtxTools.h
+  VtxTools.h \
+  SCorrelatorUtilities.h
 
 if ! MAKEROOT6
   ROOT5_DICTS = \
