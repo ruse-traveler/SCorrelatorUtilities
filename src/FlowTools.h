@@ -169,12 +169,6 @@ namespace SColdQcdCorrelatorAnalysis {
 
       // get objects
       ParticleFlowElementContainer::ConstRange objects = store -> getParticleFlowElements();
-      if (!objects) {
-        cerr << PHWHERE
-             << "PANIC: Couldn't grab particle flow objects!"
-             << endl;
-        assert(objects);
-      }
       return objects;
 
     }  // end 'GetParticleFlowObjects(PHCompositeNode*)'
