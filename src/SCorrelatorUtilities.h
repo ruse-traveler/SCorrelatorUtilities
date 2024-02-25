@@ -6,6 +6,9 @@
 // All-in-one header for convenience. 
 // ----------------------------------------------------------------------------
 
+#ifndef SCORRELATORUTILITIES_H
+#define SCORRELATORUTILITIES_H
+
 #include "CalTools.h"
 #include "Constants.h"
 #include "CstTools.h"
@@ -16,5 +19,7 @@
 #include "JetTools.h"
 #include "TrkTools.h"
 #include "VtxTools.h"
+
+#endif
 
 // end ------------------------------------------------------------------------
