@@ -32,9 +32,9 @@ endif
 
 libscorrelatorutilities_la_SOURCES = \
   $(ROOT5_DICTS) \
-  CalTools.h \
+  CalTools.cc \
   Constants.h \
-  CstTools.h \
+  CstTools.cc \
   EvtTools.h \
   FlowTools.h \
   GenTools.h \

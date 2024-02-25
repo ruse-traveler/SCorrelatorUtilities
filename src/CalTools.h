@@ -7,30 +7,24 @@
 // in the sPHENIX Cold QCD Energy-Energy Correlator analysis.
 // ----------------------------------------------------------------------------
 
-#pragma once
+#ifndef CALTOOLS_H
+#define CALTOOLS_H
 
 // c++ utilities
 #include <limits>
 #include <string>
 #include <vector>
-#include <cassert>
 #include <optional>
 // phool libraries
-#include <phool/phool.h>
-#include <phool/getClass.h>
-#include <phool/PHIODataNode.h>
-#include <phool/PHNodeIterator.h>
 #include <phool/PHCompositeNode.h>
 // CaloBase libraries
 #include <calobase/RawCluster.h>
-#include <calobase/RawClusterUtility.h>
 #include <calobase/RawClusterContainer.h>
 // analysis utilities
 #include "Constants.h"
 
 // make common namespaces implicit
 using namespace std;
-using namespace findNode;
 
 
 
@@ -150,40 +144,14 @@ namespace SColdQcdCorrelatorAnalysis {
 
     // cluster methods --------------------------------------------------------
 
-    RawClusterContainer* GetClusterStore(PHCompositeNode* topNode, const string node) {
-
-      // grab clusters
-      RawClusterContainer* clustStore = getClass<RawClusterContainer>(topNode, node.data());
-      if (!clustStore) {
-        cout << PHWHERE
-             << "PANIC: " << node << " node is missing!"
-             << endl;
-        assert(clustStore);
-      }
-      return clustStore;
-
-    }  // end 'GetClusterStore(PHCompositeNode*, string)'
-
-
-
-    RawClusterContainer::ConstRange GetClusters(PHCompositeNode* topNode, const string store) {
-
-      // get store and return range of clusters
-      RawClusterContainer* clustStore = GetClusterStore(topNode, store);
-      return clustStore -> getClusters();
-
-    }  // end 'GetClusters(PHCompositeNode*, string)'
-
-
-
-    bool IsInAcceptance(const ClustInfo& cluster, const ClustInfo& minimum, const ClustInfo& maximum) {
-
-      return ((cluster >= minimum) && (cluster <= maximum));
-
-    }  // end 'IsInAcceptance(ClustInfo&, ClustInfo&, ClustInfo&)'
+    bool IsInAcceptance(const ClustInfo& cluster, const ClustInfo& minimum, const ClustInfo& maximum);
+    RawClusterContainer* GetClusterStore(PHCompositeNode* topNode, const string node);
+    RawClusterContainer::ConstRange GetClusters(PHCompositeNode* topNode, const string store);
 
   }  // end SCorrelatorUtilities namespace
 }  // end SColdQcdCorrealtorAnalysis namespace
+
+#endif
 
 // end ------------------------------------------------------------------------
 

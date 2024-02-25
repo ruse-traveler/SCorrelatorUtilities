@@ -8,7 +8,8 @@
 // Correlator analysis.
 // ----------------------------------------------------------------------------
 
-#pragma once
+#ifndef CSTTOOLS_H
+#define CSTTOOLS_H
 
 // c++ utilities
 #include <limits>
@@ -153,13 +154,11 @@ namespace SColdQcdCorrelatorAnalysis {
 
     // constituent methods ----------------------------------------------------
 
-    bool IsInAcceptance(const CstInfo& cst, const CstInfo& minimum, const CstInfo& maximum) {
-
-      return ((cst >= minimum) && (cst <= maximum));
-
-    }  // end 'IsInAcceptance(CstInfo&, CstInfo&, CstInfo&)'
+    bool IsInAcceptance(const CstInfo& cst, const CstInfo& minimum, const CstInfo& maximum);
 
   }  // end SCorrelatorUtilities namespace
 }  // end SColdQcdCorrealtorAnalysis namespace
+
+#endif
 
 // end ------------------------------------------------------------------------
