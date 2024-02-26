@@ -35,7 +35,7 @@ libscorrelatorutilities_la_SOURCES = \
   CalTools.cc \
   Constants.h \
   CstTools.cc \
-  EvtTools.h \
+  EvtTools.cc \
   FlowTools.h \
   GenTools.h \
   Interfaces.h \

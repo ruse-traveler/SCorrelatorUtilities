@@ -23,6 +23,7 @@ to_copy = [
   "src/Constants.h",
   "src/CstTools.cc",
   "src/CstTools.h",
+  "src/EvtTools.cc",
   "src/EvtTools.h",
   "src/FlowTools.h",
   "src/GenTools.h",
