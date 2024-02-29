@@ -33,15 +33,15 @@ endif
 libscorrelatorutilities_la_SOURCES = \
   $(ROOT5_DICTS) \
   CalTools.cc \
-  Constants.h \
   CstTools.cc \
   EvtTools.cc \
-  FlowTools.h \
-  GenTools.h \
-  Interfaces.h \
-  JetTools.h \
-  TrkTools.h \
-  VtxTools.h
+  FlowTools.cc \
+  GenTools.cc \
+  Interfaces.cc \
+  JetTools.cc \
+  TrkTools.cc \
+  VtxTools.cc \
+  SCorrelatorUtilities.cc
 
 libscorrelatorutilities_la_LDFLAGS = \
   -L$(libdir) \

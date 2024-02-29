@@ -8,16 +8,15 @@
 // Correlator analysis.
 // ----------------------------------------------------------------------------
 
-#pragma once
+#ifndef JETTOOLS_H
+#define JETTOOLS_H
 
 // c++ utilities
 #include <limits>
+#include <string>
 #include <vector>
-#include <optional>
 // fastjet libraries
 #include <fastjet/PseudoJet.hh>
-// analysis utilities
-#include "CstTools.h"
 
 // make common namespaces implicit
 using namespace std;
@@ -142,13 +141,11 @@ namespace SColdQcdCorrelatorAnalysis {
 
     // jet methods ------------------------------------------------------------
 
-    bool IsInAcceptance(const JetInfo& jet, const JetInfo& minimum, const JetInfo& maximum) {
-
-      return ((jet >= minimum) && (jet <= maximum));
-
-    }  // end 'IsInAcceptance(JetInfo&, JetInfo&, JetInfo&)'
+    bool IsInAcceptance(const JetInfo& jet, const JetInfo& minimum, const JetInfo& maximum);
 
   }  // end SCorrelatorUtilities namespace
 }  // end SColdQcdCorrealtorAnalysis namespace
+
+#endif
 
 // end ------------------------------------------------------------------------

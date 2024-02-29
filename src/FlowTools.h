@@ -7,17 +7,14 @@
 // in the sPHENIX Cold QCD Energy-Energy Correlator analysis.
 // ----------------------------------------------------------------------------
 
-#pragma once
+#ifndef FLOWTOOLS_H
+#define FLOWTOOLS_H
 
 // c++ utilities
-#include <cassert>
+#include <limits>
+#include <vector>
+#include <string>
 // f4a libraries
-#include <fun4all/SubsysReco.h>
-// phool libraries
-#include <phool/phool.h>
-#include <phool/getClass.h>
-#include <phool/PHIODataNode.h>
-#include <phool/PHNodeIterator.h>
 #include <phool/PHCompositeNode.h>
 // particle flow libraries
 #include <particleflowreco/ParticleFlowElement.h>
@@ -25,7 +22,6 @@
 
 // make common namespaces implicit
 using namespace std;
-using namespace findNode;
 
 
 
@@ -147,41 +143,13 @@ namespace SColdQcdCorrelatorAnalysis {
 
     // particle flow methods --------------------------------------------------
 
-    ParticleFlowElementContainer* GetFlowStore(PHCompositeNode* topNode) {
-
-      ParticleFlowElementContainer* store = findNode::getClass<ParticleFlowElementContainer>(topNode, "ParticleFlowElements");
-      if (!store) {
-        cerr << PHWHERE
-             << "PANIC: Couldn't grab particle flow container!"
-             << endl;
-        assert(store);
-      }
-      return store;
-
-    }  // end 'GetFlowStore(PHCompositeNode*)'
-
-
-
-    ParticleFlowElementContainer::ConstRange GetParticleFlowObjects(PHCompositeNode* topNode) {
-
-      // get container
-      ParticleFlowElementContainer* store = GetFlowStore(topNode);
-
-      // get objects
-      ParticleFlowElementContainer::ConstRange objects = store -> getParticleFlowElements();
-      return objects;
-
-    }  // end 'GetParticleFlowObjects(PHCompositeNode*)'
-
-
-
-    bool IsInAcceptance(const FlowInfo& flow, const FlowInfo& minimum, const FlowInfo& maximum) {
-
-      return ((flow >= minimum) && (flow <= maximum));
-
-    }  // end 'IsInAcceptance(FlowInfo&, FlowInfo&, FlowInfo&)'
+    bool IsInAcceptance(const FlowInfo& flow, const FlowInfo& minimum, const FlowInfo& maximum);
+    ParticleFlowElementContainer* GetFlowStore(PHCompositeNode* topNode);
+    ParticleFlowElementContainer::ConstRange GetParticleFlowObjects(PHCompositeNode* topNode);
 
   }  // end SCorrelatorUtilities namespace
 }  // end SColdQcdCorrealtorAnalysis namespace
+
+#endif
 
 // end ------------------------------------------------------------------------
