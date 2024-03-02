@@ -20,6 +20,8 @@ to_copy = [
   "README.md",
   "src/CalTools.cc",
   "src/CalTools.h",
+  "src/ClustInfo.cc",
+  "src/ClustInfo.h",
   "src/Constants.h",
   "src/CstTools.cc",
   "src/CstTools.h",

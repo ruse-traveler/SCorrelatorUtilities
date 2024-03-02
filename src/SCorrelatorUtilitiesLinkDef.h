@@ -7,10 +7,17 @@
 // sPHENIX Cold QCD Correlator Analysis.
 // ----------------------------------------------------------------------------
 
+#include "ClustInfo.h"
+#include "EvtTools.h"
+#include "FlowTools.h"
+#include "GenTools.h"
+#include "JetTools.h"
+#include "TrkTools.h"
+
 #ifdef __CINT__
 
 // base utility structs
-#pragma link C++ struct ClustInfo-!;
+#pragma link C++ class ClustInfo+;
 #pragma link C++ struct CstInfo-!;
 #pragma link C++ struct FlowInfo-!;
 #pragma link C++ struct GenInfo-!;

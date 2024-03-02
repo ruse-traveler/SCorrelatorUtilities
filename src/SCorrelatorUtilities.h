@@ -10,6 +10,7 @@
 #define SCORRELATORUTILITIES_H
 
 #include "CalTools.h"
+#include "ClustInfo.h"
 #include "Constants.h"
 #include "CstTools.h"
 #include "EvtTools.h"

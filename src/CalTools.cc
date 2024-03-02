@@ -38,14 +38,6 @@ namespace SColdQcdCorrelatorAnalysis {
 
   // cluster methods --------------------------------------------------------
 
-  bool SCorrelatorUtilities::IsInAcceptance(const ClustInfo& cluster, const ClustInfo& minimum, const ClustInfo& maximum) {
-
-    return ((cluster >= minimum) && (cluster <= maximum));
-
-  }  // end 'IsInAcceptance(ClustInfo&, ClustInfo&, ClustInfo&)'
-
-
-
   RawClusterContainer* SCorrelatorUtilities::GetClusterStore(PHCompositeNode* topNode, const string node) {
 
     // grab clusters

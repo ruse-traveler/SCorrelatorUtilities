@@ -14,6 +14,7 @@ AM_CPPFLAGS = \
 
 pkginclude_HEADERS = \
   CalTools.h \
+  ClustInfo.h \
   Constants.h \
   CstTools.h \
   EvtTools.h \
@@ -33,6 +34,7 @@ endif
 libscorrelatorutilities_la_SOURCES = \
   $(ROOT5_DICTS) \
   CalTools.cc \
+  ClustInfo.cc \
   CstTools.cc \
   EvtTools.cc \
   FlowTools.cc \
