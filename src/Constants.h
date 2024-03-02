@@ -21,7 +21,10 @@ namespace SColdQcdCorrelatorAnalysis {
 
   // constants, enums, etc. ---------------------------------------------------
 
-  namespace {
+  namespace Const {
+
+    // info intialization options
+    enum class Init {Minimize, Maximize};
 
     // object types
     enum Object {Track, Cluster, Flow, Particle, Unknown};
@@ -118,7 +121,7 @@ namespace SColdQcdCorrelatorAnalysis {
       {"*", "star"},
     };
 
-  }  // end constants
+  }  // end Const namespace
 
 }  // end SColdQcdCorrealtorAnalysis namespace
 
