@@ -1,13 +1,14 @@
 backup/*
 test/*
 src/*
+old/*
 !src/CalTools.cc
 !src/CalTools.h
 !src/ClustInfo.cc
 !src/ClustInfo.h
 !src/Constants.h
-!src/CstTools.cc
-!src/CstTools.h
+!src/CstInfo.cc
+!src/CstInfo.h
 !src/EvtTools.cc
 !src/EvtTools.h
 !src/FlowTools.cc

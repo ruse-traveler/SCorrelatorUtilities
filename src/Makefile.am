@@ -16,7 +16,7 @@ pkginclude_HEADERS = \
   CalTools.h \
   ClustInfo.h \
   Constants.h \
-  CstTools.h \
+  CstInfo.h \
   EvtTools.h \
   FlowTools.h \
   GenTools.h \
@@ -35,7 +35,7 @@ libscorrelatorutilities_la_SOURCES = \
   $(ROOT5_DICTS) \
   CalTools.cc \
   ClustInfo.cc \
-  CstTools.cc \
+  CstInfo.cc \
   EvtTools.cc \
   FlowTools.cc \
   GenTools.cc \

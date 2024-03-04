@@ -16,6 +16,8 @@
 #include <vector>
 #include <utility>
 #include <optional>
+// root libraries
+#include <Rtypes.h>
 // CaloBase libraries
 #include <calobase/RawCluster.h>
 // analysis utilities
@@ -97,7 +99,7 @@ namespace SColdQcdCorrelatorAnalysis {
       ClustInfo(const RawCluster* clust, optional<int> sys = nullopt);
 
     // identify this class to ROOT
-    ClassDef(ClustInfo, 1);
+    ClassDef(ClustInfo, 1)
 
   };  // end ClustInfo def
 
