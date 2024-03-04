@@ -7,10 +7,13 @@
 // namespace are collected here.
 // ----------------------------------------------------------------------------
 
-#pragma once
+#ifndef SCORRELATORUTILITIES_CONSTANTS_H
+#define SCORRELATORUTILITIES_CONSTANTS_H
 
 // c++ utilities
 #include <map>
+#include <string>
+#include <cstdint>
 
 // make common namespaces implicit
 using namespace std;
@@ -18,10 +21,9 @@ using namespace std;
 
 
 namespace SColdQcdCorrelatorAnalysis {
-
-  // constants, enums, etc. ---------------------------------------------------
-
   namespace Const {
+
+    // enums ------------------------------------------------------------------
 
     // info intialization options
     enum class Init {Minimize, Maximize};
@@ -62,67 +64,103 @@ namespace SColdQcdCorrelatorAnalysis {
       Gluon   = 21
     };
 
+
+
+    // constants --------------------------------------------------------------
+
     // tracking-related constants
-    const uint16_t NMvtxLayer = 3;
-    const uint16_t NInttLayer = 8;
-    const uint16_t NTpcLayer  = 48;
-    const uint16_t NTpcSector = 12;
+    inline uint16_t const &NMvtxLayer() {
+      static uint16_t nMvtxLayer = 3;
+      return nMvtxLayer;
+    }
+
+    inline uint16_t const &NInttLayer() {
+      static uint16_t nInttLayer = 8;
+      return nInttLayer;
+    }
+
+    inline uint16_t const &NTpcLayer() {
+      static uint16_t nTpcLayer = 48;
+      return nTpcLayer;
+    }
+
+    inline uint16_t const &NTpcSector() {
+      static uint16_t nTpcSector = 12;
+      return nTpcSector;
+    }
 
     // charged pion mass in GeV/c^2
-    const double MassPion = 0.140;
+    inline double const &MassPion() {
+      static double mPion = 0.140;
+      return mPion;
+    }
+
+
+
+    // maps -------------------------------------------------------------------
 
     // map of PID onto charges
-    map<int, float> MapPidOntoCharge = {
-      {11, -1.},
-      {12, 0.},
-      {13, -1.},
-      {14, 0.},
-      {15, -1.},
-      {16, 0.},
-      {22, 0.},
-      {23, 0.},
-      {24, 1.},
-      {111, 0.},
-      {130, 0.},
-      {211, 1.},
-      {221, 0.},
-      {310, 0.},
-      {321, 1.},
-      {421, 0.},
-      {431, 1.},
-      {441, 1.},
-      {2112, 1.},
-      {2212, 1.},
-      {3112, -1.},
-      {3122, 0.},
-      {3212, 0.},
-      {3222, 1.},
-      {3322, 0.},
-      {700201, 0.},
-      {700202, 2.},
-      {700301, 0.},
-      {700302, 3.}
-    };
+    inline map<int, float> &MapPidOntoCharge() {
+      static map<int, float> mapPidOntoCharge = {
+        {11, -1.},
+        {12, 0.},
+        {13, -1.},
+        {14, 0.},
+        {15, -1.},
+        {16, 0.},
+        {22, 0.},
+        {23, 0.},
+        {24, 1.},
+        {111, 0.},
+        {130, 0.},
+        {211, 1.},
+        {221, 0.},
+        {310, 0.},
+        {321, 1.},
+        {421, 0.},
+        {431, 1.},
+        {441, 1.},
+        {2112, 1.},
+        {2212, 1.},
+        {3112, -1.},
+        {3122, 0.},
+        {3212, 0.},
+        {3222, 1.},
+        {3322, 0.},
+        {700201, 0.},
+        {700202, 2.},
+        {700301, 0.},
+        {700302, 3.}
+      };
+      return mapPidOntoCharge;
+    }
 
     // map of node name onto subsystem index
-    map<string, int> MapNodeOntoIndex = {
-      {"CLUSTER_CEMC", Subsys::EMCal},
-      {"CLUSTER_HCALIN", Subsys::IHCal},
-      {"CLUSTER_HCALOUT", Subsys::OHCal}
-    };
+    inline map<string, int> MapNodeOntoIndex() {
+      static map<string, int> mapNodeOntoIndex = {
+        {"CLUSTER_CEMC", Subsys::EMCal},
+        {"CLUSTER_HCALIN", Subsys::IHCal},
+        {"CLUSTER_HCALOUT", Subsys::OHCal}
+      };
+      return mapNodeOntoIndex;
+    }
 
     // map of forbidden strings onto good ones
-    map<string, string> MapBadOntoGoodStrings = {
-      {"/", "_"},
-      {"(", "_"},
-      {")", ""},
-      {"+", "plus"},
-      {"-", "minus"},
-      {"*", "star"},
-    };
+    inline map<string, string> MapBadOntoGoodStrings() {
+      static map<string, string> mapBadOntoGoodStrings = {
+        {"/", "_"},
+        {"(", "_"},
+        {")", ""},
+        {"+", "plus"},
+        {"-", "minus"},
+        {"*", "star"},
+      };
+      return mapBadOntoGoodStrings;
+    }
 
   }  // end Const namespace
-
 }  // end SColdQcdCorrealtorAnalysis namespace
+
+#endif
 
 // end ------------------------------------------------------------------------
