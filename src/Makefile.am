@@ -13,18 +13,11 @@ AM_CPPFLAGS = \
   -I$(ROOTSYS)/include
 
 pkginclude_HEADERS = \
-  CalTools.h \
   ClustInfo.h \
-  Constants.h \
   CstInfo.h \
-  EvtTools.h \
-  FlowTools.h \
-  GenTools.h \
-  Interfaces.h \
-  JetTools.h \
-  TrkTools.h \
-  VtxTools.h \
-  SCorrelatorUtilities.h
+  JetInfo.h \
+  Types.h \
+  Constants.h
 
 if ! MAKEROOT6
   ROOT5_DICTS = \
@@ -33,17 +26,9 @@ endif
 
 libscorrelatorutilities_la_SOURCES = \
   $(ROOT5_DICTS) \
-  CalTools.cc \
   ClustInfo.cc \
   CstInfo.cc \
-  EvtTools.cc \
-  FlowTools.cc \
-  GenTools.cc \
-  Interfaces.cc \
-  JetTools.cc \
-  TrkTools.cc \
-  VtxTools.cc \
-  SCorrelatorUtilities.cc
+  JetInfo.cc
 
 libscorrelatorutilities_la_LDFLAGS = \
   -L$(libdir) \

@@ -17,8 +17,8 @@ old/*
 !src/GenTools.h
 !src/Interfaces.cc
 !src/Interfaces.h
-!src/JetTools.cc
-!src/JetTools.h
+!src/JetInfo.cc
+!src/JetInfo.h
 !src/TrkTools.cc
 !src/TrkTools.h
 !src/VtxTools.cc
