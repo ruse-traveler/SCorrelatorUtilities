@@ -30,7 +30,7 @@ using namespace std;
 
 namespace SColdQcdCorrelatorAnalysis {
 
-  // ClustInfo definition ---------------------------------------------------
+  // ClustInfo definition ------------------------------------------------------
 
   class ClustInfo {
 

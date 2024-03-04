@@ -1,10 +1,10 @@
 // ----------------------------------------------------------------------------
 // 'CstInfo.cc'
 // Derek Anderson
-// 03.02.2024
+// 03.03.2024
 //
 // Utility class to hold information from
-// jet constituents
+// jet constituents.
 // ----------------------------------------------------------------------------
 
 #define SCORRELATORUTILITIES_CSTINFO_CC

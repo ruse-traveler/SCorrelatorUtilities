@@ -4,7 +4,7 @@
 // 03.03.2024
 //
 // Utility class to hold information from
-// jet constituents
+// jet constituents.
 // ----------------------------------------------------------------------------
 
 #ifndef SCORRELATORUTILITIES_CSTINFO_H
