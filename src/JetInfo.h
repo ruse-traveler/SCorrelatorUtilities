@@ -21,6 +21,9 @@
 // analysis utilities
 #include "Constants.h"
 
+// make common namespaces implicit
+using namespace std;
+
 
 
 namespace SColdQcdCorrelatorAnalysis {
