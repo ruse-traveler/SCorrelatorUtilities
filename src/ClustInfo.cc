@@ -7,19 +7,10 @@
 // calorimeter clusters.
 // ----------------------------------------------------------------------------
 
-#define CLUSTINFO_CC
+#define SCORRELATORUTILITIES_CLUSTINFO_CC
 
-// c++ utilities
-#include <limits>
-#include <string>
-#include <vector>
-#include <utility>
-#include <optional>
-// CaloBase libraries
-#include <calobase/RawCluster.h>
-// analysis utlities
+// class definition
 #include "ClustInfo.h"
-#include "Constants.h"
 
 // make comon namespaces implicit
 using namespace std;
@@ -44,8 +35,6 @@ namespace SColdQcdCorrelatorAnalysis {
     return;
 
   }  // end 'Minimize()'
-
-
 
   void ClustInfo::Maximize() {
 
@@ -213,6 +202,22 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
   // ctor/dtor ----------------------------------------------------------------
+
+  ClustInfo::ClustInfo() {
+
+     // nothing to do //
+
+  }  // end ctor()
+
+
+
+  ClustInfo::~ClustInfo() {
+
+    // nothing to do //
+
+  }  // end dtor()
+
+
 
   ClustInfo::ClustInfo(const Const::Init init) {
 

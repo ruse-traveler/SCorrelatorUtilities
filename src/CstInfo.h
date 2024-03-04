@@ -7,8 +7,8 @@
 // jet constituents
 // ----------------------------------------------------------------------------
 
-#ifndef CSTINFO_H
-#define CSTINFO_H
+#ifndef SCORRELATORUTILITIES_CSTINFO_H
+#define SCORRELATORUTILITIES_CSTINFO_H
 
 // c++ utilities
 #include <limits>
@@ -106,15 +106,15 @@ namespace SColdQcdCorrelatorAnalysis {
       friend bool operator>=(const CstInfo& lhs, const CstInfo& rhs);
 
       // default ctor/dtor
-      CstInfo()  {};
-      ~CstInfo() {};
+      CstInfo();
+      ~CstInfo();
 
       // ctors accepting arguments
       CstInfo(const Const::Init init);
       CstInfo(fastjet::PseudoJet& pseudojet);
 
     // identify this class to ROOT
-    ClassDef(CstInfo, 1)
+    ClassDefNV(CstInfo, 1)
 
   };  // end CstInfo def
 

@@ -7,8 +7,8 @@
 // calorimeter clusters.
 // ----------------------------------------------------------------------------
 
-#ifndef CLUSTINFO_H
-#define CLUSTINFO_H
+#ifndef SCORRELATORUTILITIES_CLUSTINFO_H
+#define SCORRELATORUTILITIES_CLUSTINFO_H
 
 // c++ utilities
 #include <limits>
@@ -91,15 +91,15 @@ namespace SColdQcdCorrelatorAnalysis {
       friend bool operator>=(const ClustInfo& lhs, const ClustInfo& rhs);
 
       // default ctor/dtor
-      ClustInfo()  {};
-      ~ClustInfo() {};
+      ClustInfo();
+      ~ClustInfo();
 
       // ctors accepting arguments
       ClustInfo(const Const::Init init);
       ClustInfo(const RawCluster* clust, optional<int> sys = nullopt);
 
     // identify this class to ROOT
-    ClassDef(ClustInfo, 1)
+    ClassDefNV(ClustInfo, 1)
 
   };  // end ClustInfo def
 

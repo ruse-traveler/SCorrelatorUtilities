@@ -7,19 +7,10 @@
 // jet constituents
 // ----------------------------------------------------------------------------
 
-#define CSTINFO_CC
+#define SCORRELATORUTILITIES_CSTINFO_CC
 
-// c++ utilities
-#include <limits>
-#include <string>
-#include <vector>
-#include <utility>
-#include <optional>
-// fastjet libraries
-#include <fastjet/PseudoJet.hh>
-// analysis utlities
+// class definition
 #include "CstInfo.h"
-#include "Constants.h"
 
 // make comon namespaces implicit
 using namespace std;
@@ -226,6 +217,22 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
   // ctor/dtor ----------------------------------------------------------------
+
+  CstInfo::CstInfo() {
+
+    /* nothing to do */
+
+  }  // end ctor()
+
+
+
+  CstInfo::~CstInfo() {
+
+    /* nothing to do */
+
+  }  // end dtor()
+
+
 
   CstInfo::CstInfo(const Const::Init init) {
 
