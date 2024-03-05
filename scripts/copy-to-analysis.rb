@@ -35,6 +35,8 @@ to_copy = [
   "src/Interfaces.h",
   "src/JetInfo.cc",
   "src/JetInfo.h",
+  "src/ParInfo.cc",
+  "src/ParInfo.h",
   "src/TrkTools.cc",
   "src/TrkTools.h",
   "src/Types.h",
