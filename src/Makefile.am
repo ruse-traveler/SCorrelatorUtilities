@@ -16,6 +16,7 @@ pkginclude_HEADERS = \
   ClustInfo.h \
   CstInfo.h \
   JetInfo.h \
+  ParInfo.h \
   Types.h \
   Constants.h
 
@@ -28,7 +29,8 @@ libscorrelatorutilities_la_SOURCES = \
   $(ROOT5_DICTS) \
   ClustInfo.cc \
   CstInfo.cc \
-  JetInfo.cc
+  JetInfo.cc \
+  ParInfo.cc
 
 libscorrelatorutilities_la_LDFLAGS = \
   -L$(libdir) \

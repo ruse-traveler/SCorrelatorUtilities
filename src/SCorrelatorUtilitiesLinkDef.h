@@ -17,11 +17,15 @@
 #pragma link C++ class ClustInfo+;
 #pragma link C++ class CstInfo+;
 #pragma link C++ class JetInfo+;
+#pragma link C++ class ParInfo+;
 
 // stl collections of utility classes
 #pragma link C++ class vector<CstInfo>+;
 #pragma link C++ class vector<JetInfo>+;
-#pragma link c++ class vector<vector<CstInfo>>+;
+#pragma link C++ class vector<ParInfo>+;
+#pragma link C++ class vector<vector<CstInfo>>+;
+#pragma link C++ class vector<vector<ParInfo>>+;
+#pragma link C++ class pair<ParInfo, ParInfo>+;
 
 #endif
 

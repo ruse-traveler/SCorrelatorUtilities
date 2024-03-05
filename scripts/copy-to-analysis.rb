@@ -37,6 +37,7 @@ to_copy = [
   "src/JetInfo.h",
   "src/TrkTools.cc",
   "src/TrkTools.h",
+  "src/Types.h",
   "src/VtxTools.cc",
   "src/VtxTools.h",
   "scripts/copy-to-analysis.rb",
