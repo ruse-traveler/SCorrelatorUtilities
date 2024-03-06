@@ -59,7 +59,7 @@ namespace SColdQcdCorrelatorAnalysis {
     pair<double, double>  GetTrackDcaPair(SvtxTrack* track, PHCompositeNode* topNode);
     ROOT::Math::XYZVector GetTrackVertex(SvtxTrack* track, PHCompositeNode* topNode);
 
-  }  // end TrkTools namespace
+  }  // end Tools namespace
 }  // end SColdQcdCorrealtorAnalysis namespace
 
 #endif
