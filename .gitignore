@@ -9,8 +9,6 @@ old/*
 !src/Constants.h
 !src/CstInfo.cc
 !src/CstInfo.h
-!src/EvtTools.cc
-!src/EvtTools.h
 !src/FlowInfo.cc
 !src/FlowInfo.h
 !src/FlowInterfaces.cc
@@ -24,6 +22,10 @@ old/*
 !src/NodeInterfaces.h
 !src/ParInfo.cc
 !src/ParInfo.h
+!src/RecoInfo.cc
+!src/RecoInfo.h
+!src/RecoTools.cc
+!src/RecoTools.h
 !src/TreeInterfaces.cc
 !src/TreeInterfaces.h
 !src/TrkInfo.cc

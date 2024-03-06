@@ -14,6 +14,7 @@
 #include "FlowInfo.h"
 #include "JetInfo.h"
 #include "ParInfo.h"
+#include "RecoInfo.h"
 #include "TrkInfo.h"
 
 #endif
