@@ -1,20 +1,26 @@
 // ----------------------------------------------------------------------------
-// 'VtxTools.h'
+// 'VtxInterfaces.h'
 // Derek Anderson
-// 12.30.2023
+// 03.05.2024
 //
-// Collection of frequent vertex-related methods utilized
-// in the sPHENIX Cold QCD Energy-Energy Correlator analysis.
+// Collection of vertex-related interfaces.
 // ----------------------------------------------------------------------------
 
-#ifndef VTXTOOLS_H
-#define VTXTOOLS_H
+#ifndef SCORRELATORUTILITIES_VTXINTERFACES_H
+#define SCORRELATORUTILITIES_VTXINTERFACES_H
 
 // c++ utilities
+#include <array>
+#include <cassert>
+#include <utility>
 #include <optional>
 // root libraries
 #include <Math/Vector3D.h>
 // phool libraries
+#include <phool/phool.h>
+#include <phool/getClass.h>
+#include <phool/PHIODataNode.h>
+#include <phool/PHNodeIterator.h>
 #include <phool/PHCompositeNode.h>
 // vertex libraries
 #include <globalvertex/GlobalVertex.h>
@@ -26,15 +32,15 @@ using namespace std;
 
 
 namespace SColdQcdCorrelatorAnalysis {
-  namespace SCorrelatorUtilities {
+  namespace Interfaces {
 
-    // event methods ----------------------------------------------------------
+    // vertex interfaces ------------------------------------------------------
 
-    GlobalVertexMap* GetVertexMap(PHCompositeNode* topNode);
-    GlobalVertex* GetGlobalVertex(PHCompositeNode* topNode, optional<int> iVtxToGrab = nullopt);
+    GlobalVertexMap*      GetVertexMap(PHCompositeNode* topNode);
+    GlobalVertex*         GetGlobalVertex(PHCompositeNode* topNode, optional<int> iVtxToGrab = nullopt);
     ROOT::Math::XYZVector GetRecoVtx(PHCompositeNode* topNode);
 
-  }  // end SCorrelatorUtilities namespace
+  }  // end Interfaces namespace
 }  // end SColdQcdCorrealtorAnalysis namespace
 
 #endif

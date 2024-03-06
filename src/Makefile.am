@@ -17,8 +17,17 @@ pkginclude_HEADERS = \
   CstInfo.h \
   JetInfo.h \
   ParInfo.h \
-  Types.h \
-  Constants.h
+  TrkInfo.h \
+  TrkTools.h \
+  NodeInterfaces.h \
+  TreeInterfaces.h \
+  TrkInterfaces.h \
+  TupleInterfaces.h \
+  VtxInterfaces.h \
+  Constants.h \
+  Interfaces.h \
+  Tools.h \
+  Types.h
 
 if ! MAKEROOT6
   ROOT5_DICTS = \
@@ -30,7 +39,14 @@ libscorrelatorutilities_la_SOURCES = \
   ClustInfo.cc \
   CstInfo.cc \
   JetInfo.cc \
-  ParInfo.cc
+  ParInfo.cc \
+  TrkInfo.cc \
+  TrkTools.cc \
+  NodeInterfaces.cc \
+  TreeInterfaces.cc \
+  TrkInterfaces.cc \
+  TupleInterfaces.cc \
+  VtxInterfaces.cc
 
 libscorrelatorutilities_la_LDFLAGS = \
   -L$(libdir) \

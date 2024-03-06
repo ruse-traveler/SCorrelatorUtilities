@@ -1,19 +1,15 @@
 // ----------------------------------------------------------------------------
-// 'Interfaces.h'
+// 'Tools.h'
 // Derek Anderson
 // 12.29.2023
 //
-// All-in-one header for utility interfaces.
+// All-in-one header for utility tools.
 // ----------------------------------------------------------------------------
 
-#ifndef SCORRELATORUTILITIES_INTERFACES_H
-#define SCORRELATORUTILITIES_INTERFACES_H
+#ifndef SCORRELATORUTILITIES_TOOLS_H
+#define SCORRELATORUTILITIES_TOOLS_H
 
-#include "NodeInterfaces.h"
-#include "TreeInterfaces.h"
-#include "TrkInterfaces.h"
-#include "TupleInterfaces.h"
-#include "VtxInterfaces.h"
+#include "TrkTools.h"
 
 #endif
 

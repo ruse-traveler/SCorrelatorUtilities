@@ -7,26 +7,10 @@
 // in the sPHENIX Cold QCD Energy-Energy Correlator analysis.
 // ----------------------------------------------------------------------------
 
-#define VTXTOOLS_CC
+#define SCORRELATORUTILITIES_VTXTOOLS_CC
 
-// c++ utilities
-#include <array>
-#include <cassert>
-#include <utility>
-#include <optional>
-// root libraries
-#include <Math/Vector3D.h>
-// phool libraries
-#include <phool/phool.h>
-#include <phool/getClass.h>
-#include <phool/PHIODataNode.h>
-#include <phool/PHNodeIterator.h>
-#include <phool/PHCompositeNode.h>
-// vertex libraries
-#include <globalvertex/GlobalVertex.h>
-#include <globalvertex/GlobalVertexMap.h>
-// analysis utilities
-#include "VtxTools.h"
+// namespace definition
+#include "VtxInterfaces.h"
 
 // make common namespaces implicit
 using namespace std;
@@ -36,9 +20,7 @@ using namespace findNode;
 
 namespace SColdQcdCorrelatorAnalysis {
 
-  // event methods ----------------------------------------------------------
-
-  GlobalVertexMap* SCorrelatorUtilities::GetVertexMap(PHCompositeNode* topNode) {
+  GlobalVertexMap* Interfaces::GetVertexMap(PHCompositeNode* topNode) {
 
     // get vertex map
     GlobalVertexMap* mapVtx = getClass<GlobalVertexMap>(topNode, "GlobalVertexMap");
@@ -58,7 +40,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-  GlobalVertex* SCorrelatorUtilities::GetGlobalVertex(PHCompositeNode* topNode, optional<int> iVtxToGrab) {
+  GlobalVertex* Interfaces::GetGlobalVertex(PHCompositeNode* topNode, optional<int> iVtxToGrab) {
 
     // get vertex map
     GlobalVertexMap* mapVtx = GetVertexMap(topNode);
@@ -84,7 +66,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-  ROOT::Math::XYZVector SCorrelatorUtilities::GetRecoVtx(PHCompositeNode* topNode) {
+  ROOT::Math::XYZVector Interfaces::GetRecoVtx(PHCompositeNode* topNode) {
 
     const GlobalVertex* vtx = GetGlobalVertex(topNode);
     return ROOT::Math::XYZVector(vtx -> get_x(), vtx -> get_y(), vtx -> get_z());
