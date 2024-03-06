@@ -38,7 +38,6 @@ old/*
 !src/Types.h
 !src/VtxInterfaces.cc
 !src/VtxInterfaces.h
-!src/SCorrelatorUtilities.h
 !src/SCorrelatorUtilitiesLinkDef.h
 !src/autogen.sh
 !src/configure.ac
