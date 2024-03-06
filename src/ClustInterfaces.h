@@ -34,7 +34,7 @@ using namespace std;
 namespace SColdQcdCorrelatorAnalysis {
   namespace Interfaces {
 
-    // cluster methods --------------------------------------------------------
+    // cluster interfaces -----------------------------------------------------
 
     RawClusterContainer*            GetClusterStore(PHCompositeNode* topNode, const string node);
     RawClusterContainer::ConstRange GetClusters(PHCompositeNode* topNode, const string store);
