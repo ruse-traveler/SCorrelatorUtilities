@@ -40,6 +40,7 @@ to_copy = [
   "src/NodeInterfaces.h",
   "src/ParInfo.cc",
   "src/ParInfo.h",
+  "src/SCorrelatorUtilitiesLinkDef.h",
   "src/TrkInfo.cc",
   "src/TrkInfo.h",
   "src/TrkInterfaces.cc",
