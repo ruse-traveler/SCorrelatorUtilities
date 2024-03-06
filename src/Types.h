@@ -11,8 +11,10 @@
 
 #include "ClustInfo.h"
 #include "CstInfo.h"
+#include "FlowInfo.h"
 #include "JetInfo.h"
 #include "ParInfo.h"
+#include "TrkInfo.h"
 
 #endif
 

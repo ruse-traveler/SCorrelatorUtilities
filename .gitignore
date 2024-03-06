@@ -11,8 +11,8 @@ old/*
 !src/CstInfo.h
 !src/EvtTools.cc
 !src/EvtTools.h
-!src/FlowTools.cc
-!src/FlowTools.h
+!src/FlowInfo.cc
+!src/FlowInfo.h
 !src/GenTools.cc
 !src/GenTools.h
 !src/Interfaces.h
