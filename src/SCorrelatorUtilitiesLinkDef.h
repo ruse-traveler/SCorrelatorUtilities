@@ -16,12 +16,14 @@
 // base utility classes
 #pragma link C++ class ClustInfo+;
 #pragma link C++ class CstInfo+;
+#pragma link C++ class FlowInfo+;
 #pragma link C++ class JetInfo+;
 #pragma link C++ class ParInfo+;
 #pragma link C++ class TrkInfo+;
 
 // stl collections of utility classes
 #pragma link C++ class vector<CstInfo>+;
+#pragma link C++ class vector<FlowInfo>+;
 #pragma link C++ class vector<JetInfo>+;
 #pragma link C++ class vector<ParInfo>+;
 #pragma link C++ class vector<TrkInfo>+;
