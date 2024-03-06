@@ -29,6 +29,8 @@ to_copy = [
   "src/EvtTools.h",
   "src/FlowInfo.cc",
   "src/FlowInfo.h",
+  "src/FlowInterfaces.cc",
+  "src/FlowInterfaces.h",
   "src/GenTools.cc",
   "src/GenTools.h",
   "src/Interfaces.h",

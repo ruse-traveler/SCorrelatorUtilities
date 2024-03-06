@@ -10,6 +10,7 @@
 #define SCORRELATORUTILITIES_INTERFACES_H
 
 #include "ClustInterfaces.h"
+#include "FlowInterfaces.h"
 #include "NodeInterfaces.h"
 #include "TreeInterfaces.h"
 #include "TrkInterfaces.h"
