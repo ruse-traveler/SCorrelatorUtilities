@@ -1,10 +1,9 @@
 // ----------------------------------------------------------------------------
 // 'FlowTools.cc'
 // Derek Anderson
-// 02.29.2024
+// 03.06.2024
 //
-// Collection of frequent particle flow-related methods utilized
-// in the sPHENIX Cold QCD Energy-Energy Correlator analysis.
+// Particle flow-related interfaces.
 // ----------------------------------------------------------------------------
 
 #define SCORRELATORUTILITIES_FLOWINTERFACES_CC
