@@ -12,6 +12,7 @@
 #include "ClustInterfaces.h"
 #include "FlowInterfaces.h"
 #include "NodeInterfaces.h"
+#include "ParInterfaces.h"
 #include "TreeInterfaces.h"
 #include "TrkInterfaces.h"
 #include "TupleInterfaces.h"

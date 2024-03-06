@@ -17,8 +17,10 @@
 #pragma link C++ class ClustInfo+;
 #pragma link C++ class CstInfo+;
 #pragma link C++ class FlowInfo+;
+#pragma link C++ class GenInfo+;
 #pragma link C++ class JetInfo+;
 #pragma link C++ class ParInfo+;
+#pragma link C++ class RecoInfo+;
 #pragma link C++ class TrkInfo+;
 
 // stl collections of utility classes

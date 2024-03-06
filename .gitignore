@@ -13,6 +13,8 @@ old/*
 !src/FlowInfo.h
 !src/FlowInterfaces.cc
 !src/FlowInterfaces.h
+!src/GenInfo.cc
+!src/GenInfo.h
 !src/GenTools.cc
 !src/GenTools.h
 !src/Interfaces.h
@@ -22,6 +24,10 @@ old/*
 !src/NodeInterfaces.h
 !src/ParInfo.cc
 !src/ParInfo.h
+!src/ParInterfaces.cc
+!src/ParInterfaces.h
+!src/ParTools.cc
+!src/ParTools.h
 !src/RecoInfo.cc
 !src/RecoInfo.h
 !src/RecoTools.cc

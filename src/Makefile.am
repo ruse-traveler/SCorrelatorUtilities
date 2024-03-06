@@ -19,9 +19,12 @@ pkginclude_HEADERS = \
   FlowInfo.h \
   FlowInterfaces.h \
   GenInfo.h \
+  GenTools.h \
   JetInfo.h \
   NodeInterfaces.h \
   ParInfo.h \
+  ParInterfaces.h \
+  ParTools.h \
   RecoInfo.h \
   RecoTools.h \
   TreeInterfaces.h \
@@ -47,9 +50,13 @@ libscorrelatorutilities_la_SOURCES = \
   CstInfo.cc \
   FlowInfo.cc \
   FlowInterfaces.cc \
+  GenInfo.cc \
+  GenTools.cc \
   JetInfo.cc \
   NodeInterfaces.cc \
   ParInfo.cc \
+  ParInterfaces.cc \
+  ParTools.cc \
   RecoInfo.cc \
   RecoTools.cc \
   TrkInfo.cc \
