@@ -2,10 +2,10 @@ backup/*
 test/*
 src/*
 old/*
-!src/CalTools.cc
-!src/CalTools.h
 !src/ClustInfo.cc
 !src/ClustInfo.h
+!src/ClustInterfaces.cc
+!src/ClustInterfaces.h
 !src/Constants.h
 !src/CstInfo.cc
 !src/CstInfo.h

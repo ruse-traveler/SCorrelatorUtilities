@@ -1,23 +1,29 @@
 // ----------------------------------------------------------------------------
-// 'CalTools.h'
+// 'ClustInterfaces.h'
 // Derek Anderson
-// 10.30.2023
+// 03.05.2024
 //
-// Collection of frequent calo. cluster-related methods utilized
-// in the sPHENIX Cold QCD Energy-Energy Correlator analysis.
+// Calorimeter-related interfaces.
 // ----------------------------------------------------------------------------
 
-#ifndef CALTOOLS_H
-#define CALTOOLS_H
+#ifndef SCORRELATORUTILITIES_CLUSTINTERFACES_H
+#define SCORRELATORUTILITIES_CLUSTINTERFACES_H
 
 // c++ utilities
 #include <limits>
 #include <string>
 #include <vector>
+#include <cassert>
 #include <optional>
 // phool libraries
+#include <phool/phool.h>
+#include <phool/getClass.h>
+#include <phool/PHIODataNode.h>
+#include <phool/PHNodeIterator.h>
 #include <phool/PHCompositeNode.h>
-// CaloBase libraries
+// CalooBase libraries
+#include <calobase/RawCluster.h>
+#include <calobase/RawClusterUtility.h>
 #include <calobase/RawClusterContainer.h>
 
 // make common namespaces implicit
@@ -26,14 +32,14 @@ using namespace std;
 
 
 namespace SColdQcdCorrelatorAnalysis {
-  namespace SCorrelatorUtilities {
+  namespace Interfaces {
 
     // cluster methods --------------------------------------------------------
 
     RawClusterContainer*            GetClusterStore(PHCompositeNode* topNode, const string node);
     RawClusterContainer::ConstRange GetClusters(PHCompositeNode* topNode, const string store);
 
-  }  // end SCorrelatorUtilities namespace
+  }  // end Interfaces namespace
 }  // end SColdQcdCorrealtorAnalysis namespace
 
 #endif

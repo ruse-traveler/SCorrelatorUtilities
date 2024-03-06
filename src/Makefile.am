@@ -14,6 +14,7 @@ AM_CPPFLAGS = \
 
 pkginclude_HEADERS = \
   ClustInfo.h \
+  ClustInterfaces.h \
   CstInfo.h \
   JetInfo.h \
   ParInfo.h \
@@ -37,6 +38,7 @@ endif
 libscorrelatorutilities_la_SOURCES = \
   $(ROOT5_DICTS) \
   ClustInfo.cc \
+  ClustInterfaces.cc \
   CstInfo.cc \
   JetInfo.cc \
   ParInfo.cc \

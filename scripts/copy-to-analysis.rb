@@ -18,10 +18,10 @@ copy_to   = "/sphenix/user/danderson/sphenix/analysis/AndersonAnalysisModules/Co
 # what files to copy
 to_copy = [
   "README.md",
-  "src/CalTools.cc",
-  "src/CalTools.h",
   "src/ClustInfo.cc",
   "src/ClustInfo.h",
+  "src/ClustInterfaces.cc",
+  "src/ClustInterfaces.h",
   "src/Constants.h",
   "src/CstInfo.cc",
   "src/CstInfo.h",

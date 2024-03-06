@@ -9,6 +9,7 @@
 #ifndef SCORRELATORUTILITIES_INTERFACES_H
 #define SCORRELATORUTILITIES_INTERFACES_H
 
+#include "ClustInterfaces.h"
 #include "NodeInterfaces.h"
 #include "TreeInterfaces.h"
 #include "TrkInterfaces.h"
