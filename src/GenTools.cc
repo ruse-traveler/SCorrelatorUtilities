@@ -128,7 +128,7 @@ namespace SColdQcdCorrelatorAnalysis {
               break;
 
             // only neutral
-            case Cosnt::Subset::Neutral:
+            case Const::Subset::Neutral:
               if (charge == 0.) {
                 eSum += energy;
               }

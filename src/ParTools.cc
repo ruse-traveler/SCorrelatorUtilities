@@ -9,6 +9,9 @@
 
 #define SCORRELATORUTILITIES_PARTOOLS_CC
 
+// namespace definition
+#include "ParTools.h"
+
 // make common namespaces implicit
 using namespace std;
 
@@ -16,7 +19,7 @@ using namespace std;
 
 namespace SColdQcdCorrelatorAnalysis {
 
-  int Tools:GetEmbedID(PHCompositeNode* topNode, const int iEvtToGrab) {
+  int Tools::GetEmbedID(PHCompositeNode* topNode, const int iEvtToGrab) {
 
     // grab mc event & return embedding id
     PHHepMCGenEvent* mcEvt = Interfaces::GetMcEvent(topNode, iEvtToGrab);
@@ -147,7 +150,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
   vector<int> Tools::GrabSubevents(
     PHCompositeNode* topNode,
-    const SubEvtOpt option = Const::SubEvtOpt::Everything,
+    const int option,
     const bool isEmbed
   ) {
 
@@ -254,7 +257,5 @@ namespace SColdQcdCorrelatorAnalysis {
   }  // end 'GetHepMCGenParticleFromBarcode(int, PHCompositeNode*)'
 
 }  // end SColdQcdCorrealtorAnalysis namespace
-
-#endif
 
 // end ------------------------------------------------------------------------

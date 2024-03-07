@@ -54,7 +54,7 @@ namespace SColdQcdCorrelatorAnalysis {
     bool                IsSubEvtGood(const int embedID, vector<int> subEvtsToUse);
     float               GetParticleCharge(const int pid);
     vector<int>         GrabSubevents(PHCompositeNode* topNode, vector<int> subEvtsToUse);
-    vector<int>         GrabSubevents(PHCompositeNode* topNode, const SubEvtOpt option = SubEvtOpt::Everything, const bool isEmbed = false);
+    vector<int>         GrabSubevents(PHCompositeNode* topNode, const int option = Const::SubEvtOpt::Everything, const bool isEmbed = false);
     PHG4Particle*       GetPHG4ParticleFromBarcode(const int barcode, PHCompositeNode* topNode);
     PHG4Particle*       GetPHG4ParticleFromTrackID(const int id, PHCompositeNode* topNode);
     HepMC::GenParticle* GetHepMCGenParticleFromBarcode(const int barcode, PHCompositeNode* topNode);

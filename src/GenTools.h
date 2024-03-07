@@ -30,6 +30,7 @@
 #include <phhepmc/PHHepMCGenEventMap.h>
 // analysis utilities
 #include "ParInfo.h"
+#include "ParTools.h"
 #include "Constants.h"
 #include "Interfaces.h"
 
@@ -45,8 +46,8 @@ namespace SColdQcdCorrelatorAnalysis {
 
     // gen tools --------------------------------------------------------------
 
-    int64_t GetNumFinalStatePars(PHCompositeNode* topNode, const vector<int> evtsToGrab, const int subset, optional<float> chargeToGrab);
-    double  GetSumFinalStateParEne(PHCompositeNode* topNode, const vector<int> evtsToGrab, const int subset, optional<float> chargeToGrab);
+    int64_t GetNumFinalStatePars(PHCompositeNode* topNode, const vector<int> evtsToGrab, const int subset, optional<float> chargeToGrab = nullopt);
+    double  GetSumFinalStateParEne(PHCompositeNode* topNode, const vector<int> evtsToGrab, const int subset, optional<float> chargeToGrab = nullopt);
     ParInfo GetPartonInfo(PHCompositeNode* topNode, const int event, const int status);
 
   }  // end Tools namespace
