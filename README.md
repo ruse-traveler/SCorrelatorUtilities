@@ -23,7 +23,6 @@ R__LOAD_LIBRARY(<path-to-install>/libscorrelatorutilities.so)
 ```
 
 ## Compilation Instructions
----------------------------
 
 As this is used throughout the entire analysis chain, this library should be built first. As always, build with:
 
