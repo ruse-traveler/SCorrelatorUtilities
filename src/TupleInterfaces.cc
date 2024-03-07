@@ -29,6 +29,17 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
+  void Interfaces::CombineLeafLists(const vector<string>& addends, vector<string>& toAddTo) {
+
+    for (string addend : addends) {
+      toAddTo.push_back(addend);
+    }
+    return;
+
+  }  // end 'CombineLeafLists(vector<string>&, vector<string>&)'
+
+
+
   string Interfaces::FlattenLeafList(const vector<string>& leaves) {
 
     string flattened("");
@@ -55,18 +66,6 @@ namespace SColdQcdCorrelatorAnalysis {
     return leaves;
 
   }  // end 'template <> MakeLeafVector(optional<string>)'
-
-
-
-  template <typename T> void Interfaces::AddLeavesToVector(vector<string>& vecToAddTo, optional<string> tag) {
-
-    vector<string> addends = MakeLeafVector<T>(tag);
-    for (auto addend : addends) {
-      vecToAddTo.push_back(addend);
-    }
-    return;
-
-  }  // end 'template <> AddLeavesToVector(vector<string>&, optional<string>)'
 
 }  // end SColdQcdCorrelatorAnalysis namespace
 

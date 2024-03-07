@@ -25,11 +25,11 @@ namespace SColdQcdCorrelatorAnalysis {
     // tuple interfaces -------------------------------------------------------
 
     void   AddTagToLeaves(const string tag, vector<string>& leaves);
+    void   CombineLeafLists(const vector<string>& addends, vector<string>& toAddTo);
     string FlattenLeafList(const vector<string>& leaves);
 
     // generic methods
     template <typename T> vector<string> MakeLeafVector(optional<string> tag = nullopt);
-    template <typename T> void           AddLeavesToVector(vector<string>& vecToAddTo, optional<string> tag = nullopt);
 
   }  // end Interfaces namespace
 }  // end SColdQcdCorrealtorAnalysis namespace

@@ -27,13 +27,11 @@ namespace SColdQcdCorrelatorAnalysis {
     // minimize atomic members
     nChrgPar = numeric_limits<int>::min();
     nNeuPar  = numeric_limits<int>::min();
-    isEmbed  = false;
     eSumChrg = numeric_limits<double>::min();
     eSumNeu  = numeric_limits<double>::min();
 
     // minimize parton info
-    partons.first.Minimize();
-    partons.second.Minimize();
+    partons = make_pair(ParInfo(Const::Init::Minimize), ParInfo(Const::Init::Minimize));
     return;
 
   }  // end 'Minimize()'
@@ -45,13 +43,11 @@ namespace SColdQcdCorrelatorAnalysis {
     // maximize atomic members
     nChrgPar = numeric_limits<int>::max();
     nNeuPar  = numeric_limits<int>::max();
-    isEmbed  = false;
     eSumChrg = numeric_limits<double>::max();
     eSumNeu  = numeric_limits<double>::max();
 
     // maximize parton info
-    partons.first.Maximize();
-    partons.second.Maximize();
+    partons = make_pair(ParInfo(Const::Init::Maximize), ParInfo(Const::Init::Maximize));
     return;
 
   }  // end 'Maximize()'
@@ -62,6 +58,10 @@ namespace SColdQcdCorrelatorAnalysis {
 
   void GenInfo::Reset() {
 
+    // reset embed flag
+    isEmbed = false;
+
+    // maximize everyting else
     Maximize();
     return;
 
@@ -81,19 +81,19 @@ namespace SColdQcdCorrelatorAnalysis {
     // set parton info
     isEmbed  = embed;
     if (isEmbed) {
-      partons.first  = Tools::GetPartonInfo(topNode, SubEvt::EmbedSignal, HardScatterStatus::First);
-      partons.second = Tools::GetPartonInfo(topNode, SubEvt::EmbedSignal, HardScatterStatus::Second);
+      partons.first  = Tools::GetPartonInfo(topNode, Const::SubEvt::EmbedSignal, Const::HardScatterStatus::First);
+      partons.second = Tools::GetPartonInfo(topNode, Const::SubEvt::EmbedSignal, Const::HardScatterStatus::Second);
 
     } else {
-      partons.first  = Tools::GetPartonInfo(topNode, SubEvt::NotEmbedSignal, HardScatterStatus::First);
-      partons.second = Tools::GetPartonInfo(topNode, SubEvt::NotEmbedSignal, HardScatterStatus::Second);
+      partons.first  = Tools::GetPartonInfo(topNode, Const::SubEvt::NotEmbedSignal, Const::HardScatterStatus::First);
+      partons.second = Tools::GetPartonInfo(topNode, Const::SubEvt::NotEmbedSignal, Const::HardScatterStatus::Second);
     }
 
     // get sums
-    nChrgPar = Tools::GetNumFinalStatePars(topNode, evtsToGrab, Subset::Charged);
-    nNeuPar  = Tools::GetNumFinalStatePars(topNode, evtsToGrab, Subset::Neutral);
-    eSumChrg = Tools::GetSumFinalStateParEne(topNode, evtsToGrab, Subset::Charged);
-    eSumNeu  = Tools::GetSumFinalStateParEne(topNode, evtsToGrab, Subset::Neutral);
+    nChrgPar = Tools::GetNumFinalStatePars(topNode, evtsToGrab, Const::Subset::Charged);
+    nNeuPar  = Tools::GetNumFinalStatePars(topNode, evtsToGrab, Const::Subset::Neutral);
+    eSumChrg = Tools::GetSumFinalStateParEne(topNode, evtsToGrab, Const::Subset::Charged);
+    eSumNeu  = Tools::GetSumFinalStateParEne(topNode, evtsToGrab, Const::Subset::Neutral);
     return;
 
   }  // end 'SetInfo(PHCompositeNode*, vector<int>)'
@@ -104,6 +104,15 @@ namespace SColdQcdCorrelatorAnalysis {
 
   vector<string> GenInfo::GetListOfMembers() {
 
+    // get parton members
+    vector<string> membersParA = ParInfo::GetListOfMembers();
+    vector<string> membersParB = ParInfo::GetListOfMembers();
+
+    // add tags to parton members
+    Interfaces::AddTagToLeaves("PartonA", membersParA);
+    Interfaces::AddTagToLeaves("PartonB", membersParB);
+
+    // construct list
     vector<string> members = {
       "nChrgPar",
       "nNeuPar",
@@ -111,8 +120,8 @@ namespace SColdQcdCorrelatorAnalysis {
       "eSumChrg",
       "eSumNeu"
     };
-    AddLeavesToVector<ParInfo>(members, "PartonA");
-    AddLeavesToVector<ParInfo>(members, "PartonB");
+    Interfaces::CombineLeafLists(membersParA, members);
+    Interfaces::CombineLeafLists(membersParB, members);
     return members;
 
   }  // end 'GetListOfMembers()'
