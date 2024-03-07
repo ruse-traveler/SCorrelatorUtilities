@@ -20,7 +20,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
   // internal methods ---------------------------------------------------------
 
-  void TrkInfo::Minimize() {
+  void Types::TrkInfo::Minimize() {
 
     id         = numeric_limits<int>::min();
     nMvtxLayer = numeric_limits<int>::min();
@@ -40,16 +40,16 @@ namespace SColdQcdCorrelatorAnalysis {
     dcaZ       = numeric_limits<double>::min();
     ptErr      = numeric_limits<double>::min();
     quality    = numeric_limits<double>::min();
-    vtxX       = numeric_limits<double>::min();
-    vtxY       = numeric_limits<double>::min();
-    vtxZ       = numeric_limits<double>::min();
+    vx         = numeric_limits<double>::min();
+    vy         = numeric_limits<double>::min();
+    vz         = numeric_limits<double>::min();
     return;
 
   }  // end 'Minimize()'
 
 
 
-  void TrkInfo::Maximize() {
+  void Types::TrkInfo::Maximize() {
 
     id         = numeric_limits<int>::max();
     nMvtxLayer = numeric_limits<int>::max();
@@ -69,9 +69,9 @@ namespace SColdQcdCorrelatorAnalysis {
     dcaZ       = numeric_limits<double>::max();
     ptErr      = numeric_limits<double>::max();
     quality    = numeric_limits<double>::max();
-    vtxX       = numeric_limits<double>::max();
-    vtxY       = numeric_limits<double>::max();
-    vtxZ       = numeric_limits<double>::max();
+    vx         = numeric_limits<double>::max();
+    vy         = numeric_limits<double>::max();
+    vz         = numeric_limits<double>::max();
     return;
 
   }  // end 'Maximize()'
@@ -79,7 +79,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
   // public methods -----------------------------------------------------------
 
-  void TrkInfo::Reset() {
+  void Types::TrkInfo::Reset() {
 
     Maximize();
     return;
@@ -88,7 +88,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-  void TrkInfo::SetInfo(SvtxTrack* track, PHCompositeNode* topNode) {
+  void Types::TrkInfo::SetInfo(SvtxTrack* track, PHCompositeNode* topNode) {
 
     // do relevant calculations
     const ROOT::Math::XYZVector trkVtx     = Tools::GetTrackVertex(track, topNode);
@@ -104,9 +104,9 @@ namespace SColdQcdCorrelatorAnalysis {
     pz         = track -> get_pz();
     pt         = track -> get_pt();
     ene        = sqrt((px * px) + (py * py) + (pz * pz) + (Const::MassPion() * Const::MassPion()));
-    vtxX       = trkVtx.x();
-    vtxY       = trkVtx.y();
-    vtxZ       = trkVtx.z();
+    vx         = trkVtx.x();
+    vy         = trkVtx.y();
+    vz         = trkVtx.z();
     dcaXY      = trkDcaPair.first;
     dcaZ       = trkDcaPair.second;
     nMvtxLayer = Tools::GetNumLayer(track, Const::Subsys::Mvtx);
@@ -122,7 +122,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-  bool TrkInfo::IsInAcceptance(const TrkInfo& minimum, const TrkInfo& maximum) {
+  bool Types::TrkInfo::IsInAcceptance(const TrkInfo& minimum, const TrkInfo& maximum) {
 
     return ((*this >= minimum) && (*this <= maximum));
 
@@ -130,7 +130,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-  bool TrkInfo::IsInAcceptance(const pair<TrkInfo, TrkInfo>& range) {
+  bool Types::TrkInfo::IsInAcceptance(const pair<TrkInfo, TrkInfo>& range) {
 
     return ((*this >= range.first) && (*this <= range.second));
 
@@ -138,7 +138,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-  bool TrkInfo::IsInSigmaDcaCut(
+  bool Types::TrkInfo::IsInSigmaDcaCut(
     const pair<float, float> nSigCut,
     const pair<float, float> ptFitMax,
     const pair<TF1*, TF1*> fSigmaDca
@@ -160,7 +160,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
   // static methods -----------------------------------------------------------
 
-  vector<string> TrkInfo::GetListOfMembers() {
+  vector<string> Types::TrkInfo::GetListOfMembers() {
 
     vector<string> members = {
       "id",
@@ -181,9 +181,9 @@ namespace SColdQcdCorrelatorAnalysis {
       "dcaZ",
       "ptErr",
       "quality",
-      "vtxX",
-      "vtxY",
-      "vtxZ"
+      "vx",
+      "vy",
+      "vz"
     };
     return members;
 
@@ -193,7 +193,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
   // overloaded operators -----------------------------------------------------
 
-  bool operator<(const TrkInfo& lhs, const TrkInfo& rhs) {
+  bool Types::operator <(const TrkInfo& lhs, const TrkInfo& rhs) {
 
     // note that some quantities aren't relevant for this comparison
     const bool isLessThan = (
@@ -214,17 +214,17 @@ namespace SColdQcdCorrelatorAnalysis {
       (lhs.dcaZ       < rhs.dcaZ)       &&
       (lhs.ptErr      < rhs.ptErr)      &&
       (lhs.quality    < rhs.quality)    &&
-      (lhs.vtxX       < rhs.vtxX)       &&
-      (lhs.vtxY       < rhs.vtxY)       &&
-      (lhs.vtxZ       < rhs.vtxZ)
+      (lhs.vx         < rhs.vx)         &&
+      (lhs.vy         < rhs.vy)         &&
+      (lhs.vz         < rhs.vz)
     );
     return isLessThan;
 
-  }  // end 'operator<(TrkInfo&, TrkInfo&)'
+  }  // end 'operator <(TrkInfo&, TrkInfo&)'
 
 
 
-  bool operator>(const TrkInfo& lhs, const TrkInfo& rhs) {
+  bool Types::operator >(const TrkInfo& lhs, const TrkInfo& rhs) {
 
     // note that some quantities aren't relevant for this comparison
     const bool isGreaterThan = (
@@ -245,17 +245,17 @@ namespace SColdQcdCorrelatorAnalysis {
       (lhs.dcaZ       > rhs.dcaZ)       &&
       (lhs.ptErr      > rhs.ptErr)      &&
       (lhs.quality    > rhs.quality)    &&
-      (lhs.vtxX       > rhs.vtxX)       &&
-      (lhs.vtxY       > rhs.vtxY)       &&
-      (lhs.vtxZ       > rhs.vtxZ)
+      (lhs.vx         > rhs.vx)         &&
+      (lhs.vy         > rhs.vy)         &&
+      (lhs.vz         > rhs.vz)
     );
     return isGreaterThan;
 
-  }  // end 'operator>(TrkInfo&, TrkInfo&)'
+  }  // end 'operator >(TrkInfo&, TrkInfo&)'
 
 
 
-  bool operator<=(const TrkInfo& lhs, const TrkInfo& rhs) {
+  bool Types::operator <=(const TrkInfo& lhs, const TrkInfo& rhs) {
 
     // note that some quantities aren't relevant for this comparison
     const bool isLessThanOrEqualTo = (
@@ -276,17 +276,17 @@ namespace SColdQcdCorrelatorAnalysis {
       (lhs.dcaZ       <= rhs.dcaZ)       &&
       (lhs.ptErr      <= rhs.ptErr)      &&
       (lhs.quality    <= rhs.quality)    &&
-      (lhs.vtxX       <= rhs.vtxX)       &&
-      (lhs.vtxY       <= rhs.vtxY)       &&
-      (lhs.vtxZ       <= rhs.vtxZ)
+      (lhs.vx         <= rhs.vx)         &&
+      (lhs.vy         <= rhs.vy)         &&
+      (lhs.vz         <= rhs.vz)
     );
     return isLessThanOrEqualTo;
 
-  }  // end 'operator<(TrkInfo&, TrkInfo&)'
+  }  // end 'operator <(TrkInfo&, TrkInfo&)'
 
 
 
-  bool operator>=(const TrkInfo& lhs, const TrkInfo& rhs) {
+  bool Types::operator >=(const TrkInfo& lhs, const TrkInfo& rhs) {
 
     // note that some quantities aren't relevant for this comparison
     const bool isGreaterThanOrEqualTo = (
@@ -307,19 +307,19 @@ namespace SColdQcdCorrelatorAnalysis {
       (lhs.dcaZ       >= rhs.dcaZ)       &&
       (lhs.ptErr      >= rhs.ptErr)      &&
       (lhs.quality    >= rhs.quality)    &&
-      (lhs.vtxX       >= rhs.vtxX)       &&
-      (lhs.vtxY       >= rhs.vtxY)       &&
-      (lhs.vtxZ       >= rhs.vtxZ)
+      (lhs.vx         >= rhs.vx)         &&
+      (lhs.vy         >= rhs.vy)         &&
+      (lhs.vz         >= rhs.vz)
     );
     return isGreaterThanOrEqualTo;
 
-  }  // end 'operator>(TrkInfo&, TrkInfo&)'
+  }  // end 'operator >(TrkInfo&, TrkInfo&)'
 
 
 
   // ctor/dtor ----------------------------------------------------------------
 
-  TrkInfo::TrkInfo() {
+  Types::TrkInfo::TrkInfo() {
 
     /* nothing to do */
 
@@ -327,7 +327,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-  TrkInfo::~TrkInfo() {
+  Types::TrkInfo::~TrkInfo() {
 
     /* nothing to do */
 
@@ -335,7 +335,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-  TrkInfo::TrkInfo(const Const::Init init) {
+  Types::TrkInfo::TrkInfo(const Const::Init init) {
 
     switch (init) {
       case Const::Init::Minimize:
@@ -353,7 +353,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-  TrkInfo::TrkInfo(SvtxTrack* track, PHCompositeNode* topNode) {
+  Types::TrkInfo::TrkInfo(SvtxTrack* track, PHCompositeNode* topNode) {
 
     SetInfo(track, topNode);
 

@@ -27,83 +27,94 @@ using namespace std;
 
 
 namespace SColdQcdCorrelatorAnalysis {
+  namespace Types {
 
   // JetInfo definition -------------------------------------------------------
 
   class JetInfo {
 
-    private:
+      private:
 
-      // data members
-      uint32_t jetID = numeric_limits<uint32_t>::max();
-      uint64_t nCsts = numeric_limits<uint64_t>::max();
-      double   ene   = numeric_limits<double>::max();
-      double   px    = numeric_limits<double>::max();
-      double   py    = numeric_limits<double>::max();
-      double   pz    = numeric_limits<double>::max();
-      double   pt    = numeric_limits<double>::max();
-      double   eta   = numeric_limits<double>::max();
-      double   phi   = numeric_limits<double>::max();
-      double   area  = numeric_limits<double>::max();
+        // data members
+        uint32_t jetID = numeric_limits<uint32_t>::max();
+        uint64_t nCsts = numeric_limits<uint64_t>::max();
+        double   ene   = numeric_limits<double>::max();
+        double   px    = numeric_limits<double>::max();
+        double   py    = numeric_limits<double>::max();
+        double   pz    = numeric_limits<double>::max();
+        double   pt    = numeric_limits<double>::max();
+        double   eta   = numeric_limits<double>::max();
+        double   phi   = numeric_limits<double>::max();
+        double   area  = numeric_limits<double>::max();
 
-      // internal methods
-      void Minimize();
-      void Maximize();
+        // internal methods
+        void Minimize();
+        void Maximize();
 
-    public:
+      public:
 
-      // getters
-      uint32_t GetJetID() {return jetID;}
-      uint64_t GetNCsts() {return nCsts;}
-      double   GetEne()   {return ene;}
-      double   GetPX()    {return px;}
-      double   GetPY()    {return py;}
-      double   GetPZ()    {return pz;}
-      double   GetPT()    {return pt;}
-      double   GetEta()   {return eta;}
-      double   GetPhi()   {return phi;}
-      double   GetArea()  {return area;}
+        // getters
+        uint32_t GetJetID() {return jetID;}
+        uint64_t GetNCsts() {return nCsts;}
+        double   GetEne()   {return ene;}
+        double   GetPX()    {return px;}
+        double   GetPY()    {return py;}
+        double   GetPZ()    {return pz;}
+        double   GetPT()    {return pt;}
+        double   GetEta()   {return eta;}
+        double   GetPhi()   {return phi;}
+        double   GetArea()  {return area;}
 
-      // setters
-      void SetJetID(uint32_t arg_jetID) {jetID = arg_jetID;}
-      void SetNCsts(uint64_t arg_nCsts) {nCsts = arg_nCsts;}
-      void SetEne(double arg_ene)       {ene   = arg_ene;}
-      void SetPX(double arg_px)         {px    = arg_px;}
-      void SetPY(double arg_py)         {py    = arg_py;}
-      void SetPZ(double arg_pz)         {pz    = arg_pz;}
-      void SetPT(double arg_pt)         {pt    = arg_pt;}
-      void SetEta(double arg_eta)       {eta   = arg_eta;}
-      void SetPhi(double arg_phi)       {phi   = arg_phi;}
-      void SetArea(double arg_area)     {area  = arg_area;}
+        // setters
+        void SetJetID(uint32_t arg_jetID) {jetID = arg_jetID;}
+        void SetNCsts(uint64_t arg_nCsts) {nCsts = arg_nCsts;}
+        void SetEne(double arg_ene)       {ene   = arg_ene;}
+        void SetPX(double arg_px)         {px    = arg_px;}
+        void SetPY(double arg_py)         {py    = arg_py;}
+        void SetPZ(double arg_pz)         {pz    = arg_pz;}
+        void SetPT(double arg_pt)         {pt    = arg_pt;}
+        void SetEta(double arg_eta)       {eta   = arg_eta;}
+        void SetPhi(double arg_phi)       {phi   = arg_phi;}
+        void SetArea(double arg_area)     {area  = arg_area;}
 
-      // public methods
-      void Reset();
-      void SetInfo(fastjet::PseudoJet& pseudojet);
-      bool IsInAcceptance(const JetInfo& minimum, const JetInfo& maximum);
-      bool IsInAcceptance(const pair<JetInfo, JetInfo>& range);
+        // public methods
+        void Reset();
+        void SetInfo(fastjet::PseudoJet& pseudojet);
+        bool IsInAcceptance(const JetInfo& minimum, const JetInfo& maximum);
+        bool IsInAcceptance(const pair<JetInfo, JetInfo>& range);
 
-      // static methods
-      static vector<string> GetListOfMembers();
+        // static methods
+        static vector<string> GetListOfMembers();
 
-      // overloaded operators
-      friend bool operator<(const JetInfo& lhs, const JetInfo& rhs);
-      friend bool operator>(const JetInfo& lhs, const JetInfo& rhs);
-      friend bool operator<=(const JetInfo& lhs, const JetInfo& rhs);
-      friend bool operator>=(const JetInfo& lhs, const JetInfo& rhs);
+        // overloaded operators
+        friend bool operator <(const JetInfo& lhs, const JetInfo& rhs);
+        friend bool operator >(const JetInfo& lhs, const JetInfo& rhs);
+        friend bool operator <=(const JetInfo& lhs, const JetInfo& rhs);
+        friend bool operator >=(const JetInfo& lhs, const JetInfo& rhs);
 
-      // default ctor/dtor
-      JetInfo();
-      ~JetInfo();
+        // default ctor/dtor
+        JetInfo();
+        ~JetInfo();
 
-      // ctors accepting arguments
-      JetInfo(const Const::Init init);
-      JetInfo(fastjet::PseudoJet& pseudojet);
+        // ctors accepting arguments
+        JetInfo(const Const::Init init);
+        JetInfo(fastjet::PseudoJet& pseudojet);
 
-    // identify this class to ROOT
-    ClassDefNV(JetInfo, 1)
+      // identify this class to ROOT
+      ClassDefNV(JetInfo, 1)
 
-  };  // end JetInfo def
+    };  // end JetInfo def
 
+
+
+    // comparison operator definitions ----------------------------------------
+
+    bool operator <(const JetInfo& lhs, const JetInfo& rhs);
+    bool operator >(const JetInfo& lhs, const JetInfo& rhs);
+    bool operator <=(const JetInfo& lhs, const JetInfo& rhs);
+    bool operator >=(const JetInfo& lhs, const JetInfo& rhs);
+
+  }  // end Types namespace
 }  // end SColdQcdCorrelatorAnalysis namespace
 
 #endif

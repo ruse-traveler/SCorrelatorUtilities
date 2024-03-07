@@ -29,59 +29,94 @@ using namespace std;
 
 
 namespace SColdQcdCorrelatorAnalysis {
+  namespace Types {
 
-  // FlowInfo definition ------------------------------------------------------
+    // FlowInfo definition ----------------------------------------------------
 
-  class FlowInfo {
+    class FlowInfo {
 
-    private:
+      private:
 
-      // data members
-      int    id   = numeric_limits<int>::max();
-      int    type = numeric_limits<int>::max();
-      double mass = numeric_limits<double>::max();
-      double eta  = numeric_limits<double>::max();
-      double phi  = numeric_limits<double>::max();
-      double ene  = numeric_limits<double>::max();
-      double px   = numeric_limits<double>::max();
-      double py   = numeric_limits<double>::max();
-      double pz   = numeric_limits<double>::max();
-      double pt   = numeric_limits<double>::max();
+        // data members
+        int    id   = numeric_limits<int>::max();
+        int    type = numeric_limits<int>::max();
+        double mass = numeric_limits<double>::max();
+        double eta  = numeric_limits<double>::max();
+        double phi  = numeric_limits<double>::max();
+        double ene  = numeric_limits<double>::max();
+        double px   = numeric_limits<double>::max();
+        double py   = numeric_limits<double>::max();
+        double pz   = numeric_limits<double>::max();
+        double pt   = numeric_limits<double>::max();
 
-      // internal methods
-      void Minimize();
-      void Maximize();
+        // internal methods
+        void Minimize();
+        void Maximize();
 
-    public:
+      public:
 
-      // public methods
-      void Reset();
-      void SetInfo(const ParticleFlowElement* flow);
-      bool IsInAcceptance(const FlowInfo& minimum, const FlowInfo& maximum);
-      bool IsInAcceptance(const pair<FlowInfo, FlowInfo>& range);
+        // getters
+        int    GetID()   {return id;}
+        int    GetType() {return type;}
+        double GetMass() {return mass;}
+        double GetEta()  {return eta;}
+        double GetPhi()  {return phi;}
+        double GetEne()  {return ene;}
+        double GetPX()   {return px;}
+        double GetPY()   {return py;}
+        double GetPZ()   {return pz;}
+        double GetPT()   {return pt;}
 
-      // static methods
-      static vector<string> GetListOfMembers();
+        // setters
+        void SetID(const int arg_id)        {id   = arg_id;}
+        void SetType(const int arg_type)    {type = arg_type;}
+        void SetMass(const double arg_mass) {mass = arg_mass;}
+        void SetEta(const double arg_eta)   {eta  = arg_eta;}
+        void SetPhi(const double arg_phi)   {phi  = arg_phi;}
+        void SetEne(const double arg_ene)   {ene  = arg_ene;}
+        void SetPX(const double arg_px)     {px   = arg_px;}
+        void SetPY(const double arg_py)     {py   = arg_py;}
+        void SetPZ(const double arg_pz)     {pz   = arg_pz;}
+        void SetPT(const double arg_pt)     {pt   = arg_pt;}
 
-      // overloaded operators
-      friend bool operator<(const FlowInfo& lhs, const FlowInfo& rhs);
-      friend bool operator>(const FlowInfo& lhs, const FlowInfo& rhs);
-      friend bool operator<=(const FlowInfo& lhs, const FlowInfo& rhs);
-      friend bool operator>=(const FlowInfo& lhs, const FlowInfo& rhs);
+        // public methods
+        void Reset();
+        void SetInfo(const ParticleFlowElement* flow);
+        bool IsInAcceptance(const FlowInfo& minimum, const FlowInfo& maximum);
+        bool IsInAcceptance(const pair<FlowInfo, FlowInfo>& range);
 
-      // default ctor/dtor
-      FlowInfo();
-      ~FlowInfo();
+        // static methods
+        static vector<string> GetListOfMembers();
 
-      // ctors accepting arguments
-      FlowInfo(const Const::Init init);
-      FlowInfo(const ParticleFlowElement* flow);
+        // overloaded operators
+        friend bool operator <(const FlowInfo& lhs, const FlowInfo& rhs);
+        friend bool operator >(const FlowInfo& lhs, const FlowInfo& rhs);
+        friend bool operator <=(const FlowInfo& lhs, const FlowInfo& rhs);
+        friend bool operator >=(const FlowInfo& lhs, const FlowInfo& rhs);
 
-    // identify this class to ROOT
-    ClassDefNV(FlowInfo, 1);
+        // default ctor/dtor
+        FlowInfo();
+        ~FlowInfo();
 
-  };  // end FlowInfo definition
+        // ctors accepting arguments
+        FlowInfo(const Const::Init init);
+        FlowInfo(const ParticleFlowElement* flow);
 
+      // identify this class to ROOT
+      ClassDefNV(FlowInfo, 1);
+
+    };  // end FlowInfo definition
+
+
+
+    // comparison operator definitions ----------------------------------------
+
+    bool operator <(const FlowInfo& lhs, const FlowInfo& rhs);
+    bool operator >(const FlowInfo& lhs, const FlowInfo& rhs);
+    bool operator <=(const FlowInfo& lhs, const FlowInfo& rhs);
+    bool operator >=(const FlowInfo& lhs, const FlowInfo& rhs);
+
+  }  // end Types namespace
 }  // end SColdQcdCorrelatorAnalysis namespace
 
 #endif

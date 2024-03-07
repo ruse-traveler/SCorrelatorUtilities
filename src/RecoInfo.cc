@@ -22,7 +22,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
   // internal methods ---------------------------------------------------------
 
-  void RecoInfo::Minimize() {
+  void Types::RecoInfo::Minimize() {
 
     nTrks     = numeric_limits<int>::min();
     pSumTrks  = numeric_limits<double>::min();
@@ -39,7 +39,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-  void RecoInfo::Maximize() {
+  void Types::RecoInfo::Maximize() {
 
     nTrks     = numeric_limits<int>::max();
     pSumTrks  = numeric_limits<double>::max();
@@ -58,7 +58,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
   // public methods -----------------------------------------------------------
 
-  void RecoInfo::Reset() {
+  void Types::RecoInfo::Reset() {
 
     Maximize();
     return;
@@ -67,7 +67,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-  void RecoInfo::SetInfo(PHCompositeNode* topNode) {
+  void Types::RecoInfo::SetInfo(PHCompositeNode* topNode) {
 
     // get sums
     nTrks     = Tools::GetNumTrks(topNode);
@@ -90,7 +90,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
   // static methods -----------------------------------------------------------
 
-  vector<string> RecoInfo::GetListOfMembers() {
+  vector<string> Types::RecoInfo::GetListOfMembers() {
 
     vector<string> members = {
       "nTrks",
@@ -111,7 +111,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
   // ctor/dtor ----------------------------------------------------------------
 
-  RecoInfo::RecoInfo() {
+  Types::RecoInfo::RecoInfo() {
 
     /* nothing to do */
 
@@ -119,7 +119,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-  RecoInfo::~RecoInfo() {
+  Types::RecoInfo::~RecoInfo() {
 
     /* nothing to do */
 
@@ -127,7 +127,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-  RecoInfo::RecoInfo(const Const::Init init) {
+  Types::RecoInfo::RecoInfo(const Const::Init init) {
 
     switch (init) {
       case Const::Init::Minimize:
@@ -145,7 +145,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-  RecoInfo::RecoInfo(PHCompositeNode* topNode) {
+  Types::RecoInfo::RecoInfo(PHCompositeNode* topNode) {
 
     SetInfo(topNode);
 

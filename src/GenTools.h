@@ -46,9 +46,9 @@ namespace SColdQcdCorrelatorAnalysis {
 
     // gen tools --------------------------------------------------------------
 
-    int64_t GetNumFinalStatePars(PHCompositeNode* topNode, const vector<int> evtsToGrab, const int subset, optional<float> chargeToGrab = nullopt);
-    double  GetSumFinalStateParEne(PHCompositeNode* topNode, const vector<int> evtsToGrab, const int subset, optional<float> chargeToGrab = nullopt);
-    ParInfo GetPartonInfo(PHCompositeNode* topNode, const int event, const int status);
+    int64_t        GetNumFinalStatePars(PHCompositeNode* topNode, const vector<int> evtsToGrab, const int subset, optional<float> chargeToGrab = nullopt);
+    double         GetSumFinalStateParEne(PHCompositeNode* topNode, const vector<int> evtsToGrab, const int subset, optional<float> chargeToGrab = nullopt);
+    Types::ParInfo GetPartonInfo(PHCompositeNode* topNode, const int event, const int status);
 
   }  // end Tools namespace
 }  // end SColdQcdCorrealtorAnalysis namespace

@@ -21,7 +21,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
   // internal methods ---------------------------------------------------------
 
-  void FlowInfo::Minimize() {
+  void Types::FlowInfo::Minimize() {
 
     id   = numeric_limits<int>::min();
     type = numeric_limits<int>::min();
@@ -39,7 +39,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-  void FlowInfo::Maximize() {
+  void Types::FlowInfo::Maximize() {
 
     id   = numeric_limits<int>::max();
     type = numeric_limits<int>::max();
@@ -59,7 +59,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
   // public methods -----------------------------------------------------------
 
-  void FlowInfo::Reset() {
+  void Types::FlowInfo::Reset() {
 
     Maximize();
     return;
@@ -68,7 +68,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-  void FlowInfo::SetInfo(const ParticleFlowElement* flow) {
+  void Types::FlowInfo::SetInfo(const ParticleFlowElement* flow) {
 
     id   = flow -> get_id();
     type = flow -> get_type();
@@ -86,7 +86,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-  bool FlowInfo::IsInAcceptance(const FlowInfo& minimum, const FlowInfo& maximum) {
+  bool Types::FlowInfo::IsInAcceptance(const FlowInfo& minimum, const FlowInfo& maximum) {
 
     return ((*this >= minimum) && (*this <= maximum));
 
@@ -94,7 +94,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-  bool FlowInfo::IsInAcceptance(const pair<FlowInfo, FlowInfo>& range) {
+  bool Types::FlowInfo::IsInAcceptance(const pair<FlowInfo, FlowInfo>& range) {
 
     return ((*this >= range.first) && (*this <= range.second));
 
@@ -104,7 +104,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
   // static methods -----------------------------------------------------------
 
-  vector<string> FlowInfo::GetListOfMembers() {
+  vector<string> Types::FlowInfo::GetListOfMembers() {
 
     vector<string> members = {
       "id",
@@ -126,7 +126,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
   // overloaded operators -----------------------------------------------------
 
-  bool operator<(const FlowInfo& lhs, const FlowInfo& rhs) {
+  bool Types::operator <(const FlowInfo& lhs, const FlowInfo& rhs) {
 
     // note that some quantities aren't relevant for this comparison
     const bool isLessThan = (
@@ -141,11 +141,11 @@ namespace SColdQcdCorrelatorAnalysis {
     );
     return isLessThan;
 
-  }  // end 'operator<(FlowInfo&, FlowInfo&)'
+  }  // end 'operator <(FlowInfo&, FlowInfo&)'
 
 
 
-  bool operator>(const FlowInfo& lhs, const FlowInfo& rhs) {
+  bool Types::operator >(const FlowInfo& lhs, const FlowInfo& rhs) {
 
     // note that some quantities aren't relevant for this comparison
     const bool isGreaterThan = (
@@ -160,11 +160,11 @@ namespace SColdQcdCorrelatorAnalysis {
     );
     return isGreaterThan;
 
-  }  // end 'operator>(FlowInfo&, FlowInfo&)'
+  }  // end 'operator >(FlowInfo&, FlowInfo&)'
 
 
 
-  bool operator<=(const FlowInfo& lhs, const FlowInfo& rhs) {
+  bool Types::operator <=(const FlowInfo& lhs, const FlowInfo& rhs) {
 
     // note that some quantities aren't relevant for this comparison
     const bool isLessThanOrEqualTo = (
@@ -179,11 +179,11 @@ namespace SColdQcdCorrelatorAnalysis {
     );
     return isLessThanOrEqualTo;
 
-  }  // end 'operator<=(FlowInfo&, FlowInfo&)'
+  }  // end 'operator <=(FlowInfo&, FlowInfo&)'
 
 
 
-  bool operator>=(const FlowInfo& lhs, const FlowInfo& rhs) {
+  bool Types::operator >=(const FlowInfo& lhs, const FlowInfo& rhs) {
 
     // note that some quantities aren't relevant for this comparison
     const bool isGreaterThanOrEqualTo = (
@@ -198,13 +198,13 @@ namespace SColdQcdCorrelatorAnalysis {
     );
     return isGreaterThanOrEqualTo;
 
-  }  // end 'operator>=(FlowInfo&, FlowInfo&)'
+  }  // end 'operator >=(FlowInfo&, FlowInfo&)'
 
 
 
   // ctor/dtor ----------------------------------------------------------------
 
-  FlowInfo::FlowInfo() {
+  Types::FlowInfo::FlowInfo() {
 
     /* nothing to do */
 
@@ -212,7 +212,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-  FlowInfo::~FlowInfo() {
+  Types::FlowInfo::~FlowInfo() {
 
     /* nothing to do */
 
@@ -220,7 +220,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-  FlowInfo::FlowInfo(const Const::Init init) {
+  Types::FlowInfo::FlowInfo(const Const::Init init) {
 
     switch (init) {
       case Const::Init::Minimize:
@@ -238,7 +238,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-  FlowInfo::FlowInfo(const ParticleFlowElement* flow) {
+  Types::FlowInfo::FlowInfo(const ParticleFlowElement* flow) {
 
     SetInfo(flow);
 

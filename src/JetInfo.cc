@@ -20,7 +20,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
   // internal methods ---------------------------------------------------------
 
-  void JetInfo::Minimize() {
+  void Types::JetInfo::Minimize() {
 
     jetID = numeric_limits<uint32_t>::min();
     nCsts = numeric_limits<uint64_t>::min();
@@ -38,7 +38,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-  void JetInfo::Maximize() {
+  void Types::JetInfo::Maximize() {
 
     jetID = numeric_limits<uint32_t>::max();
     nCsts = numeric_limits<uint64_t>::max();
@@ -58,7 +58,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
   // public methods -----------------------------------------------------------
 
-  void JetInfo::Reset() {
+  void Types::JetInfo::Reset() {
 
     Maximize();
     return;
@@ -67,7 +67,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-  void JetInfo::SetInfo(fastjet::PseudoJet& pseudojet) {
+  void Types::JetInfo::SetInfo(fastjet::PseudoJet& pseudojet) {
 
     nCsts = pseudojet.constituents().size();
     ene   = pseudojet.E();
@@ -83,7 +83,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-  bool JetInfo::IsInAcceptance(const JetInfo& minimum, const JetInfo& maximum) {
+  bool Types::JetInfo::IsInAcceptance(const JetInfo& minimum, const JetInfo& maximum) {
 
     return ((*this >= minimum) && (*this <= maximum));
 
@@ -91,7 +91,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-  bool JetInfo::IsInAcceptance(const pair<JetInfo, JetInfo>& range) {
+  bool Types::JetInfo::IsInAcceptance(const pair<JetInfo, JetInfo>& range) {
 
     return ((*this >= range.first) && (*this <= range.second));
 
@@ -101,7 +101,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
   // static methods -----------------------------------------------------------
 
-  vector<string> JetInfo::GetListOfMembers() {
+  vector<string> Types::JetInfo::GetListOfMembers() {
 
     vector<string> members = {
       "jetID",
@@ -123,7 +123,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
   // overloaded operators -----------------------------------------------------
 
-  bool operator<(const JetInfo& lhs, const JetInfo& rhs) {
+  bool Types::operator <(const JetInfo& lhs, const JetInfo& rhs) {
 
     // note that some quantities aren't relevant for this comparison
     const bool isLessThan = (
@@ -139,11 +139,11 @@ namespace SColdQcdCorrelatorAnalysis {
     );
     return isLessThan;
   
-  }  // end 'operator<(JetInfo&, JetInfo&)'
+  }  // end 'operator <(JetInfo&, JetInfo&)'
 
 
 
-  bool operator>(const JetInfo& lhs, const JetInfo& rhs) {
+  bool Types::operator >(const JetInfo& lhs, const JetInfo& rhs) {
 
     // note that some quantities aren't relevant for this comparison
     const bool isGreaterThan = (
@@ -159,11 +159,11 @@ namespace SColdQcdCorrelatorAnalysis {
     );
     return isGreaterThan;
   
-  }  // end 'operator>(JetInfo&, JetInfo&)'
+  }  // end 'operator >(JetInfo&, JetInfo&)'
 
 
 
-  bool operator<=(const JetInfo& lhs, const JetInfo& rhs) {
+  bool Types::operator <=(const JetInfo& lhs, const JetInfo& rhs) {
 
     // note that some quantities aren't relevant for this comparison
     const bool isLessThanOrEqualTo = (
@@ -179,11 +179,11 @@ namespace SColdQcdCorrelatorAnalysis {
     );
     return isLessThanOrEqualTo;
   
-  }  // end 'operator<=(JetInfo&, JetInfo&)'
+  }  // end 'operator <=(JetInfo&, JetInfo&)'
 
 
 
-  bool operator>=(const JetInfo& lhs, const JetInfo& rhs) {
+  bool Types::operator >=(const JetInfo& lhs, const JetInfo& rhs) {
 
     // note that some quantities aren't relevant for this comparison
     const bool isGreaterThanOrEqualTo = (
@@ -199,14 +199,14 @@ namespace SColdQcdCorrelatorAnalysis {
     );
     return isGreaterThanOrEqualTo;
   
-  }  // end 'operator>=(JetInfo&, JetInfo&)'
+  }  // end 'operator >=(JetInfo&, JetInfo&)'
 
 
 
   // ctor/dtor ----------------------------------------------------------------
 
   // default ctor/dtor
-  JetInfo::JetInfo() {
+  Types::JetInfo::JetInfo() {
 
     /* nothing to do */
 
@@ -214,7 +214,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-  JetInfo::~JetInfo() {
+  Types::JetInfo::~JetInfo() {
 
     /* nothing to do */
 
@@ -222,7 +222,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-  JetInfo::JetInfo(const Const::Init init) {
+  Types::JetInfo::JetInfo(const Const::Init init) {
 
     switch (init) {
       case Const::Init::Minimize:
@@ -240,7 +240,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-  JetInfo::JetInfo(fastjet::PseudoJet& pseudojet) {
+  Types::JetInfo::JetInfo(fastjet::PseudoJet& pseudojet) {
 
     SetInfo(pseudojet);
 

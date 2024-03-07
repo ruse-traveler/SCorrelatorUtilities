@@ -44,9 +44,9 @@ old/*
 !src/TupleInterfaces.cc
 !src/TupleInterfaces.h
 !src/Types.h
+!src/TypesLinkDef.h
 !src/VtxInterfaces.cc
 !src/VtxInterfaces.h
-!src/SCorrelatorUtilitiesLinkDef.h
 !src/autogen.sh
 !src/configure.ac
 !src/Makefile.am

@@ -32,72 +32,74 @@ using namespace std;
 
 
 namespace SColdQcdCorrelatorAnalysis {
+  namespace Types {
 
-  // RecoInfo definition ----------------------------------------------------
+    // RecoInfo definition ----------------------------------------------------
 
-  class RecoInfo {
+    class RecoInfo {
 
-    private:
+      private:
 
-      // data members
-      int    nTrks     = numeric_limits<int>::max();
-      double pSumTrks  = numeric_limits<double>::max();
-      double eSumEMCal = numeric_limits<double>::max();
-      double eSumIHCal = numeric_limits<double>::max();
-      double eSumOHCal = numeric_limits<double>::max();
-      double vx        = numeric_limits<double>::max();
-      double vy        = numeric_limits<double>::max();
-      double vz        = numeric_limits<double>::max();
-      double vr        = numeric_limits<double>::max();
+        // data members
+        int    nTrks     = numeric_limits<int>::max();
+        double pSumTrks  = numeric_limits<double>::max();
+        double eSumEMCal = numeric_limits<double>::max();
+        double eSumIHCal = numeric_limits<double>::max();
+        double eSumOHCal = numeric_limits<double>::max();
+        double vx        = numeric_limits<double>::max();
+        double vy        = numeric_limits<double>::max();
+        double vz        = numeric_limits<double>::max();
+        double vr        = numeric_limits<double>::max();
 
-      // internal methods
-      void Minimize();
-      void Maximize();
+        // internal methods
+        void Minimize();
+        void Maximize();
 
-    public:
+      public:
 
-      // getters
-      int    GetNTrks()     {return nTrks;}
-      double GetPSumTrks()  {return pSumTrks;}
-      double GetESumEMCal() {return eSumEMCal;}
-      double GetESumIHCal() {return eSumIHCal;}
-      double GetESumOHCal() {return eSumOHCal;}
-      double GetVX()        {return vx;}
-      double GetVY()        {return vy;}
-      double GetVZ()        {return vz;}
-      double GetVR()        {return vr;}
+        // getters
+        int    GetNTrks()     {return nTrks;}
+        double GetPSumTrks()  {return pSumTrks;}
+        double GetESumEMCal() {return eSumEMCal;}
+        double GetESumIHCal() {return eSumIHCal;}
+        double GetESumOHCal() {return eSumOHCal;}
+        double GetVX()        {return vx;}
+        double GetVY()        {return vy;}
+        double GetVZ()        {return vz;}
+        double GetVR()        {return vr;}
 
-      // setters
-      void SetNTrks(const int arg_nTrks)            {nTrks     = arg_nTrks;}
-      void SetPSumTrks(const double arg_pSumTrks)   {pSumTrks  = arg_pSumTrks;}
-      void SetESumEMCal(const double arg_eSumEMCal) {eSumEMCal = arg_eSumEMCal;}
-      void SetESumIHCal(const double arg_eSumIHCal) {eSumIHCal = arg_eSumIHCal;}
-      void SetESumOHCal(const double arg_eSumOHCal) {eSumOHCal = arg_eSumOHCal;}
-      void SetVX(const double arg_vx)               {vx        = arg_vx;}
-      void SetVY(const double arg_vy)               {vy        = arg_vy;}
-      void SetVZ(const double arg_vz)               {vz        = arg_vz;}
-      void SetVR(const double arg_vr)               {vr        = arg_vr;}
+        // setters
+        void SetNTrks(const int arg_nTrks)            {nTrks     = arg_nTrks;}
+        void SetPSumTrks(const double arg_pSumTrks)   {pSumTrks  = arg_pSumTrks;}
+        void SetESumEMCal(const double arg_eSumEMCal) {eSumEMCal = arg_eSumEMCal;}
+        void SetESumIHCal(const double arg_eSumIHCal) {eSumIHCal = arg_eSumIHCal;}
+        void SetESumOHCal(const double arg_eSumOHCal) {eSumOHCal = arg_eSumOHCal;}
+        void SetVX(const double arg_vx)               {vx        = arg_vx;}
+        void SetVY(const double arg_vy)               {vy        = arg_vy;}
+        void SetVZ(const double arg_vz)               {vz        = arg_vz;}
+        void SetVR(const double arg_vr)               {vr        = arg_vr;}
 
-      // public methods
-      void Reset();
-      void SetInfo(PHCompositeNode* topNode);
+        // public methods
+        void Reset();
+        void SetInfo(PHCompositeNode* topNode);
 
-      // static methods
-      static vector<string> GetListOfMembers();
+        // static methods
+        static vector<string> GetListOfMembers();
 
-      // default ctor/dtor
-      RecoInfo();
-      ~RecoInfo();
+        // default ctor/dtor
+        RecoInfo();
+        ~RecoInfo();
 
-      // ctors accepting arguments
-      RecoInfo(Const::Init init);
-      RecoInfo(PHCompositeNode* topNode);
+        // ctors accepting arguments
+        RecoInfo(Const::Init init);
+        RecoInfo(PHCompositeNode* topNode);
 
-    // identify this class to ROOT
-    ClassDefNV(RecoInfo, 1)
+      // identify this class to ROOT
+      ClassDefNV(RecoInfo, 1)
 
-  };  // end RecoInfo definition
+    };  // end RecoInfo definition
 
+  }  // end Types namespace
 }  // end SColdQcdCorrelatorAnalysis namespace
 
 #endif

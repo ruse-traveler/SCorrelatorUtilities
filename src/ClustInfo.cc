@@ -21,7 +21,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
   // internal methods ---------------------------------------------------------
 
-  void ClustInfo::Minimize() {
+  void Types::ClustInfo::Minimize() {
 
     system  = numeric_limits<int>::min();
     nTwr    = numeric_limits<int>::min();
@@ -36,7 +36,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
   }  // end 'Minimize()'
 
-  void ClustInfo::Maximize() {
+  void Types::ClustInfo::Maximize() {
 
     system  = numeric_limits<int>::max();
     nTwr    = numeric_limits<int>::max();
@@ -55,7 +55,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
   // public methods -----------------------------------------------------------
 
-  void ClustInfo::Reset() {
+  void Types::ClustInfo::Reset() {
 
     Maximize();
     return;
@@ -64,7 +64,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-  void ClustInfo::SetInfo(const RawCluster* clust, optional<int> sys = nullopt) {
+  void Types::ClustInfo::SetInfo(const RawCluster* clust, optional<int> sys = nullopt) {
 
     // if subsystem ID provided, set data member
     if (sys.has_value()) {
@@ -86,7 +86,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-  bool ClustInfo::IsInAcceptance(const ClustInfo& minimum, const ClustInfo& maximum) {
+  bool Types::ClustInfo::IsInAcceptance(const ClustInfo& minimum, const ClustInfo& maximum) {
 
     return ((*this >= minimum) && (*this <= maximum));
 
@@ -94,7 +94,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-  bool ClustInfo::IsInAcceptance(const pair<ClustInfo, ClustInfo>& range) {
+  bool Types::ClustInfo::IsInAcceptance(const pair<ClustInfo, ClustInfo>& range) {
 
     return ((*this >= range.first) && (*this <= range.second));
 
@@ -104,7 +104,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
   // static methods -----------------------------------------------------------
 
-  vector<string> ClustInfo::GetListOfMembers() {
+  vector<string> Types::ClustInfo::GetListOfMembers() {
 
     vector<string> members = {
       "sys",
@@ -125,7 +125,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
   // overloaded operators -----------------------------------------------------
 
-  bool operator<(const ClustInfo& lhs, const ClustInfo& rhs) {
+  bool Types::operator <(const ClustInfo& lhs, const ClustInfo& rhs) {
 
     // note that some quantities aren't relevant for this comparison
     const bool isLessThan = (
@@ -140,11 +140,11 @@ namespace SColdQcdCorrelatorAnalysis {
     );
     return isLessThan;
 
-  }  // end 'operator<(ClustInfo&, ClustInfo&) const'
+  }  // end 'operator <(ClustInfo&, ClustInfo&) const'
 
 
 
-  bool operator>(const ClustInfo& lhs, const ClustInfo& rhs) {
+  bool Types::operator >(const ClustInfo& lhs, const ClustInfo& rhs) {
 
     // note that some quantities aren't relevant for this comparison
     const bool isGreaterThan = (
@@ -159,11 +159,11 @@ namespace SColdQcdCorrelatorAnalysis {
     );
     return isGreaterThan;
 
-  }  // end 'operator>(ClustInfo&, ClustInfo&)'
+  }  // end 'operator >(ClustInfo&, ClustInfo&)'
 
 
 
-  bool operator<=(const ClustInfo& lhs, const ClustInfo& rhs) {
+  bool Types::operator <=(const ClustInfo& lhs, const ClustInfo& rhs) {
 
     // note that some quantities aren't relevant for this comparison
     const bool isLessThanOrEqualTo = (
@@ -178,11 +178,11 @@ namespace SColdQcdCorrelatorAnalysis {
     );
     return isLessThanOrEqualTo;
 
-  }  // end 'operator<=(ClustInfo&, ClustInfo&) const'
+  }  // end 'operator <=(ClustInfo&, ClustInfo&) const'
 
 
 
-  bool operator>=(const ClustInfo& lhs, const ClustInfo& rhs) {
+  bool Types::operator >=(const ClustInfo& lhs, const ClustInfo& rhs) {
 
     // note that some quantities aren't relevant for this comparison
     const bool isGreaterThanOrEqualTo = (
@@ -197,13 +197,13 @@ namespace SColdQcdCorrelatorAnalysis {
     );
     return isGreaterThanOrEqualTo;
 
-  }  // end 'operator>=(ClustInfo&, ClustInfo&)'
+  }  // end 'operator >=(ClustInfo&, ClustInfo&)'
 
 
 
   // ctor/dtor ----------------------------------------------------------------
 
-  ClustInfo::ClustInfo() {
+  Types::ClustInfo::ClustInfo() {
 
      // nothing to do //
 
@@ -211,7 +211,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-  ClustInfo::~ClustInfo() {
+  Types::ClustInfo::~ClustInfo() {
 
     // nothing to do //
 
@@ -219,7 +219,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-  ClustInfo::ClustInfo(const Const::Init init) {
+  Types::ClustInfo::ClustInfo(const Const::Init init) {
 
     switch (init) {
       case Const::Init::Minimize:
@@ -237,7 +237,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-  ClustInfo::ClustInfo(const RawCluster* clust, optional<int> sys) {
+  Types::ClustInfo::ClustInfo(const RawCluster* clust, optional<int> sys) {
 
     SetInfo(clust, sys);
 

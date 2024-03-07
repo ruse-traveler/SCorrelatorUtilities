@@ -22,7 +22,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
   // internal methods ---------------------------------------------------------
 
-  void GenInfo::Minimize() {
+  void Types::GenInfo::Minimize() {
 
     // minimize atomic members
     nChrgPar = numeric_limits<int>::min();
@@ -38,7 +38,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-  void GenInfo::Maximize() {
+  void Types::GenInfo::Maximize() {
 
     // maximize atomic members
     nChrgPar = numeric_limits<int>::max();
@@ -56,7 +56,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
   // public methods -----------------------------------------------------------
 
-  void GenInfo::Reset() {
+  void Types::GenInfo::Reset() {
 
     // reset embed flag
     isEmbed = false;
@@ -69,7 +69,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-  void GenInfo::SetInfo(
+  void Types::GenInfo::SetInfo(
     PHCompositeNode* topNode,
     const bool embed,
     const vector<int> evtsToGrab
@@ -102,7 +102,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
   // static methods -----------------------------------------------------------
 
-  vector<string> GenInfo::GetListOfMembers() {
+  vector<string> Types::GenInfo::GetListOfMembers() {
 
     // get parton members
     vector<string> membersParA = ParInfo::GetListOfMembers();
@@ -130,7 +130,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
   // ctor/dtor ----------------------------------------------------------------
 
-  GenInfo::GenInfo() {
+  Types::GenInfo::GenInfo() {
 
     /* nothing to do */
 
@@ -138,7 +138,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-  GenInfo::~GenInfo() {
+  Types::GenInfo::~GenInfo() {
 
     /* nothing to do */
 
@@ -146,7 +146,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-  GenInfo::GenInfo(const Const::Init init) {
+  Types::GenInfo::GenInfo(const Const::Init init) {
 
     switch (init) {
       case Const::Init::Minimize:
@@ -164,7 +164,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-  GenInfo::GenInfo(PHCompositeNode* topNode, const bool embed, vector<int> evtsToGrab) {
+  Types::GenInfo::GenInfo(PHCompositeNode* topNode, const bool embed, vector<int> evtsToGrab) {
 
     SetInfo(topNode, embed, evtsToGrab);
 

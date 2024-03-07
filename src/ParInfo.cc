@@ -21,7 +21,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
   // internal methods ---------------------------------------------------------
 
-  void ParInfo::Minimize() {
+  void Types::ParInfo::Minimize() {
 
     pid     = numeric_limits<int>::min();
     status  = numeric_limits<int>::min();
@@ -46,7 +46,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-  void ParInfo::Maximize() {
+  void Types::ParInfo::Maximize() {
 
     pid     = numeric_limits<int>::max();
     status  = numeric_limits<int>::max();
@@ -73,7 +73,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
   // public methods -----------------------------------------------------------
 
-  void ParInfo::Reset() {
+  void Types::ParInfo::Reset() {
 
     Maximize();
     return;
@@ -82,7 +82,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-  void ParInfo::SetInfo(const HepMC::GenParticle* particle, const int event) {
+  void Types::ParInfo::SetInfo(const HepMC::GenParticle* particle, const int event) {
 
     pid     = particle -> pdg_id();
     status  = particle -> status();
@@ -103,7 +103,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-  void ParInfo::SetInfo(const PHG4Particle* particle, const int event) {
+  void Types::ParInfo::SetInfo(const PHG4Particle* particle, const int event) {
 
     // set basic info
     pid     = particle -> get_pid();
@@ -128,7 +128,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-  bool ParInfo::IsInAcceptance(const ParInfo& minimum, const ParInfo& maximum) {
+  bool Types::ParInfo::IsInAcceptance(const ParInfo& minimum, const ParInfo& maximum) {
 
     return ((*this >= minimum) && (*this <= maximum));
 
@@ -136,7 +136,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-  bool ParInfo::IsInAcceptance(const pair<ParInfo, ParInfo>& range) {
+  bool Types::ParInfo::IsInAcceptance(const pair<ParInfo, ParInfo>& range) {
 
     return ((*this >= range.first) && (*this <= range.second));
 
@@ -144,7 +144,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-  bool ParInfo::IsFinalState() {
+  bool Types::ParInfo::IsFinalState() {
 
     return (status == 1);
 
@@ -152,7 +152,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-  bool ParInfo::IsHardScatterProduct() {
+  bool Types::ParInfo::IsHardScatterProduct() {
 
     const bool isHardScatter = (
       (status == Const::HardScatterStatus::First) ||
@@ -164,7 +164,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-  bool ParInfo::IsParton() {
+  bool Types::ParInfo::IsParton() {
 
     const bool isLightQuark   = ((pid == Const::Parton::Down)    || (pid == Const::Parton::Up));
     const bool isStrangeQuark = ((pid == Const::Parton::Strange) || (pid == Const::Parton::Charm));
@@ -176,7 +176,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-  bool ParInfo::IsOutgoingParton() {
+  bool Types::ParInfo::IsOutgoingParton() {
 
     return (IsHardScatterProduct() && IsParton());
 
@@ -186,7 +186,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
   // static methods -----------------------------------------------------------
 
-  vector<string> ParInfo::GetListOfMembers() {
+  vector<string> Types::ParInfo::GetListOfMembers() {
 
     vector<string> members = {
       "pid",
@@ -214,7 +214,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
   // overloaded operators -----------------------------------------------------
 
-  bool operator<(const ParInfo& lhs, const ParInfo& rhs) {
+  bool Types::operator <(const ParInfo& lhs, const ParInfo& rhs) {
 
     // note that some quantities aren't relevant for this comparison
     const bool isLessThan = (
@@ -228,11 +228,11 @@ namespace SColdQcdCorrelatorAnalysis {
     );
     return isLessThan;
 
-  }  // end 'operator<(ParInfo&, ParInfo&)'
+  }  // end 'operator <(ParInfo&, ParInfo&)'
 
 
 
-  bool operator>(const ParInfo& lhs, const ParInfo& rhs) {
+  bool Types::operator >(const ParInfo& lhs, const ParInfo& rhs) {
 
     // note that some quantities aren't relevant for this comparison
     const bool isGreaterThan = (
@@ -246,11 +246,11 @@ namespace SColdQcdCorrelatorAnalysis {
     );
     return isGreaterThan;
 
-  }  // end 'operator>(ParInfo&, ParInfo&)'
+  }  // end 'operator >(ParInfo&, ParInfo&)'
 
 
 
-  bool operator<=(const ParInfo& lhs, const ParInfo& rhs) {
+  bool Types::operator <=(const ParInfo& lhs, const ParInfo& rhs) {
 
     // note that some quantities aren't relevant for this comparison
     const bool isLessThanOrEqualTo = (
@@ -264,11 +264,11 @@ namespace SColdQcdCorrelatorAnalysis {
     );
     return isLessThanOrEqualTo;
 
-  }  // end 'operator<=(ParInfo&, ParInfo&)'
+  }  // end 'operator <=(ParInfo&, ParInfo&)'
 
 
 
-  bool operator>=(const ParInfo& lhs, const ParInfo& rhs) {
+  bool Types::operator >=(const ParInfo& lhs, const ParInfo& rhs) {
 
     // note that some quantities aren't relevant for this comparison
     const bool isGreaterThanOrEqualTo = (
@@ -282,13 +282,13 @@ namespace SColdQcdCorrelatorAnalysis {
     );
     return isGreaterThanOrEqualTo;
 
-  }  // end 'operator>=(ParInfo&, ParInfo&)'
+  }  // end 'operator >=(ParInfo&, ParInfo&)'
 
 
 
   // ctor/dtor ----------------------------------------------------------------
 
-  ParInfo::ParInfo() {
+  Types::ParInfo::ParInfo() {
 
     /* nothing to do */
 
@@ -296,7 +296,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-  ParInfo::~ParInfo() {
+  Types::ParInfo::~ParInfo() {
 
     /* nothing to do */
 
@@ -304,7 +304,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-  ParInfo::ParInfo(const Const::Init init) {
+  Types::ParInfo::ParInfo(const Const::Init init) {
 
     switch (init) {
       case Const::Init::Minimize:
@@ -322,7 +322,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-  ParInfo::ParInfo(HepMC::GenParticle* particle, const int event) {
+  Types::ParInfo::ParInfo(HepMC::GenParticle* particle, const int event) {
 
     SetInfo(particle, event);
 
@@ -330,7 +330,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-  ParInfo::ParInfo(PHG4Particle* particle, const int event) {
+  Types::ParInfo::ParInfo(PHG4Particle* particle, const int event) {
 
     SetInfo(particle, event);
 

@@ -1,5 +1,5 @@
 // ----------------------------------------------------------------------------
-// 'SCorrelatorUtiltiesLinkDef.h'
+// 'TypesLinkDef.h'
 // Derek Anderson
 // 11.16.2023
 //

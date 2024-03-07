@@ -21,7 +21,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
   // internal methods ---------------------------------------------------------
 
-  void CstInfo::Minimize() {
+  void Types::CstInfo::Minimize() {
 
     type    = numeric_limits<int>::min();
     cstID   = numeric_limits<int>::min();
@@ -43,7 +43,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-  void CstInfo::Maximize() {
+  void Types::CstInfo::Maximize() {
 
     type    = numeric_limits<int>::max();
     cstID   = numeric_limits<int>::max();
@@ -67,7 +67,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
   // public methods -----------------------------------------------------------
 
-  void CstInfo::Reset() {
+  void Types::CstInfo::Reset() {
 
     Maximize();
     return;
@@ -76,7 +76,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-  void CstInfo::SetInfo(fastjet::PseudoJet& pseudojet) {
+  void Types::CstInfo::SetInfo(fastjet::PseudoJet& pseudojet) {
 
     cstID = pseudojet.user_index();
     ene   = pseudojet.E();
@@ -92,7 +92,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-  bool CstInfo::IsInAcceptance(const CstInfo& minimum, const CstInfo& maximum) {
+  bool Types::CstInfo::IsInAcceptance(const CstInfo& minimum, const CstInfo& maximum) {
 
     return ((*this >= minimum) && (*this <= maximum));
 
@@ -100,7 +100,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-  bool CstInfo::IsInAcceptance(const pair<CstInfo, CstInfo>& range) {
+  bool Types::CstInfo::IsInAcceptance(const pair<CstInfo, CstInfo>& range) {
 
     return ((*this >= range.first) && (*this <= range.second));
 
@@ -110,7 +110,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
   // static methods -----------------------------------------------------------
 
-  vector<string> CstInfo::GetListOfMembers() {
+  vector<string> Types::CstInfo::GetListOfMembers() {
 
     vector<string> members = {
       "type",
@@ -136,7 +136,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
   // overloaded operators -----------------------------------------------------
 
-  bool operator<(const CstInfo& lhs, const CstInfo& rhs) {
+  bool Types::operator <(const CstInfo& lhs, const CstInfo& rhs) {
 
     // note that some quantities aren't relevant for this comparison
     const bool isLessThan = (
@@ -152,11 +152,11 @@ namespace SColdQcdCorrelatorAnalysis {
     );
     return isLessThan;
   
-  }  // end 'operator<(CstInfo&, CstInfo&)'
+  }  // end 'operator <(CstInfo&, CstInfo&)'
 
 
 
-  bool operator>(const CstInfo& lhs, const CstInfo& rhs) {
+  bool Types::operator >(const CstInfo& lhs, const CstInfo& rhs) {
 
     // note that some quantities aren't relevant for this comparison
     const bool isGreaterThan = (
@@ -172,11 +172,11 @@ namespace SColdQcdCorrelatorAnalysis {
     );
     return isGreaterThan;
   
-  }  // end 'operator<(CstInfo&, CstInfo&)'
+  }  // end 'operator >(CstInfo&, CstInfo&)'
 
 
 
-  bool operator<=(const CstInfo& lhs, const CstInfo& rhs) {
+  bool Types::operator <=(const CstInfo& lhs, const CstInfo& rhs) {
 
     // note that some quantities aren't relevant for this comparison
     const bool isLessThanOrEqualTo = (
@@ -192,11 +192,11 @@ namespace SColdQcdCorrelatorAnalysis {
     );
     return isLessThanOrEqualTo;
   
-  }  // end 'operator<=(CstInfo&, CstInfo&)'
+  }  // end 'operator <=(CstInfo&, CstInfo&)'
 
 
 
-  bool operator>=(const CstInfo& lhs, const CstInfo& rhs) {
+  bool Types::operator >=(const CstInfo& lhs, const CstInfo& rhs) {
 
     // note that some quantities aren't relevant for this comparison
     const bool isGreaterThan = (
@@ -212,13 +212,13 @@ namespace SColdQcdCorrelatorAnalysis {
     );
     return isGreaterThan;
   
-  }  // end 'operator<(CstInfo&, CstInfo&)'
+  }  // end 'operator >=(CstInfo&, CstInfo&)'
 
 
 
   // ctor/dtor ----------------------------------------------------------------
 
-  CstInfo::CstInfo() {
+  Types::CstInfo::CstInfo() {
 
     /* nothing to do */
 
@@ -226,7 +226,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-  CstInfo::~CstInfo() {
+  Types::CstInfo::~CstInfo() {
 
     /* nothing to do */
 
@@ -234,7 +234,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-  CstInfo::CstInfo(const Const::Init init) {
+  Types::CstInfo::CstInfo(const Const::Init init) {
 
     switch (init) {
       case Const::Init::Minimize:
@@ -252,7 +252,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-  CstInfo::CstInfo(fastjet::PseudoJet& pseudojet) {
+  Types::CstInfo::CstInfo(fastjet::PseudoJet& pseudojet) {
 
     SetInfo(pseudojet);
 

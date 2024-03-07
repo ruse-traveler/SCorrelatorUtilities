@@ -147,13 +147,13 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-  ParInfo Tools::GetPartonInfo(PHCompositeNode* topNode, const int event, const int status) {
+  Types::ParInfo Tools::GetPartonInfo(PHCompositeNode* topNode, const int event, const int status) {
 
     // pick out relevant sub-sevent to grab
     HepMC::GenEvent* genEvt = Interfaces::GetGenEvent(topNode, event);
 
     // loop over particles
-    ParInfo parton;
+    Types::ParInfo parton;
     for (
       HepMC::GenEvent::particle_const_iterator particle = genEvt -> particles_begin();
       particle != genEvt -> particles_end();
