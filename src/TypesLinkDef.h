@@ -7,13 +7,17 @@
 // sPHENIX Cold QCD Correlator Analysis.
 // ----------------------------------------------------------------------------
 
+// stl collection
+#include <vector>
+#include <utility>
+// analysis types
 #include "ClustInfo.h"
 #include "CstInfo.h"
 #include "JetInfo.h"
 
 #ifdef __CINT__
 
-// base utility classes
+// base utility types
 #pragma link C++ class ClustInfo+;
 #pragma link C++ class CstInfo+;
 #pragma link C++ class FlowInfo+;
