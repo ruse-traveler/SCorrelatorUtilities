@@ -53,20 +53,6 @@ namespace SColdQcdCorrelatorAnalysis {
 
   }  // end 'FlattenLeafList(vector<string>&)'
 
-
-
-  // generic methods ----------------------------------------------------------
-
-  template <typename T> vector<string> Interfaces::MakeLeafVector(optional<string> tag) {
-
-    vector<string> leaves = T::GetListOfMembers();
-    if (tag.has_value()) {
-      AddTagToLeaves(tag.value(), leaves);
-    }
-    return leaves;
-
-  }  // end 'template <> MakeLeafVector(optional<string>)'
-
 }  // end SColdQcdCorrelatorAnalysis namespace
 
 // end ------------------------------------------------------------------------
