@@ -13,9 +13,16 @@
 // analysis types
 #include "ClustInfo.h"
 #include "CstInfo.h"
+#include "FlowInfo.h"
+#include "GenInfo.h"
 #include "JetInfo.h"
+#include "ParInfo.h"
+#include "RecoInfo.h"
+#include "TrkInfo.h"
 
 #ifdef __CINT__
+
+#pragma link C++ nestedclasses;
 
 // base utility types
 #pragma link C++ class ClustInfo+;
@@ -28,6 +35,7 @@
 #pragma link C++ class TrkInfo+;
 
 // stl collections of utility classes
+#pragma link C++ class vector<ClustInfo>+;
 #pragma link C++ class vector<CstInfo>+;
 #pragma link C++ class vector<FlowInfo>+;
 #pragma link C++ class vector<JetInfo>+;
