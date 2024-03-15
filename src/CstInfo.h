@@ -68,10 +68,10 @@ namespace SColdQcdCorrelatorAnalysis {
         double GetZ()       {return z;}
         double GetDR()      {return dr;}
         double GetEne()     {return ene;}
-        double GetPx()      {return px;}
-        double GetPy()      {return py;}
-        double GetPz()      {return pz;}
-        double GetPt()      {return pt;}
+        double GetPX()      {return px;}
+        double GetPY()      {return py;}
+        double GetPZ()      {return pz;}
+        double GetPT()      {return pt;}
         double GetEta()     {return eta;}
         double GetPhi()     {return phi;}
 
@@ -84,10 +84,10 @@ namespace SColdQcdCorrelatorAnalysis {
         void SetZ(const double arg_z)          {z       = arg_z;}
         void SetDR(const double arg_dr)        {dr      = arg_dr;}
         void SetEne(const double arg_ene)      {ene     = arg_ene;}
-        void SetPx(const double arg_px)        {px      = arg_px;}
-        void SetPy(const double arg_py)        {py      = arg_py;}
-        void SetPz(const double arg_pz)        {pz      = arg_pz;}
-        void SetPt(const double arg_pt)        {pt      = arg_pt;}
+        void SetPX(const double arg_px)        {px      = arg_px;}
+        void SetPY(const double arg_py)        {py      = arg_py;}
+        void SetPZ(const double arg_pz)        {pz      = arg_pz;}
+        void SetPT(const double arg_pt)        {pt      = arg_pt;}
         void SetEta(const double arg_eta)      {eta     = arg_eta;}
         void SetPhi(const double arg_phi)      {phi     = arg_phi;}
 
