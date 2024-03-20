@@ -24,15 +24,15 @@ namespace SColdQcdCorrelatorAnalysis {
 
   void Types::RecoInfo::Minimize() {
 
-    nTrks     = numeric_limits<int>::min();
-    pSumTrks  = numeric_limits<double>::min();
-    eSumEMCal = numeric_limits<double>::min();
-    eSumIHCal = numeric_limits<double>::min();
-    eSumOHCal = numeric_limits<double>::min();
-    vx        = numeric_limits<double>::min();
-    vy        = numeric_limits<double>::min();
-    vz        = numeric_limits<double>::min();
-    vr        = numeric_limits<double>::min();
+    nTrks     = -1 * numeric_limits<int>::max();
+    pSumTrks  = -1. * numeric_limits<double>::max();
+    eSumEMCal = -1. * numeric_limits<double>::max();
+    eSumIHCal = -1. * numeric_limits<double>::max();
+    eSumOHCal = -1. * numeric_limits<double>::max();
+    vx        = -1. * numeric_limits<double>::max();
+    vy        = -1. * numeric_limits<double>::max();
+    vz        = -1. * numeric_limits<double>::max();
+    vr        = -1. * numeric_limits<double>::max();
     return;
 
   }  // end 'Minimize()'

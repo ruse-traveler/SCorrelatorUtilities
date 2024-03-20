@@ -23,23 +23,23 @@ namespace SColdQcdCorrelatorAnalysis {
 
   void Types::ParInfo::Minimize() {
 
-    pid     = numeric_limits<int>::min();
-    status  = numeric_limits<int>::min();
-    barcode = numeric_limits<int>::min();
-    embedID = numeric_limits<int>::min();
-    charge  = numeric_limits<float>::min();
-    mass    = numeric_limits<double>::min();
-    eta     = numeric_limits<double>::min();
-    phi     = numeric_limits<double>::min();
-    ene     = numeric_limits<double>::min();
-    px      = numeric_limits<double>::min();
-    py      = numeric_limits<double>::min();
-    pz      = numeric_limits<double>::min();
-    pt      = numeric_limits<double>::min();
-    vx      = numeric_limits<double>::min();
-    vy      = numeric_limits<double>::min();
-    vz      = numeric_limits<double>::min();
-    vr      = numeric_limits<double>::min();
+    pid     = -1 * numeric_limits<int>::max();
+    status  = -1 * numeric_limits<int>::max();
+    barcode = -1 * numeric_limits<int>::max();
+    embedID = -1 * numeric_limits<int>::max();
+    charge  = -1. * numeric_limits<float>::max();
+    mass    = -1. * numeric_limits<double>::max();
+    eta     = -1. * numeric_limits<double>::max();
+    phi     = -1. * numeric_limits<double>::max();
+    ene     = -1. * numeric_limits<double>::max();
+    px      = -1. * numeric_limits<double>::max();
+    py      = -1. * numeric_limits<double>::max();
+    pz      = -1. * numeric_limits<double>::max();
+    pt      = -1. * numeric_limits<double>::max();
+    vx      = -1. * numeric_limits<double>::max();
+    vy      = -1. * numeric_limits<double>::max();
+    vz      = -1. * numeric_limits<double>::max();
+    vr      = -1. * numeric_limits<double>::max();
     return;
 
   }  // end 'Minimize()'

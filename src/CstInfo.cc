@@ -23,20 +23,20 @@ namespace SColdQcdCorrelatorAnalysis {
 
   void Types::CstInfo::Minimize() {
 
-    type    = numeric_limits<int>::min();
-    cstID   = numeric_limits<int>::min();
-    jetID   = numeric_limits<int>::min();
-    embedID = numeric_limits<int>::min();
-    pid     = numeric_limits<int>::min();
-    z       = numeric_limits<double>::min();
-    dr      = numeric_limits<double>::min();
-    ene     = numeric_limits<double>::min();
-    px      = numeric_limits<double>::min();
-    py      = numeric_limits<double>::min();
-    pz      = numeric_limits<double>::min();
-    pt      = numeric_limits<double>::min();
-    eta     = numeric_limits<double>::min();
-    phi     = numeric_limits<double>::min();
+    type    = -1 * numeric_limits<int>::max();
+    cstID   = -1 * numeric_limits<int>::max();
+    jetID   = -1 * numeric_limits<int>::max();
+    embedID = -1 * numeric_limits<int>::max();
+    pid     = -1 * numeric_limits<int>::max();
+    z       = -1. * numeric_limits<double>::max();
+    dr      = -1. * numeric_limits<double>::max();
+    ene     = -1. * numeric_limits<double>::max();
+    px      = -1. * numeric_limits<double>::max();
+    py      = -1. * numeric_limits<double>::max();
+    pz      = -1. * numeric_limits<double>::max();
+    pt      = -1. * numeric_limits<double>::max();
+    eta     = -1. * numeric_limits<double>::max();
+    phi     = -1. * numeric_limits<double>::max();
     return;
 
   }  // end 'Minimize()'

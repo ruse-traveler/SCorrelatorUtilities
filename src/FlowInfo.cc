@@ -23,16 +23,16 @@ namespace SColdQcdCorrelatorAnalysis {
 
   void Types::FlowInfo::Minimize() {
 
-    id   = numeric_limits<int>::min();
-    type = numeric_limits<int>::min();
-    mass = numeric_limits<double>::min();
-    eta  = numeric_limits<double>::min();
-    phi  = numeric_limits<double>::min();
-    ene  = numeric_limits<double>::min();
-    px   = numeric_limits<double>::min();
-    py   = numeric_limits<double>::min();
-    pz   = numeric_limits<double>::min();
-    pt   = numeric_limits<double>::min();
+    id   = -1 * numeric_limits<int>::max();
+    type = -1 * numeric_limits<int>::max();
+    mass = -1. * numeric_limits<double>::max();
+    eta  = -1. * numeric_limits<double>::max();
+    phi  = -1. * numeric_limits<double>::max();
+    ene  = -1. * numeric_limits<double>::max();
+    px   = -1. * numeric_limits<double>::max();
+    py   = -1. * numeric_limits<double>::max();
+    pz   = -1. * numeric_limits<double>::max();
+    pt   = -1. * numeric_limits<double>::max();
     return;
 
   }  // end 'Minimize()'

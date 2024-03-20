@@ -25,10 +25,10 @@ namespace SColdQcdCorrelatorAnalysis {
   void Types::GenInfo::Minimize() {
 
     // minimize atomic members
-    nChrgPar = numeric_limits<int>::min();
-    nNeuPar  = numeric_limits<int>::min();
-    eSumChrg = numeric_limits<double>::min();
-    eSumNeu  = numeric_limits<double>::min();
+    nChrgPar = -1 * numeric_limits<int>::max();
+    nNeuPar  = -1 * numeric_limits<int>::max();
+    eSumChrg = -1. * numeric_limits<double>::max();
+    eSumNeu  = -1. * numeric_limits<double>::max();
 
     // minimize parton info
     partons = make_pair(ParInfo(Const::Init::Minimize), ParInfo(Const::Init::Minimize));

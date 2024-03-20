@@ -23,15 +23,15 @@ namespace SColdQcdCorrelatorAnalysis {
 
   void Types::ClustInfo::Minimize() {
 
-    system  = numeric_limits<int>::min();
-    nTwr    = numeric_limits<int>::min();
-    ene     = numeric_limits<double>::min();
-    rho     = numeric_limits<double>::min();
-    eta     = numeric_limits<double>::min();
-    phi     = numeric_limits<double>::min();
-    rx      = numeric_limits<double>::min();
-    ry      = numeric_limits<double>::min();
-    rz      = numeric_limits<double>::min();
+    system  = -1 * numeric_limits<int>::max();
+    nTwr    = -1 * numeric_limits<int>::max();
+    ene     = -1. * numeric_limits<double>::max();
+    rho     = -1. * numeric_limits<double>::max();
+    eta     = -1. * numeric_limits<double>::max();
+    phi     = -1. * numeric_limits<double>::max();
+    rx      = -1. * numeric_limits<double>::max();
+    ry      = -1. * numeric_limits<double>::max();
+    rz      = -1. * numeric_limits<double>::max();
     return;
 
   }  // end 'Minimize()'

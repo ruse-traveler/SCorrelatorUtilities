@@ -22,27 +22,27 @@ namespace SColdQcdCorrelatorAnalysis {
 
   void Types::TrkInfo::Minimize() {
 
-    id         = numeric_limits<int>::min();
-    nMvtxLayer = numeric_limits<int>::min();
-    nInttLayer = numeric_limits<int>::min();
-    nTpcLayer  = numeric_limits<int>::min();
-    nMvtxClust = numeric_limits<int>::min();
-    nInttClust = numeric_limits<int>::min();
-    nTpcClust  = numeric_limits<int>::min();
-    eta        = numeric_limits<double>::min();
-    phi        = numeric_limits<double>::min();
-    px         = numeric_limits<double>::min();
-    py         = numeric_limits<double>::min();
-    pz         = numeric_limits<double>::min();
-    pt         = numeric_limits<double>::min();
-    ene        = numeric_limits<double>::min();
-    dcaXY      = numeric_limits<double>::min();
-    dcaZ       = numeric_limits<double>::min();
-    ptErr      = numeric_limits<double>::min();
-    quality    = numeric_limits<double>::min();
-    vx         = numeric_limits<double>::min();
-    vy         = numeric_limits<double>::min();
-    vz         = numeric_limits<double>::min();
+    id         = -1 * numeric_limits<int>::max();
+    nMvtxLayer = -1 * numeric_limits<int>::max();
+    nInttLayer = -1 * numeric_limits<int>::max();
+    nTpcLayer  = -1 * numeric_limits<int>::max();
+    nMvtxClust = -1 * numeric_limits<int>::max();
+    nInttClust = -1 * numeric_limits<int>::max();
+    nTpcClust  = -1 * numeric_limits<int>::max();
+    eta        = -1. * numeric_limits<double>::max();
+    phi        = -1. * numeric_limits<double>::max();
+    px         = -1. * numeric_limits<double>::max();
+    py         = -1. * numeric_limits<double>::max();
+    pz         = -1. * numeric_limits<double>::max();
+    pt         = -1. * numeric_limits<double>::max();
+    ene        = -1. * numeric_limits<double>::max();
+    dcaXY      = -1. * numeric_limits<double>::max();
+    dcaZ       = -1. * numeric_limits<double>::max();
+    ptErr      = -1. * numeric_limits<double>::max();
+    quality    = -1. * numeric_limits<double>::max();
+    vx         = -1. * numeric_limits<double>::max();
+    vy         = -1. * numeric_limits<double>::max();
+    vz         = -1. * numeric_limits<double>::max();
     return;
 
   }  // end 'Minimize()'
