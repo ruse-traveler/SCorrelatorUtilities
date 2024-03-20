@@ -70,23 +70,23 @@ namespace SColdQcdCorrelatorAnalysis {
       public:
 
         // getters
-        int    GetPID()     {return pid;}
-        int    GetStatus()  {return status;}
-        int    GetBarcode() {return barcode;}
-        int    GetEmbedID() {return embedID;}
-        float  GetCharge()  {return charge;}
-        double GetMass()    {return mass;}
-        double GetEta()     {return eta;}
-        double GetPhi()     {return phi;}
-        double GetEne()     {return ene;}
-        double GetPX()      {return px;}
-        double GetPY()      {return py;}
-        double GetPZ()      {return pz;}
-        double GetPT()      {return pt;}
-        double GetVX()      {return vx;}
-        double GetVY()      {return vy;}
-        double GetVZ()      {return vz;}
-        double GetVR()      {return vr;}
+        int    GetPID()     const {return pid;}
+        int    GetStatus()  const {return status;}
+        int    GetBarcode() const {return barcode;}
+        int    GetEmbedID() const {return embedID;}
+        float  GetCharge()  const {return charge;}
+        double GetMass()    const {return mass;}
+        double GetEta()     const {return eta;}
+        double GetPhi()     const {return phi;}
+        double GetEne()     const {return ene;}
+        double GetPX()      const {return px;}
+        double GetPY()      const {return py;}
+        double GetPZ()      const {return pz;}
+        double GetPT()      const {return pt;}
+        double GetVX()      const {return vx;}
+        double GetVY()      const {return vy;}
+        double GetVZ()      const {return vz;}
+        double GetVR()      const {return vr;}
 
         // setters
         void SetPID(const int arg_pid)         {pid     = arg_pid;}
@@ -111,12 +111,12 @@ namespace SColdQcdCorrelatorAnalysis {
         void Reset();
         void SetInfo(const HepMC::GenParticle* particle, const int event);
         void SetInfo(const PHG4Particle* particle, const int event);
-        bool IsInAcceptance(const ParInfo& minimum, const ParInfo& maximum);
-        bool IsInAcceptance(const pair<ParInfo, ParInfo>& range);
-        bool IsFinalState();
-        bool IsHardScatterProduct();
-        bool IsParton();
-        bool IsOutgoingParton();
+        bool IsInAcceptance(const ParInfo& minimum, const ParInfo& maximum) const;
+        bool IsInAcceptance(const pair<ParInfo, ParInfo>& range) const;
+        bool IsFinalState() const;
+        bool IsHardScatterProduct() const;
+        bool IsParton() const;
+        bool IsOutgoingParton() const;
 
         // static methods
         static vector<string> GetListOfMembers();

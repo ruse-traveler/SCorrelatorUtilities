@@ -54,16 +54,16 @@ namespace SColdQcdCorrelatorAnalysis {
       public:
 
         // getters
-        uint32_t GetJetID() {return jetID;}
-        uint64_t GetNCsts() {return nCsts;}
-        double   GetEne()   {return ene;}
-        double   GetPX()    {return px;}
-        double   GetPY()    {return py;}
-        double   GetPZ()    {return pz;}
-        double   GetPT()    {return pt;}
-        double   GetEta()   {return eta;}
-        double   GetPhi()   {return phi;}
-        double   GetArea()  {return area;}
+        uint32_t GetJetID() const {return jetID;}
+        uint64_t GetNCsts() const {return nCsts;}
+        double   GetEne()   const {return ene;}
+        double   GetPX()    const {return px;}
+        double   GetPY()    const {return py;}
+        double   GetPZ()    const {return pz;}
+        double   GetPT()    const {return pt;}
+        double   GetEta()   const {return eta;}
+        double   GetPhi()   const {return phi;}
+        double   GetArea()  const {return area;}
 
         // setters
         void SetJetID(uint32_t arg_jetID) {jetID = arg_jetID;}
@@ -80,8 +80,8 @@ namespace SColdQcdCorrelatorAnalysis {
         // public methods
         void Reset();
         void SetInfo(fastjet::PseudoJet& pseudojet);
-        bool IsInAcceptance(const JetInfo& minimum, const JetInfo& maximum);
-        bool IsInAcceptance(const pair<JetInfo, JetInfo>& range);
+        bool IsInAcceptance(const JetInfo& minimum, const JetInfo& maximum) const;
+        bool IsInAcceptance(const pair<JetInfo, JetInfo>& range) const;
 
         // static methods
         static vector<string> GetListOfMembers();

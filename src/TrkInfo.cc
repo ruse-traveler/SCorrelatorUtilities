@@ -122,7 +122,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-  bool Types::TrkInfo::IsInAcceptance(const TrkInfo& minimum, const TrkInfo& maximum) {
+  bool Types::TrkInfo::IsInAcceptance(const TrkInfo& minimum, const TrkInfo& maximum) const {
 
     return ((*this >= minimum) && (*this <= maximum));
 
@@ -130,7 +130,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-  bool Types::TrkInfo::IsInAcceptance(const pair<TrkInfo, TrkInfo>& range) {
+  bool Types::TrkInfo::IsInAcceptance(const pair<TrkInfo, TrkInfo>& range) const {
 
     return ((*this >= range.first) && (*this <= range.second));
 
@@ -142,7 +142,7 @@ namespace SColdQcdCorrelatorAnalysis {
     const pair<float, float> nSigCut,
     const pair<float, float> ptFitMax,
     const pair<TF1*, TF1*> fSigmaDca
-  ) {
+  ) const {
 
     // if above max pt used to fit dca width, use value of fit at max pt
     const double ptEvalXY = (pt > ptFitMax.first)  ? ptFitMax.first  : pt;

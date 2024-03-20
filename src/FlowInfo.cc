@@ -86,7 +86,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-  bool Types::FlowInfo::IsInAcceptance(const FlowInfo& minimum, const FlowInfo& maximum) {
+  bool Types::FlowInfo::IsInAcceptance(const FlowInfo& minimum, const FlowInfo& maximum) const {
 
     return ((*this >= minimum) && (*this <= maximum));
 
@@ -94,7 +94,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-  bool Types::FlowInfo::IsInAcceptance(const pair<FlowInfo, FlowInfo>& range) {
+  bool Types::FlowInfo::IsInAcceptance(const pair<FlowInfo, FlowInfo>& range) const {
 
     return ((*this >= range.first) && (*this <= range.second));
 

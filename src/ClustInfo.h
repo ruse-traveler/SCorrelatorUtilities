@@ -55,15 +55,15 @@ namespace SColdQcdCorrelatorAnalysis {
       public:
 
         // getters
-        int     GetSystem() {return system;}
-        int64_t GetNTwr()   {return nTwr;}
-        double  GetEne()    {return ene;}
-        double  GetRho()    {return rho;}
-        double  GetEta()    {return eta;}
-        double  GetPhi()    {return phi;}
-        double  GetRX()     {return rx;}
-        double  GetRY()     {return ry;}
-        double  GetRZ()     {return rz;}
+        int     GetSystem() const {return system;}
+        int64_t GetNTwr()   const {return nTwr;}
+        double  GetEne()    const {return ene;}
+        double  GetRho()    const {return rho;}
+        double  GetEta()    const {return eta;}
+        double  GetPhi()    const {return phi;}
+        double  GetRX()     const {return rx;}
+        double  GetRY()     const {return ry;}
+        double  GetRZ()     const {return rz;}
 
         // setters
         void SetSystem(const int arg_sys)    {system = arg_sys;}
@@ -79,8 +79,8 @@ namespace SColdQcdCorrelatorAnalysis {
         // public methods
         void Reset();
         void SetInfo(const RawCluster* clust, optional<int> sys);
-        bool IsInAcceptance(const ClustInfo& minimum, const ClustInfo& maximum);
-        bool IsInAcceptance(const pair<ClustInfo, ClustInfo>& range);
+        bool IsInAcceptance(const ClustInfo& minimum, const ClustInfo& maximum) const;
+        bool IsInAcceptance(const pair<ClustInfo, ClustInfo>& range) const;
 
         // static methods
         static vector<string> GetListOfMembers();

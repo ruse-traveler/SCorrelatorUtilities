@@ -128,7 +128,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-  bool Types::ParInfo::IsInAcceptance(const ParInfo& minimum, const ParInfo& maximum) {
+  bool Types::ParInfo::IsInAcceptance(const ParInfo& minimum, const ParInfo& maximum) const {
 
     return ((*this >= minimum) && (*this <= maximum));
 
@@ -136,7 +136,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-  bool Types::ParInfo::IsInAcceptance(const pair<ParInfo, ParInfo>& range) {
+  bool Types::ParInfo::IsInAcceptance(const pair<ParInfo, ParInfo>& range) const {
 
     return ((*this >= range.first) && (*this <= range.second));
 
@@ -144,7 +144,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-  bool Types::ParInfo::IsFinalState() {
+  bool Types::ParInfo::IsFinalState() const {
 
     return (status == 1);
 
@@ -152,7 +152,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-  bool Types::ParInfo::IsHardScatterProduct() {
+  bool Types::ParInfo::IsHardScatterProduct() const {
 
     const bool isHardScatter = (
       (status == Const::HardScatterStatus::First) ||
@@ -164,7 +164,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-  bool Types::ParInfo::IsParton() {
+  bool Types::ParInfo::IsParton() const {
 
     const bool isLightQuark   = ((pid == Const::Parton::Down)    || (pid == Const::Parton::Up));
     const bool isStrangeQuark = ((pid == Const::Parton::Strange) || (pid == Const::Parton::Charm));
@@ -176,7 +176,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-  bool Types::ParInfo::IsOutgoingParton() {
+  bool Types::ParInfo::IsOutgoingParton() const {
 
     return (IsHardScatterProduct() && IsParton());
 

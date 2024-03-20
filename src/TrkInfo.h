@@ -71,27 +71,27 @@ namespace SColdQcdCorrelatorAnalysis {
       public:
 
         // getters
-        int    GetID()         {return id;}
-        int    GetNMvtxLayer() {return nMvtxLayer;}
-        int    GetNInttLayer() {return nInttLayer;}
-        int    GetNTpcLayer()  {return nTpcLayer;}
-        int    GetNMvtxClust() {return nMvtxClust;}
-        int    GetNInttClust() {return nInttClust;}
-        int    GetNTpcClust()  {return nTpcClust;}
-        double GetEta()        {return eta;}
-        double GetPhi()        {return phi;}
-        double GetEne()        {return ene;}
-        double GetPX()         {return px;}
-        double GetPY()         {return py;}
-        double GetPZ()         {return pz;}
-        double GetPT()         {return pt;}
-        double GetDcaXY()      {return dcaXY;}
-        double GetDcaZ()       {return dcaZ;}
-        double GetPtErr()      {return ptErr;}
-        double GetQuality()    {return quality;}
-        double GetVX()         {return vx;}
-        double GetVY()         {return vy;}
-        double GetVZ()         {return vz;}
+        int    GetID()         const {return id;}
+        int    GetNMvtxLayer() const {return nMvtxLayer;}
+        int    GetNInttLayer() const {return nInttLayer;}
+        int    GetNTpcLayer()  const {return nTpcLayer;}
+        int    GetNMvtxClust() const {return nMvtxClust;}
+        int    GetNInttClust() const {return nInttClust;}
+        int    GetNTpcClust()  const {return nTpcClust;}
+        double GetEta()        const {return eta;}
+        double GetPhi()        const {return phi;}
+        double GetEne()        const {return ene;}
+        double GetPX()         const {return px;}
+        double GetPY()         const {return py;}
+        double GetPZ()         const {return pz;}
+        double GetPT()         const {return pt;}
+        double GetDcaXY()      const {return dcaXY;}
+        double GetDcaZ()       const {return dcaZ;}
+        double GetPtErr()      const {return ptErr;}
+        double GetQuality()    const {return quality;}
+        double GetVX()         const {return vx;}
+        double GetVY()         const {return vy;}
+        double GetVZ()         const {return vz;}
 
         // setters
         void SetID(const int arg_id)                 {id         = arg_id;}
@@ -119,9 +119,9 @@ namespace SColdQcdCorrelatorAnalysis {
         // public methods
         void Reset();
         void SetInfo(SvtxTrack* track, PHCompositeNode* topNode);
-        bool IsInAcceptance(const TrkInfo& minimum, const TrkInfo& maximum);
-        bool IsInAcceptance(const pair<TrkInfo, TrkInfo>& range);
-        bool IsInSigmaDcaCut(const pair<float, float> nSigCut, const pair<float, float> ptFitMax, const pair<TF1*, TF1*> fSigmaDca);
+        bool IsInAcceptance(const TrkInfo& minimum, const TrkInfo& maximum) const;
+        bool IsInAcceptance(const pair<TrkInfo, TrkInfo>& range) const;
+        bool IsInSigmaDcaCut(const pair<float, float> nSigCut, const pair<float, float> ptFitMax, const pair<TF1*, TF1*> fSigmaDca) const;
 
         // static methods
         static vector<string> GetListOfMembers();

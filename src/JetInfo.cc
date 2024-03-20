@@ -83,7 +83,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-  bool Types::JetInfo::IsInAcceptance(const JetInfo& minimum, const JetInfo& maximum) {
+  bool Types::JetInfo::IsInAcceptance(const JetInfo& minimum, const JetInfo& maximum) const {
 
     return ((*this >= minimum) && (*this <= maximum));
 
@@ -91,7 +91,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-  bool Types::JetInfo::IsInAcceptance(const pair<JetInfo, JetInfo>& range) {
+  bool Types::JetInfo::IsInAcceptance(const pair<JetInfo, JetInfo>& range) const {
 
     return ((*this >= range.first) && (*this <= range.second));
 

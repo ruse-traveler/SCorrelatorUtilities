@@ -56,14 +56,14 @@ namespace SColdQcdCorrelatorAnalysis {
       public:
 
         // getters
-        int                    GetNChrgPar() {return nChrgPar;}
-        int                    GetNNeuPar()  {return nNeuPar;}
-        bool                   GetIsEmbed()  {return isEmbed;}
-        double                 GetESumChrg() {return eSumChrg;}
-        double                 GetESumNeu()  {return eSumNeu;}
-        ParInfo                GetPartonA()  {return partons.first;}
-        ParInfo                GetPartonB()  {return partons.second;}
-        pair<ParInfo, ParInfo> GetPartons()  {return partons;} 
+        int                    GetNChrgPar() const {return nChrgPar;}
+        int                    GetNNeuPar()  const {return nNeuPar;}
+        bool                   GetIsEmbed()  const {return isEmbed;}
+        double                 GetESumChrg() const {return eSumChrg;}
+        double                 GetESumNeu()  const {return eSumNeu;}
+        ParInfo                GetPartonA()  const {return partons.first;}
+        ParInfo                GetPartonB()  const {return partons.second;}
+        pair<ParInfo, ParInfo> GetPartons()  const {return partons;} 
 
         // setters
         void SetNChrgPar(const int arg_nChrgPar)                  {nChrgPar = arg_nChrgPar;}

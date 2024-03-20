@@ -86,7 +86,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-  bool Types::ClustInfo::IsInAcceptance(const ClustInfo& minimum, const ClustInfo& maximum) {
+  bool Types::ClustInfo::IsInAcceptance(const ClustInfo& minimum, const ClustInfo& maximum) const {
 
     return ((*this >= minimum) && (*this <= maximum));
 
@@ -94,7 +94,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-  bool Types::ClustInfo::IsInAcceptance(const pair<ClustInfo, ClustInfo>& range) {
+  bool Types::ClustInfo::IsInAcceptance(const pair<ClustInfo, ClustInfo>& range) const {
 
     return ((*this >= range.first) && (*this <= range.second));
 

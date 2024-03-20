@@ -58,15 +58,15 @@ namespace SColdQcdCorrelatorAnalysis {
       public:
 
         // getters
-        int    GetNTrks()     {return nTrks;}
-        double GetPSumTrks()  {return pSumTrks;}
-        double GetESumEMCal() {return eSumEMCal;}
-        double GetESumIHCal() {return eSumIHCal;}
-        double GetESumOHCal() {return eSumOHCal;}
-        double GetVX()        {return vx;}
-        double GetVY()        {return vy;}
-        double GetVZ()        {return vz;}
-        double GetVR()        {return vr;}
+        int    GetNTrks()     const {return nTrks;}
+        double GetPSumTrks()  const {return pSumTrks;}
+        double GetESumEMCal() const {return eSumEMCal;}
+        double GetESumIHCal() const {return eSumIHCal;}
+        double GetESumOHCal() const {return eSumOHCal;}
+        double GetVX()        const {return vx;}
+        double GetVY()        const {return vy;}
+        double GetVZ()        const {return vz;}
+        double GetVR()        const {return vr;}
 
         // setters
         void SetNTrks(const int arg_nTrks)            {nTrks     = arg_nTrks;}

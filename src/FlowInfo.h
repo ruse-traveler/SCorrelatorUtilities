@@ -56,16 +56,16 @@ namespace SColdQcdCorrelatorAnalysis {
       public:
 
         // getters
-        int    GetID()   {return id;}
-        int    GetType() {return type;}
-        double GetMass() {return mass;}
-        double GetEta()  {return eta;}
-        double GetPhi()  {return phi;}
-        double GetEne()  {return ene;}
-        double GetPX()   {return px;}
-        double GetPY()   {return py;}
-        double GetPZ()   {return pz;}
-        double GetPT()   {return pt;}
+        int    GetID()   const {return id;}
+        int    GetType() const {return type;}
+        double GetMass() const {return mass;}
+        double GetEta()  const {return eta;}
+        double GetPhi()  const {return phi;}
+        double GetEne()  const {return ene;}
+        double GetPX()   const {return px;}
+        double GetPY()   const {return py;}
+        double GetPZ()   const {return pz;}
+        double GetPT()   const {return pt;}
 
         // setters
         void SetID(const int arg_id)        {id   = arg_id;}
@@ -82,8 +82,8 @@ namespace SColdQcdCorrelatorAnalysis {
         // public methods
         void Reset();
         void SetInfo(const ParticleFlowElement* flow);
-        bool IsInAcceptance(const FlowInfo& minimum, const FlowInfo& maximum);
-        bool IsInAcceptance(const pair<FlowInfo, FlowInfo>& range);
+        bool IsInAcceptance(const FlowInfo& minimum, const FlowInfo& maximum) const;
+        bool IsInAcceptance(const pair<FlowInfo, FlowInfo>& range) const;
 
         // static methods
         static vector<string> GetListOfMembers();

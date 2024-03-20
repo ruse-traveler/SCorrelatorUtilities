@@ -60,20 +60,20 @@ namespace SColdQcdCorrelatorAnalysis {
       public:
 
         // getters
-        int    GetType()    {return type;}
-        int    GetCstID()   {return cstID;}
-        int    GetJetID()   {return jetID;}
-        int    GetEmbedID() {return embedID;}
-        int    GetPID()     {return pid;}
-        double GetZ()       {return z;}
-        double GetDR()      {return dr;}
-        double GetEne()     {return ene;}
-        double GetPX()      {return px;}
-        double GetPY()      {return py;}
-        double GetPZ()      {return pz;}
-        double GetPT()      {return pt;}
-        double GetEta()     {return eta;}
-        double GetPhi()     {return phi;}
+        int    GetType()    const {return type;}
+        int    GetCstID()   const {return cstID;}
+        int    GetJetID()   const {return jetID;}
+        int    GetEmbedID() const {return embedID;}
+        int    GetPID()     const {return pid;}
+        double GetZ()       const {return z;}
+        double GetDR()      const {return dr;}
+        double GetEne()     const {return ene;}
+        double GetPX()      const {return px;}
+        double GetPY()      const {return py;}
+        double GetPZ()      const {return pz;}
+        double GetPT()      const {return pt;}
+        double GetEta()     const {return eta;}
+        double GetPhi()     const {return phi;}
 
         // setters
         void SetType(const int arg_type)       {type    = arg_type;}
@@ -94,8 +94,8 @@ namespace SColdQcdCorrelatorAnalysis {
         // public methods
         void Reset();
         void SetInfo(fastjet::PseudoJet& pseudojet);
-        bool IsInAcceptance(const CstInfo& minimum, const CstInfo& maximum);
-        bool IsInAcceptance(const pair<CstInfo, CstInfo>& range);
+        bool IsInAcceptance(const CstInfo& minimum, const CstInfo& maximum) const;
+        bool IsInAcceptance(const pair<CstInfo, CstInfo>& range) const;
 
         // static methods
         static vector<string> GetListOfMembers();
