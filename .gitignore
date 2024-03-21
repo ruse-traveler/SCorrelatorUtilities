@@ -50,3 +50,4 @@ old/*
 !src/autogen.sh
 !src/configure.ac
 !src/Makefile.am
+!src/sphx-build
