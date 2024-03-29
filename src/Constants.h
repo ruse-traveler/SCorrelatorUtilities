@@ -108,12 +108,12 @@ namespace SColdQcdCorrelatorAnalysis {
     // map of PID onto charges
     inline map<int, float> &MapPidOntoCharge() {
       static map<int, float> mapPidOntoCharge = {
-        {1,  -1./3.},
-        {2,  2./3.}, 
-        {3,  -1./3.},
-        {4,  2./3.},
-        {5,  -1./3},
-        {6,  2./3.},
+        {1, -1./3.},
+        {2, 2./3.}, 
+        {3, -1./3.},
+        {4, 2./3.},
+        {5, -1./3},
+        {6, 2./3.},
         {11, -1.},
         {12, 0.},
         {13, -1.},
@@ -150,11 +150,21 @@ namespace SColdQcdCorrelatorAnalysis {
     // map of node name onto subsystem index
     inline map<string, int> MapNodeOntoIndex() {
       static map<string, int> mapNodeOntoIndex = {
-        {"CLUSTER_CEMC", Subsys::EMCal},
-        {"CLUSTER_HCALIN", Subsys::IHCal},
+        {"CLUSTER_CEMC",    Subsys::EMCal},
+        {"CLUSTER_HCALIN",  Subsys::IHCal},
         {"CLUSTER_HCALOUT", Subsys::OHCal}
       };
       return mapNodeOntoIndex;
+    }
+
+    // map of subsytem index onto node names
+    inline map<int, string> MapIndexOntoNode() {
+      static map<int, string> mapIndexOntoNode = {
+        {Subsys::EMCal, "CLUSTER_CEMC"},
+        {Subsys::IHCal, "CLUSTER_HCALIN"},
+        {Subsys::OHCal, "CLUSTER_HCALOUT"}
+      };
+      return mapIndexOntoNode;
     }
 
     // map of forbidden strings onto good ones
