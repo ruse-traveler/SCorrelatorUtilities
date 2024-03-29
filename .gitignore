@@ -6,6 +6,8 @@ old/*
 !src/ClustInfo.h
 !src/ClustInterfaces.cc
 !src/ClustInterfaces.h
+!src/ClustTools.cc
+!src/ClustTools.h
 !src/Constants.h
 !src/CstInfo.cc
 !src/CstInfo.h

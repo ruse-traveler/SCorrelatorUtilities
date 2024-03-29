@@ -9,6 +9,7 @@
 #ifndef SCORRELATORUTILITIES_TOOLS_H
 #define SCORRELATORUTILITIES_TOOLS_H
 
+#include "ClustTools.h"
 #include "GenTools.h"
 #include "ParTools.h"
 #include "RecoTools.h"

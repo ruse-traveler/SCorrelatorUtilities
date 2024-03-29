@@ -29,6 +29,9 @@ namespace SColdQcdCorrelatorAnalysis {
     rho     = -1. * numeric_limits<double>::max();
     eta     = -1. * numeric_limits<double>::max();
     phi     = -1. * numeric_limits<double>::max();
+    px      = -1. * numeric_limits<double>::max();
+    py      = -1. * numeric_limits<double>::max();
+    pz      = -1. * numeric_limits<double>::max();
     rx      = -1. * numeric_limits<double>::max();
     ry      = -1. * numeric_limits<double>::max();
     rz      = -1. * numeric_limits<double>::max();
@@ -44,6 +47,9 @@ namespace SColdQcdCorrelatorAnalysis {
     rho     = numeric_limits<double>::max();
     eta     = numeric_limits<double>::max();
     phi     = numeric_limits<double>::max();
+    px      = numeric_limits<double>::max();
+    py      = numeric_limits<double>::max();
+    pz      = numeric_limits<double>::max();
     rx      = numeric_limits<double>::max();
     ry      = numeric_limits<double>::max();
     rz      = numeric_limits<double>::max();
@@ -64,25 +70,44 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-  void Types::ClustInfo::SetInfo(const RawCluster* clust, optional<int> sys = nullopt) {
+  void Types::ClustInfo::SetInfo(const RawCluster* clust, optional<ROOT::Math::XYZVector> vtx, optional<int> sys) {
+
+    // if no vertex provided, use origin
+    ROOT::Math::XYZVector vtxToUse(0., 0., 0.);
+    if (vtx.has_value()) {
+      vtxToUse = vtx.value();
+    }
 
     // if subsystem ID provided, set data member
     if (sys.has_value()) {
       system = sys.value();
     }
 
+    // grab position
+    ROOT::Math::XYZVector position(
+      clust -> get_position().x(),
+      clust -> get_position().y(),
+      clust -> get_position().z()
+    );
+
+    // grab momentum
+    ROOT::Math::PxPyPzEVector momentum = Tools::GetClustMomentum(clust -> get_energy(), position, vtxToUse);
+
     // set remaining members
     nTwr = clust -> getNTowers();
     ene  = clust -> get_energy();
     rho  = clust -> get_r();
-    eta  = numeric_limits<double>::max();  // FIXME add method to calculate eta
-    phi  = clust -> get_phi();
-    rx   = clust -> get_position().x();
-    ry   = clust -> get_position().y();
-    rz   = clust -> get_position().z();
+    eta  = momentum.Eta();
+    phi  = momentum.Phi();
+    px   = momentum.Px();
+    py   = momentum.Py();
+    pz   = momentum.Pz();
+    rx   = position.X();
+    ry   = position.Y();
+    rz   = position.Z();
     return;
 
-  }  // end 'SetInfo(RawCluster*, optional<int>)'
+  }  // end 'SetInfo(RawCluster*, optional<ROOT::Math::XYZVector>, optional<int>)'
 
 
 
@@ -113,6 +138,9 @@ namespace SColdQcdCorrelatorAnalysis {
       "rho",
       "eta",
       "phi",
+      "px",
+      "py",
+      "pz",
       "rx",
       "ry",
       "rz"
@@ -134,6 +162,9 @@ namespace SColdQcdCorrelatorAnalysis {
       (lhs.rho  < rhs.rho)  &&
       (lhs.eta  < rhs.eta)  &&
       (lhs.phi  < rhs.phi)  &&
+      (lhs.px   < rhs.px)   &&
+      (lhs.py   < rhs.py)   &&
+      (lhs.pz   < rhs.pz)   &&
       (lhs.rx   < rhs.rx)   &&
       (lhs.ry   < rhs.ry)   &&
       (lhs.rz   < rhs.rz)
@@ -153,6 +184,9 @@ namespace SColdQcdCorrelatorAnalysis {
       (lhs.rho  > rhs.rho)  &&
       (lhs.eta  > rhs.eta)  &&
       (lhs.phi  > rhs.phi)  &&
+      (lhs.px   > rhs.px)   &&
+      (lhs.py   > rhs.py)   &&
+      (lhs.pz   > rhs.pz)   &&
       (lhs.rx   > rhs.rx)   &&
       (lhs.ry   > rhs.ry)   &&
       (lhs.rz   > rhs.rz)
@@ -172,6 +206,9 @@ namespace SColdQcdCorrelatorAnalysis {
       (lhs.rho  <= rhs.rho)  &&
       (lhs.eta  <= rhs.eta)  &&
       (lhs.phi  <= rhs.phi)  &&
+      (lhs.px   <= rhs.px)   &&
+      (lhs.py   <= rhs.py)   &&
+      (lhs.pz   <= rhs.pz)   &&
       (lhs.rx   <= rhs.rx)   &&
       (lhs.ry   <= rhs.ry)   &&
       (lhs.rz   <= rhs.rz)
@@ -191,6 +228,9 @@ namespace SColdQcdCorrelatorAnalysis {
       (lhs.rho  >= rhs.rho)  &&
       (lhs.eta  >= rhs.eta)  &&
       (lhs.phi  >= rhs.phi)  &&
+      (lhs.px   >= rhs.px)   &&
+      (lhs.py   >= rhs.py)   &&
+      (lhs.pz   >= rhs.pz)   &&
       (lhs.rx   >= rhs.rx)   &&
       (lhs.ry   >= rhs.ry)   &&
       (lhs.rz   >= rhs.rz)
@@ -237,11 +277,11 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-  Types::ClustInfo::ClustInfo(const RawCluster* clust, optional<int> sys) {
+  Types::ClustInfo::ClustInfo(const RawCluster* clust, optional<ROOT::Math::XYZVector> vtx, optional<int> sys) {
 
-    SetInfo(clust, sys);
+    SetInfo(clust, vtx, sys);
 
-  }  // end ctor(RawCluster*, optional<int>)'
+  }  // end ctor(RawCluster*, optional<ROOT::Math::XYZVector>, optional<int>)'
 
 }  // end SColdQcdCorrelatorAnalysis namespace
 

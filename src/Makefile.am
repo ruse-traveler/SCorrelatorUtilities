@@ -15,6 +15,7 @@ AM_CPPFLAGS = \
 pkginclude_HEADERS = \
   ClustInfo.h \
   ClustInterfaces.h \
+  ClustTools.h \
   CstInfo.h \
   FlowInfo.h \
   FlowInterfaces.h \
@@ -47,6 +48,7 @@ libscorrelatorutilities_la_SOURCES = \
   $(ROOT5_DICTS) \
   ClustInfo.cc \
   ClustInterfaces.cc \
+  ClustTools.cc \
   CstInfo.cc \
   FlowInfo.cc \
   FlowInterfaces.cc \

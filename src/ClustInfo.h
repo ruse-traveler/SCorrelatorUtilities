@@ -18,10 +18,13 @@
 #include <optional>
 // root libraries
 #include <Rtypes.h>
+#include <Math/Vector3D.h>
+#include <Math/Vector4D.h>
 // CaloBase libraries
 #include <calobase/RawCluster.h>
 // analysis utilities
 #include "Constants.h"
+#include "ClustTools.h"
 
 // make common namespaces implicit
 using namespace std;
@@ -44,6 +47,9 @@ namespace SColdQcdCorrelatorAnalysis {
         double  rho    = numeric_limits<double>::max();
         double  eta    = numeric_limits<double>::max();
         double  phi    = numeric_limits<double>::max();
+        double  px     = numeric_limits<double>::max();
+        double  py     = numeric_limits<double>::max();
+        double  pz     = numeric_limits<double>::max();
         double  rx     = numeric_limits<double>::max();
         double  ry     = numeric_limits<double>::max();
         double  rz     = numeric_limits<double>::max();
@@ -61,6 +67,9 @@ namespace SColdQcdCorrelatorAnalysis {
         double  GetRho()    const {return rho;}
         double  GetEta()    const {return eta;}
         double  GetPhi()    const {return phi;}
+        double  GetPX()     const {return px;}
+        double  GetPY()     const {return py;}
+        double  GetPZ()     const {return pz;}
         double  GetRX()     const {return rx;}
         double  GetRY()     const {return ry;}
         double  GetRZ()     const {return rz;}
@@ -72,13 +81,16 @@ namespace SColdQcdCorrelatorAnalysis {
         void SetRho(const double arg_rho)    {rho    = arg_rho;}
         void SetEta(const double arg_eta)    {eta    = arg_eta;}
         void SetPhi(const double arg_phi)    {phi    = arg_phi;}
+        void SetPX(const double arg_px)      {px     = arg_px;}
+        void SetPY(const double arg_py)      {py     = arg_py;}
+        void SetPZ(const double arg_pz)      {pz     = arg_pz;}
         void SetRX(const double arg_rx)      {rx     = arg_rx;}
         void SetRY(const double arg_ry)      {ry     = arg_ry;}
         void SetRZ(const double arg_rz)      {rz     = arg_rz;}
 
         // public methods
         void Reset();
-        void SetInfo(const RawCluster* clust, optional<int> sys);
+        void SetInfo(const RawCluster* clust, optional<ROOT::Math::XYZVector> vtx = nullopt, optional<int> sys = nullopt);
         bool IsInAcceptance(const ClustInfo& minimum, const ClustInfo& maximum) const;
         bool IsInAcceptance(const pair<ClustInfo, ClustInfo>& range) const;
 
@@ -97,7 +109,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
         // ctors accepting arguments
         ClustInfo(const Const::Init init);
-        ClustInfo(const RawCluster* clust, optional<int> sys = nullopt);
+        ClustInfo(const RawCluster* clust, optional<ROOT::Math::XYZVector> vtx = nullopt, optional<int> sys = nullopt);
 
       // identify this class to ROOT
       ClassDefNV(ClustInfo, 1)

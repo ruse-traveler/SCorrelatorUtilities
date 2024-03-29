@@ -22,6 +22,8 @@ to_copy = [
   "src/ClustInfo.h",
   "src/ClustInterfaces.cc",
   "src/ClustInterfaces.h",
+  "src/ClustTools.cc",
+  "src/ClustToos.h",
   "src/Constants.h",
   "src/CstInfo.cc",
   "src/CstInfo.h",
