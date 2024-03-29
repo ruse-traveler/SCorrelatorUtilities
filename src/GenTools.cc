@@ -22,7 +22,7 @@ namespace SColdQcdCorrelatorAnalysis {
   int64_t Tools::GetNumFinalStatePars(
     PHCompositeNode* topNode,
     const vector<int> evtsToGrab,
-    const int subset,
+    const Const::Subset subset,
     optional<float> chargeToGrab
   ) {
 
@@ -86,7 +86,7 @@ namespace SColdQcdCorrelatorAnalysis {
   double Tools::GetSumFinalStateParEne(
     PHCompositeNode* topNode,
     const vector<int> evtsToGrab,
-    const int subset,
+    const Const::Subset subset,
     optional<float> chargeToGrab
   ) {
 
