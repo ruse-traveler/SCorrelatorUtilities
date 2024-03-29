@@ -14,6 +14,9 @@
 #include <map>
 #include <string>
 #include <cstdint>
+// fastjet libraries
+#include <fastjet/JetDefinition.hh>
+#include <fastjet/AreaDefinition.hh>
 
 // make common namespaces implicit
 using namespace std;
@@ -28,14 +31,17 @@ namespace SColdQcdCorrelatorAnalysis {
     // info intialization options
     enum class Init {Minimize, Maximize};
 
+    // jet types
+    enum class JetType {Charged, Neutral, Full};
+
+    // particle charge subsets
+    enum class Subset {All, Charged, Neutral};
+
     // object types
     enum Object {Track, Cluster, Flow, Particle, Unknown};
 
     // subsystem indices
     enum Subsys {Mvtx, Intt, Tpc, EMCal, IHCal, OHCal};
-
-    // particle charge subsets
-    enum Subset {All, Charged, Neutral};
 
     // subevent options
     enum SubEvtOpt {Everything, OnlySignal, AllBkgd, PrimaryBkgd, Pileup, Specific};
@@ -102,6 +108,12 @@ namespace SColdQcdCorrelatorAnalysis {
     // map of PID onto charges
     inline map<int, float> &MapPidOntoCharge() {
       static map<int, float> mapPidOntoCharge = {
+        {1,  -1./3.},
+        {2,  2./3.}, 
+        {3,  -1./3.},
+        {4,  2./3.},
+        {5,  -1./3},
+        {6,  2./3.},
         {11, -1.},
         {12, 0.},
         {13, -1.},
@@ -156,6 +168,51 @@ namespace SColdQcdCorrelatorAnalysis {
         {"*", "star"},
       };
       return mapBadOntoGoodStrings;
+    }
+
+    // map of strings onto fastjet algorithms
+    inline map<string, fastjet::JetAlgorithm> MapStringOntoFJAlgo() {
+      static map<string, fastjet::JetAlgorithm> mapStringOntoAlgo = {
+        {"kt",            fastjet::JetAlgorithm::kt_algorithm},
+        {"c/a",           fastjet::JetAlgorithm::cambridge_algorithm},
+        {"antikt",        fastjet::JetAlgorithm::antikt_algorithm},
+        {"genkt",         fastjet::JetAlgorithm::genkt_algorithm},
+        {"c/a_passive",   fastjet::JetAlgorithm::cambridge_for_passive_algorithm},
+        {"genkt_passive", fastjet::JetAlgorithm::genkt_for_passive_algorithm},
+        {"ee_kt",         fastjet::JetAlgorithm::ee_kt_algorithm},
+        {"ee_genkt",      fastjet::JetAlgorithm::ee_genkt_algorithm},
+        {"plugin",        fastjet::JetAlgorithm::plugin_algorithm}
+      };
+      return mapStringOntoAlgo;
+    }
+
+    // map of strings onto fastjet recombination schemes
+    inline map<string, fastjet::RecombinationScheme> MapStringOntoFJRecomb() {
+      static map<string, fastjet::RecombinationScheme> mapStringOntoRecomb = {
+        {"e",        fastjet::RecombinationScheme::E_scheme},
+        {"pt",       fastjet::RecombinationScheme::pt_scheme},
+        {"pt2",      fastjet::RecombinationScheme::pt2_scheme},
+        {"et",       fastjet::RecombinationScheme::Et_scheme},
+        {"et2",      fastjet::RecombinationScheme::Et2_scheme},
+        {"bi_pt",    fastjet::RecombinationScheme::BIpt_scheme},
+        {"bi_pt2",   fastjet::RecombinationScheme::BIpt2_scheme},
+        {"wta_pt",   fastjet::RecombinationScheme::WTA_pt_scheme},
+        {"wta_modp", fastjet::RecombinationScheme::WTA_modp_scheme},
+        {"external", fastjet::RecombinationScheme::external_scheme}
+      };
+      return mapStringOntoRecomb;
+    }
+
+    // map of strings onto fastjet area types
+    inline map<string, fastjet::AreaType> MapStringOntoFJArea() {
+      static map<string, fastjet::AreaType> mapStringOntoArea = {
+        {"active",            fastjet::AreaType::active_area},
+        {"passive",           fastjet::AreaType::passive_area},
+        {"voronoi",           fastjet::AreaType::voronoi_area},
+        {"active_explicit",   fastjet::AreaType::active_area_explicit_ghosts},
+        {"one_ghost_passive", fastjet::AreaType::one_ghost_passive_area}
+      };
+      return mapStringOntoArea;
     }
 
   }  // end Const namespace
