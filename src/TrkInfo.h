@@ -24,7 +24,7 @@
 // tracking libraries
 #include <trackbase_historic/SvtxTrack.h>
 // analysis utilities
-#include "Tools.h"
+#include "TrkTools.h"
 #include "Constants.h"
 
 // make common namespaces implicit
