@@ -17,6 +17,8 @@
 // fastjet libraries
 #include <fastjet/JetDefinition.hh>
 #include <fastjet/AreaDefinition.hh>
+// sphenix jet base
+#include <jetbase/Jet.h>
 
 // make common namespaces implicit
 using namespace std;
@@ -165,6 +167,16 @@ namespace SColdQcdCorrelatorAnalysis {
         {Subsys::OHCal, "CLUSTER_HCALOUT"}
       };
       return mapIndexOntoNode;
+    }
+
+    // map of subsystem index onto jet source index
+    inline map<int, int> MapIndexOntoSrc() {
+      static map<int, int> mapIndexOntoSrc = {
+        {Subsys::EMCal, Jet::SRC::CEMC_CLUSTER},
+        {Subsys::IHCal, Jet::SRC::HCALIN_CLUSTER},
+        {Subsys::OHCal, Jet::SRC::HCALOUT_CLUSTER} 
+      };
+      return mapIndexOntoSrc;
     }
 
     // map of forbidden strings onto good ones
