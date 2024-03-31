@@ -24,6 +24,7 @@ namespace SColdQcdCorrelatorAnalysis {
   void Types::ClustInfo::Minimize() {
 
     system  = -1 * numeric_limits<int>::max();
+    id      = -1 * numeric_limits<int>::max();
     nTwr    = -1 * numeric_limits<int>::max();
     ene     = -1. * numeric_limits<double>::max();
     rho     = -1. * numeric_limits<double>::max();
@@ -42,6 +43,7 @@ namespace SColdQcdCorrelatorAnalysis {
   void Types::ClustInfo::Maximize() {
 
     system  = numeric_limits<int>::max();
+    id      = numeric_limits<int>::max();
     nTwr    = numeric_limits<int>::max();
     ene     = numeric_limits<double>::max();
     rho     = numeric_limits<double>::max();
@@ -94,6 +96,7 @@ namespace SColdQcdCorrelatorAnalysis {
     ROOT::Math::PxPyPzEVector momentum = Tools::GetClustMomentum(clust -> get_energy(), position, vtxToUse);
 
     // set remaining members
+    id   = clust -> get_id();
     nTwr = clust -> getNTowers();
     ene  = clust -> get_energy();
     rho  = clust -> get_r();
@@ -133,6 +136,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
     vector<string> members = {
       "sys",
+      "id",
       "nTwr",
       "ene",
       "rho",
