@@ -23,6 +23,7 @@ namespace SColdQcdCorrelatorAnalysis {
   void Types::TrkInfo::Minimize() {
 
     id         = -1 * numeric_limits<int>::max();
+    vtxID      = -1 * numeric_limits<int>::max();
     nMvtxLayer = -1 * numeric_limits<int>::max();
     nInttLayer = -1 * numeric_limits<int>::max();
     nTpcLayer  = -1 * numeric_limits<int>::max();
@@ -52,6 +53,7 @@ namespace SColdQcdCorrelatorAnalysis {
   void Types::TrkInfo::Maximize() {
 
     id         = numeric_limits<int>::max();
+    vtxID      = numeric_limits<int>::max();
     nMvtxLayer = numeric_limits<int>::max();
     nInttLayer = numeric_limits<int>::max();
     nTpcLayer  = numeric_limits<int>::max();
@@ -96,6 +98,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
     // set track info
     id         = track -> get_id();
+    vtxID      = track -> get_vertex_id();
     quality    = track -> get_quality();
     eta        = track -> get_eta();
     phi        = track -> get_phi();
@@ -158,12 +161,23 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
+  bool Types::TrkInfo::IsFromPrimaryVtx(PHCompositeNode* topNode) {
+
+    GlobalVertex* primVtx   = Interfaces::GetGlobalVertex(topNode);
+    const int     primVtxID = primVtx -> get_id();
+    return (vtxID == primVtxID);
+
+  }  // end 'IsFromPrimaryVtx(PHCompositeNode*)'
+
+
+
   // static methods -----------------------------------------------------------
 
   vector<string> Types::TrkInfo::GetListOfMembers() {
 
     vector<string> members = {
       "id",
+      "vtxID",
       "nMvtxLayer",
       "nInttLayer",
       "nTpcLayer",

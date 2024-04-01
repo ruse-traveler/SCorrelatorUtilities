@@ -43,6 +43,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
         // data members
         int    id         = numeric_limits<int>::max();
+        int    vtxID      = numeric_limits<int>::max();
         int    nMvtxLayer = numeric_limits<int>::max();
         int    nInttLayer = numeric_limits<int>::max();
         int    nTpcLayer  = numeric_limits<int>::max();
@@ -72,6 +73,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
         // getters
         int    GetID()         const {return id;}
+        int    GetVtxID()      const {return vtxID;}
         int    GetNMvtxLayer() const {return nMvtxLayer;}
         int    GetNInttLayer() const {return nInttLayer;}
         int    GetNTpcLayer()  const {return nTpcLayer;}
@@ -95,6 +97,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
         // setters
         void SetID(const int arg_id)                 {id         = arg_id;}
+        void SetVtxID(const int arg_vtxID)           {vtxID      = arg_vtxID;}
         void SetNMvtxLayer(const int arg_nMvtxLayer) {nMvtxLayer = arg_nMvtxLayer;}
         void SetNInttLayer(const int arg_nInttLayer) {nInttLayer = arg_nInttLayer;}
         void SetNTpcLayer(const int arg_nTpcLayer)   {nTpcLayer  = arg_nTpcLayer;}
@@ -122,6 +125,7 @@ namespace SColdQcdCorrelatorAnalysis {
         bool IsInAcceptance(const TrkInfo& minimum, const TrkInfo& maximum) const;
         bool IsInAcceptance(const pair<TrkInfo, TrkInfo>& range) const;
         bool IsInSigmaDcaCut(const pair<float, float> nSigCut, const pair<float, float> ptFitMax, const pair<TF1*, TF1*> fSigmaDca) const;
+        bool IsFromPrimaryVtx(PHCompositeNode* topNode);
 
         // static methods
         static vector<string> GetListOfMembers();
