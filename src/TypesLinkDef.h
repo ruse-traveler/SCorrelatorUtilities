@@ -35,15 +35,15 @@
 #pragma link C++ class TrkInfo+;
 
 // stl collections of utility classes
-#pragma link C++ class vector<ClustInfo>+;
-#pragma link C++ class vector<CstInfo>+;
-#pragma link C++ class vector<FlowInfo>+;
-#pragma link C++ class vector<JetInfo>+;
-#pragma link C++ class vector<ParInfo>+;
-#pragma link C++ class vector<TrkInfo>+;
-#pragma link C++ class vector<vector<CstInfo>>+;
-#pragma link C++ class vector<vector<ParInfo>>+;
-#pragma link C++ class pair<ParInfo, ParInfo>+;
+#pragma link C++ class std::vector<ClustInfo>+;
+#pragma link C++ class std::vector<CstInfo>+;
+#pragma link C++ class std::vector<FlowInfo>+;
+#pragma link C++ class std::vector<JetInfo>+;
+#pragma link C++ class std::vector<ParInfo>+;
+#pragma link C++ class std::vector<TrkInfo>+;
+#pragma link C++ class std::vector<vector<CstInfo> >+;
+#pragma link C++ class std::vector<std::vector<ParInfo> >+;
+#pragma link C++ class std::pair<ParInfo, ParInfo>+;
 
 #endif
 
