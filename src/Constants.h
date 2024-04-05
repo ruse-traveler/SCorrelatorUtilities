@@ -170,8 +170,8 @@ namespace SColdQcdCorrelatorAnalysis {
     }
 
     // map of subsystem index onto jet source index
-    inline map<int, int> MapIndexOntoSrc() {
-      static map<int, int> mapIndexOntoSrc = {
+    inline map<int, Jet::SRC> MapIndexOntoSrc() {
+      static map<int, Jet::SRC> mapIndexOntoSrc = {
         {Subsys::EMCal, Jet::SRC::CEMC_CLUSTER},
         {Subsys::IHCal, Jet::SRC::HCALIN_CLUSTER},
         {Subsys::OHCal, Jet::SRC::HCALOUT_CLUSTER} 
