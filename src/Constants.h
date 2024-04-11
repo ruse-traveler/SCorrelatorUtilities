@@ -97,6 +97,11 @@ namespace SColdQcdCorrelatorAnalysis {
       return nTpcSector;
     }
 
+    inline string const &SigmaDcaFunc() {
+      static string sigmaDcaFunc = "[0]+[1]/x+[2]/(x*x)+[3]/(x*x*x)";
+      return sigmaDcaFunc;
+    }
+
     // charged pion mass in GeV/c^2
     inline double const &MassPion() {
       static double mPion = 0.140;
