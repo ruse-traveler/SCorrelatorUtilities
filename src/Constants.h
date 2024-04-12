@@ -98,7 +98,7 @@ namespace SColdQcdCorrelatorAnalysis {
     }
 
     inline string const &SigmaDcaFunc() {
-      static string sigmaDcaFunc = "[0]+[1]/x+[2]/(x*x)+[3]/(x*x*x)";
+      static string sigmaDcaFunc = "[0]+[1]/x+[2]/(x*x)";
       return sigmaDcaFunc;
     }
 

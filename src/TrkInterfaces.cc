@@ -33,7 +33,6 @@ namespace SColdQcdCorrelatorAnalysis {
     func -> SetParameter(0, params.at(0));
     func -> SetParameter(1, params.at(1));
     func -> SetParameter(2, params.at(2));
-    func -> SetParameter(3, params.at(3));
     return func; 
 
   }  // end 'GetSigmaDcaTF1(string, vector<float>, pair<float, float>)'
