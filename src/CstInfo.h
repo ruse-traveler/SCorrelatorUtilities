@@ -11,6 +11,7 @@
 #define SCORRELATORUTILITIES_CSTINFO_H
 
 // c++ utilities
+#include <cmath>
 #include <limits>
 #include <string>
 #include <vector>
@@ -18,9 +19,11 @@
 #include <optional>
 // root libraries
 #include <Rtypes.h>
+#include <Math/Vector3D.h>
 // fastjet libraries
 #include <fastjet/PseudoJet.hh>
 // analysis utilities
+#include "JetInfo.h"
 #include "Constants.h"
 
 // make common namespaces implicit
@@ -45,6 +48,7 @@ namespace SColdQcdCorrelatorAnalysis {
         int    pid     = numeric_limits<int>::max();
         double z       = numeric_limits<double>::max();
         double dr      = numeric_limits<double>::max();
+        double jt      = numeric_limits<double>::max();
         double ene     = numeric_limits<double>::max();
         double px      = numeric_limits<double>::max();
         double py      = numeric_limits<double>::max();
@@ -67,6 +71,7 @@ namespace SColdQcdCorrelatorAnalysis {
         int    GetPID()     const {return pid;}
         double GetZ()       const {return z;}
         double GetDR()      const {return dr;}
+        double GetJT()      const {return jt;}
         double GetEne()     const {return ene;}
         double GetPX()      const {return px;}
         double GetPY()      const {return py;}
@@ -83,6 +88,7 @@ namespace SColdQcdCorrelatorAnalysis {
         void SetPID(const int arg_pid)         {pid     = arg_pid;}
         void SetZ(const double arg_z)          {z       = arg_z;}
         void SetDR(const double arg_dr)        {dr      = arg_dr;}
+        void SetJT(const double arg_jt)        {jt      = arg_jt;}
         void SetEne(const double arg_ene)      {ene     = arg_ene;}
         void SetPX(const double arg_px)        {px      = arg_px;}
         void SetPY(const double arg_py)        {py      = arg_py;}
@@ -94,6 +100,7 @@ namespace SColdQcdCorrelatorAnalysis {
         // public methods
         void Reset();
         void SetInfo(fastjet::PseudoJet& pseudojet);
+        void SetJetInfo(const Types::JetInfo& jet);
         bool IsInAcceptance(const CstInfo& minimum, const CstInfo& maximum) const;
         bool IsInAcceptance(const pair<CstInfo, CstInfo>& range) const;
 

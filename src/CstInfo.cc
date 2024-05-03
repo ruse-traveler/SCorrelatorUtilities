@@ -30,6 +30,7 @@ namespace SColdQcdCorrelatorAnalysis {
     pid     = -1 * numeric_limits<int>::max();
     z       = -1. * numeric_limits<double>::max();
     dr      = -1. * numeric_limits<double>::max();
+    jt      = -1. * numeric_limits<double>::max();
     ene     = -1. * numeric_limits<double>::max();
     px      = -1. * numeric_limits<double>::max();
     py      = -1. * numeric_limits<double>::max();
@@ -52,6 +53,7 @@ namespace SColdQcdCorrelatorAnalysis {
     pid     = numeric_limits<int>::max();
     z       = numeric_limits<double>::max();
     dr      = numeric_limits<double>::max();
+    jt      = numeric_limits<double>::max();
     ene     = numeric_limits<double>::max();
     px      = numeric_limits<double>::max();
     py      = numeric_limits<double>::max();
@@ -92,6 +94,27 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
+  void Types::CstInfo::SetJetInfo(const Types::JetInfo& jet) {
+
+    // grab 3-momenta
+    ROOT::Math::XYZVector pJet(jet.GetPX(), jet.GetPY(), jet.GetPZ());
+    ROOT::Math::XYZVector pCst(px, py, pz);
+    ROOT::Math::XYZVector pCross = pCst.Cross(pJet);
+
+    // get delta eta/phi
+    const double dEta = eta - jet.GetEta();
+    const double dPhi = phi - jet.GetPhi();
+
+    // set values and exit
+    z  = pCst.Dot(pJet) / pJet.Mag2();
+    dr = sqrt((dEta * dEta) + (dPhi * dPhi));
+    jt = sqrt( pCross.Mag2() ) / pJet.Mag2();
+    return;
+
+  }  // end 'SetJetInfo(Types::JetInfo&)'
+
+
+
   bool Types::CstInfo::IsInAcceptance(const CstInfo& minimum, const CstInfo& maximum) const {
 
     return ((*this >= minimum) && (*this <= maximum));
@@ -120,6 +143,7 @@ namespace SColdQcdCorrelatorAnalysis {
       "pid",
       "z",
       "dr",
+      "jt",
       "ene",
       "px",
       "py",
@@ -142,6 +166,7 @@ namespace SColdQcdCorrelatorAnalysis {
     const bool isLessThan = (
       (lhs.z   < rhs.z)   &&
       (lhs.dr  < rhs.dr)  &&
+      (lhs.jt  < rhs.jt)  &&
       (lhs.ene < rhs.ene) &&
       (lhs.px  < rhs.px)  &&
       (lhs.py  < rhs.py)  &&
@@ -162,6 +187,7 @@ namespace SColdQcdCorrelatorAnalysis {
     const bool isGreaterThan = (
       (lhs.z   > rhs.z)   &&
       (lhs.dr  > rhs.dr)  &&
+      (lhs.jt  > lhs.jt)  &&
       (lhs.ene > rhs.ene) &&
       (lhs.px  > rhs.px)  &&
       (lhs.py  > rhs.py)  &&
@@ -182,6 +208,7 @@ namespace SColdQcdCorrelatorAnalysis {
     const bool isLessThanOrEqualTo = (
       (lhs.z   <= rhs.z)   &&
       (lhs.dr  <= rhs.dr)  &&
+      (lhs.jt  <= rhs.jt)  &&
       (lhs.ene <= rhs.ene) &&
       (lhs.px  <= rhs.px)  &&
       (lhs.py  <= rhs.py)  &&
@@ -202,6 +229,7 @@ namespace SColdQcdCorrelatorAnalysis {
     const bool isGreaterThan = (
       (lhs.z   >= rhs.z)   &&
       (lhs.dr  >= rhs.dr)  &&
+      (lhs.jt  >= rhs.jt)  &&
       (lhs.ene >= rhs.ene) &&
       (lhs.px  >= rhs.px)  &&
       (lhs.py  >= rhs.py)  &&
