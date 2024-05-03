@@ -93,33 +93,6 @@ namespace SColdQcdCorrelatorAnalysis {
 
   bool Types::JetInfo::IsInAcceptance(const pair<JetInfo, JetInfo>& range) const {
 
-/*
-  cout << " ==> Is >=?\n"
-       << "  this.nCsts = " << (*this).nCsts << ", range.min.nCsts = " << range.first.nCsts << ", passes? " << ((*this).nCsts >= range.first.nCsts) << "\n"
-       << "  this.ene   = " << (*this).ene   << ", range.min.ene   = " << range.first.ene   << ", passes? " << ((*this).ene   >= range.first.ene)   << "\n"
-       << "  this.px    = " << (*this).px    << ", range.min.px    = " << range.first.px    << ", passes? " << ((*this).px    >= range.first.px)    << "\n"
-       << "  this.py    = " << (*this).py    << ", range.min.py    = " << range.first.py    << ", passes? " << ((*this).py    >= range.first.py)    << "\n"
-       << "  this.pz    = " << (*this).pz    << ", range.min.pz    = " << range.first.pz    << ", passes? " << ((*this).pz    >= range.first.pz)    << "\n"
-       << "  this.pt    = " << (*this).pt    << ", range.min.pt    = " << range.first.pt    << ", passes? " << ((*this).pt    >= range.first.pt)    << "\n"
-       << "  this.eta   = " << (*this).eta   << ", range.min.eta   = " << range.first.eta   << ", passes? " << ((*this).eta   >= range.first.eta)   << "\n"
-       << "  this.phi   = " << (*this).phi   << ", range.min.phi   = " << range.first.phi   << ", passes? " << ((*this).phi   >= range.first.phi)   << "\n"
-       << "  this.area  = " << (*this).area  << ", range.min.area  = " << range.first.area  << ", passes? " << ((*this).area  >= range.first.area)  << "\n"
-       << " ==> Is <=?\n"
-       << "  this.nCsts = " << (*this).nCsts << ", range.max.nCsts = " << range.second.nCsts << ", passes? " << ((*this).nCsts <= range.second.nCsts) << "\n"
-       << "  this.ene   = " << (*this).ene   << ", range.max.ene   = " << range.second.ene   << ", passes? " << ((*this).ene   <= range.second.ene)   << "\n"
-       << "  this.px    = " << (*this).px    << ", range.max.px    = " << range.second.px    << ", passes? " << ((*this).px    <= range.second.px)    << "\n"
-       << "  this.py    = " << (*this).py    << ", range.max.py    = " << range.second.py    << ", passes? " << ((*this).py    <= range.second.py)    << "\n"
-       << "  this.pz    = " << (*this).pz    << ", range.max.pz    = " << range.second.pz    << ", passes? " << ((*this).pz    <= range.second.pz)    << "\n"
-       << "  this.pt    = " << (*this).pt    << ", range.max.pt    = " << range.second.pt    << ", passes? " << ((*this).pt    <= range.second.pt)    << "\n"
-       << "  this.eta   = " << (*this).eta   << ", range.max.eta   = " << range.second.eta   << ", passes? " << ((*this).eta   <= range.second.eta)   << "\n"
-       << "  this.phi   = " << (*this).phi   << ", range.max.phi   = " << range.second.phi   << ", passes? " << ((*this).phi   <= range.second.phi)   << "\n"
-       << "  this.area  = " << (*this).area  << ", range.max.area  = " << range.second.area  << ", passes? " << ((*this).area  <= range.second.area)  << "\n"
-       << " TESTS:\n"
-       << "  Lower bound pass? " << (*this >= range.first) << "\n"
-       << "  Upper bound pass? " << (*this <= range.second)
-       << endl;
-*/
-
     return ((*this >= range.first) && (*this <= range.second));
 
   }  // end 'IsInAcceptance(pair<JetInfo, JetInfo>&)'
