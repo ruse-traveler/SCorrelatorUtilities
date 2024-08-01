@@ -18,6 +18,8 @@
 #include <Rtypes.h>
 // fastjet libraries
 #include <fastjet/PseudoJet.hh>
+// fun4all types
+#include <jetbase/Jet.h>
 // analysis utilities
 #include "Constants.h"
 
@@ -80,6 +82,7 @@ namespace SColdQcdCorrelatorAnalysis {
         // public methods
         void Reset();
         void SetInfo(fastjet::PseudoJet& pseudojet);
+        void SetInfo(Jet& jet);
         bool IsInAcceptance(const JetInfo& minimum, const JetInfo& maximum) const;
         bool IsInAcceptance(const pair<JetInfo, JetInfo>& range) const;
 
@@ -99,6 +102,7 @@ namespace SColdQcdCorrelatorAnalysis {
         // ctors accepting arguments
         JetInfo(const Const::Init init);
         JetInfo(fastjet::PseudoJet& pseudojet);
+        JetInfo(Jet& jet);
 
       // identify this class to ROOT
       ClassDefNV(JetInfo, 1)

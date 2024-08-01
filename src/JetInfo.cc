@@ -83,6 +83,22 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
+  void Types::JetInfo::SetInfo(Jet& jet) {
+
+    nCsts = jet.size_comp();
+    ene   = jet.get_e();
+    px    = jet.get_px();
+    py    = jet.get_py();
+    pz    = jet.get_pz();
+    pt    = jet.get_pt();
+    eta   = jet.get_eta();
+    phi   = jet.get_phi();
+    return;
+
+  }  // end 'SetInfo(Jet& jet)'
+
+
+
   bool Types::JetInfo::IsInAcceptance(const JetInfo& minimum, const JetInfo& maximum) const {
 
     return ((*this >= minimum) && (*this <= maximum));
@@ -245,6 +261,14 @@ namespace SColdQcdCorrelatorAnalysis {
     SetInfo(pseudojet);
 
   }  // ctor(PseudoJet&)'
+
+
+
+  Types::JetInfo::JetInfo(Jet& jet) {
+
+    SetInfo(jet);
+
+  }  // ctor(Jet&)'
 
 }  // end SColdQcdCorrelatorAnalysis namespace
 
