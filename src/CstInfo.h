@@ -1,11 +1,12 @@
-// ----------------------------------------------------------------------------
-// 'CstInfo.h'
-// Derek Anderson
-// 03.03.2024
-//
-// Utility class to hold information from
-// jet constituents.
-// ----------------------------------------------------------------------------
+/// ---------------------------------------------------------------------------
+/*! \file   CstInfo.h
+ *  \author Derek Anderson
+ *  \date   03.03.2024
+ *
+ *  Utility class to hold information from
+ *  jet constituents.
+ */
+/// ---------------------------------------------------------------------------
 
 #ifndef SCORRELATORUTILITIES_CSTINFO_H
 #define SCORRELATORUTILITIES_CSTINFO_H
@@ -34,8 +35,14 @@ using namespace std;
 namespace SColdQcdCorrelatorAnalysis {
   namespace Types {
 
-    // CstInfo definition -----------------------------------------------------
-
+    // ------------------------------------------------------------------------
+    //! Constituent info
+    // ------------------------------------------------------------------------
+    /*! A class to consolidate information
+     *  about jet constituents. Can be built
+     *  from FastJet PseudoJets's or F4A
+     *  tracks, clusters, or particles.
+     */
     class CstInfo {
 
       private:
