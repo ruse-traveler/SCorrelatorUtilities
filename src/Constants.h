@@ -11,15 +11,22 @@
 #ifndef SCORRELATORUTILITIES_CONSTANTS_H
 #define SCORRELATORUTILITIES_CONSTANTS_H
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+
 // c++ utilities
 #include <map>
 #include <string>
 #include <cstdint>
+// boost libraries
+#include <boost/bimap.hpp>
 // fastjet libraries
 #include <fastjet/JetDefinition.hh>
 #include <fastjet/AreaDefinition.hh>
 // sphenix jet base
 #include <jetbase/Jet.h>
+
+#pragma GCC diagnostic pop
 
 // make common namespaces implicit
 using namespace std;
@@ -145,10 +152,10 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-    // maps ===================================================================
+    // surjective maps ========================================================
 
     // ------------------------------------------------------------------------
-    //! Map of PID onto charges
+    //! Map of PID to charges
     // ------------------------------------------------------------------------
     inline map<int, float> &MapPidOntoCharge() {
       static map<int, float> mapPidOntoCharge = {
@@ -192,42 +199,6 @@ namespace SColdQcdCorrelatorAnalysis {
     }
 
     // ------------------------------------------------------------------------
-    //! Map of node name onto subsystem index
-    // ------------------------------------------------------------------------
-    inline map<string, int> MapNodeOntoIndex() {
-      static map<string, int> mapNodeOntoIndex = {
-        {"CLUSTER_CEMC",    Subsys::EMCal},
-        {"CLUSTER_HCALIN",  Subsys::IHCal},
-        {"CLUSTER_HCALOUT", Subsys::OHCal}
-      };
-      return mapNodeOntoIndex;
-    }
-
-    // ------------------------------------------------------------------------
-    //! Map of subsytem index onto node names
-    // ------------------------------------------------------------------------
-    inline map<int, string> MapIndexOntoNode() {
-      static map<int, string> mapIndexOntoNode = {
-        {Subsys::EMCal, "CLUSTER_CEMC"},
-        {Subsys::IHCal, "CLUSTER_HCALIN"},
-        {Subsys::OHCal, "CLUSTER_HCALOUT"}
-      };
-      return mapIndexOntoNode;
-    }
-
-    // ------------------------------------------------------------------------
-    //! Map of subsystem index onto jet source index
-    // ------------------------------------------------------------------------
-    inline map<int, Jet::SRC> MapIndexOntoSrc() {
-      static map<int, Jet::SRC> mapIndexOntoSrc = {
-        {Subsys::EMCal, Jet::SRC::CEMC_CLUSTER},
-        {Subsys::IHCal, Jet::SRC::HCALIN_CLUSTER},
-        {Subsys::OHCal, Jet::SRC::HCALOUT_CLUSTER} 
-      };
-      return mapIndexOntoSrc;
-    }
-
-    // ------------------------------------------------------------------------
     //! Map of forbidden strings onto good ones
     // ------------------------------------------------------------------------
     inline map<string, string> MapBadOntoGoodStrings() {
@@ -255,7 +226,7 @@ namespace SColdQcdCorrelatorAnalysis {
         {"genkt_passive", fastjet::JetAlgorithm::genkt_for_passive_algorithm},
         {"ee_kt",         fastjet::JetAlgorithm::ee_kt_algorithm},
         {"ee_genkt",      fastjet::JetAlgorithm::ee_genkt_algorithm},
-        {"plugin",        fastjet::JetAlgorithm::plugin_algorithm}
+        {"plugin",        fastjet::JetAlgorithm::plugin_algorithm},
       };
       return mapStringOntoAlgo;
     }
@@ -291,6 +262,36 @@ namespace SColdQcdCorrelatorAnalysis {
         {"one_ghost_passive", fastjet::AreaType::one_ghost_passive_area}
       };
       return mapStringOntoArea;
+    }
+
+
+
+    // bijective maps =========================================================
+
+    // bimap types
+    typedef boost::bimap<int, Jet::SRC> IndexOntoSrc;
+    typedef boost::bimap<int, string>   IndexOntoNode;
+
+    // ------------------------------------------------------------------------
+    //! Map of subsystem index onto jet source index
+    // ------------------------------------------------------------------------
+    inline IndexOntoSrc BimapIndexOntoSrc() {
+      static IndexOntoSrc bimapIndexOntoSrc;
+      bimapIndexOntoSrc.insert( IndexOntoSrc::value_type(Subsys::EMCal, Jet::SRC::CEMC_CLUSTER)    );
+      bimapIndexOntoSrc.insert( IndexOntoSrc::value_type(Subsys::IHCal, Jet::SRC::HCALIN_CLUSTER)  );
+      bimapIndexOntoSrc.insert( IndexOntoSrc::value_type(Subsys::OHCal, Jet::SRC::HCALOUT_CLUSTER) );
+      return bimapIndexOntoSrc;
+    }
+
+    // ------------------------------------------------------------------------
+    //! Map of subsytem index onto node names
+    // ------------------------------------------------------------------------
+    inline IndexOntoNode BimapIndexOntoNode() {
+      static IndexOntoNode bimapIndexOntoNode;
+      bimapIndexOntoNode.insert( IndexOntoNode::value_type(Subsys::EMCal, "CLUSTER_CEMC")    );
+      bimapIndexOntoNode.insert( IndexOntoNode::value_type(Subsys::IHCal, "CLUSTER_HCALIN")  );
+      bimapIndexOntoNode.insert( IndexOntoNode::value_type(Subsys::OHCal, "CLUSTER_HCALOUT") );
+      return bimapIndexOntoNode;
     }
 
   }  // end Const namespace
