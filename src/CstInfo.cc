@@ -108,6 +108,54 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
   // --------------------------------------------------------------------------
+  //! Pull relevant information from a F4A RawCluster
+  // --------------------------------------------------------------------------
+  void Types::CstInfo::SetInfo(RawCluster& cluster) {
+
+    /* TODO fill in*/
+    return;
+
+  }  // end 'SetInfo(RawCluster&)'
+
+
+
+  // --------------------------------------------------------------------------
+  //! Pull relevant information from a F4A TowerInfo
+  // --------------------------------------------------------------------------
+  void Types::CstInfo::SetInfo(TowerInfo& info) {
+
+    /* TODO fill in*/
+    return;
+
+  }  // end 'SetInfo(TowerInfo&)'
+
+
+
+  // --------------------------------------------------------------------------
+  //! Pull relevant information from a F4A RawTower
+  // --------------------------------------------------------------------------
+  void Types::CstInfo::SetInfo(RawTower& tower) {
+
+    /* TODO fill in*/
+    return;
+
+  }  // end 'SetInfo(RawTower&)'
+
+
+
+  // --------------------------------------------------------------------------
+  //! Pull relevant information from a F4A SvtxTrack
+  // --------------------------------------------------------------------------
+  void Types::CstInfo::SetInfo(SvtxTrack& track) {
+
+    /* TODO fill in*/
+    return;
+
+  }  // end 'SetInfo(SvtxTrack&)'
+
+
+
+  // --------------------------------------------------------------------------
   //! Calculate information relative to provided jet (e.g. momentum fraction)
   // --------------------------------------------------------------------------
   void Types::CstInfo::SetJetInfo(const Types::JetInfo& jet) {
@@ -295,7 +343,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
   // --------------------------------------------------------------------------
-  //! Class destructor
+  //! Default class destructor
   // --------------------------------------------------------------------------
   Types::CstInfo::~CstInfo() {
 
@@ -327,13 +375,57 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
   // --------------------------------------------------------------------------
-  //! Constructor accepting FastJet PseudoJet
+  //! Constructor accepting a FastJet PseudoJet
   // --------------------------------------------------------------------------
   Types::CstInfo::CstInfo(fastjet::PseudoJet& pseudojet) {
 
     SetInfo(pseudojet);
 
-  }  // end ctor(PseudoJet&)
+  }  // end ctor(fastjet::PseudoJet&)
+
+
+
+  // --------------------------------------------------------------------------
+  //! Constructor accepting a F4A RawCluster
+  // --------------------------------------------------------------------------
+  Types::CstInfo::CstInfo(RawCluster& cluster) {
+
+    SetInfo(cluster);
+
+  }  // end ctor(RawCluster&)
+
+
+
+  // --------------------------------------------------------------------------
+  //! Constructor accepting a F4A TowerInfo
+  // --------------------------------------------------------------------------
+  Types::CstInfo::CstInfo(TowerInfo& info) {
+
+    SetInfo(info);
+
+  }  // end ctor(TowerInfo&)
+
+
+
+  // --------------------------------------------------------------------------
+  //! Constructor accepting a F4A RawTower
+  // --------------------------------------------------------------------------
+  Types::CstInfo::CstInfo(RawTower& tower) {
+
+    SetInfo(tower);
+
+  }  // end ctor(RawTower&)
+
+
+
+  // --------------------------------------------------------------------------
+  //! Constructor accepting a F4A SvtxTrack
+  // --------------------------------------------------------------------------
+  Types::CstInfo::CstInfo(SvtxTrack& track) {
+
+    SetInfo(track);
+
+  }  // end ctor(SvtxTrack&)
 
 }  // end SColdQcdCorrelatorAnalysis namespace
 

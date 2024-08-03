@@ -23,6 +23,12 @@
 #include <Math/Vector3D.h>
 // fastjet libraries
 #include <fastjet/PseudoJet.hh>
+// calobase libraries
+#include <calobase/RawTower.h>
+#include <calobase/TowerInfo.h>
+#include <calobase/RawCluster.h>
+// trackbase libraries
+#include <trackbase_historic/SvtxTrack.h>
 // analysis utilities
 #include "JetInfo.h"
 #include "Constants.h"
@@ -107,6 +113,10 @@ namespace SColdQcdCorrelatorAnalysis {
         // public methods
         void Reset();
         void SetInfo(fastjet::PseudoJet& pseudojet);
+        void SetInfo(RawCluster& cluster);
+        void SetInfo(TowerInfo& info);
+        void SetInfo(RawTower& tower);
+        void SetInfo(SvtxTrack& track);
         void SetJetInfo(const Types::JetInfo& jet);
         bool IsInAcceptance(const CstInfo& minimum, const CstInfo& maximum) const;
         bool IsInAcceptance(const pair<CstInfo, CstInfo>& range) const;
@@ -127,6 +137,10 @@ namespace SColdQcdCorrelatorAnalysis {
         // ctors accepting arguments
         CstInfo(const Const::Init init);
         CstInfo(fastjet::PseudoJet& pseudojet);
+        CstInfo(RawCluster& cluster);
+        CstInfo(TowerInfo& info);
+        CstInfo(RawTower& tower);
+        CstInfo(SvtxTrack& track);
 
       // identify this class to ROOT
       ClassDefNV(CstInfo, 1)
