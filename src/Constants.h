@@ -294,6 +294,45 @@ namespace SColdQcdCorrelatorAnalysis {
       return bimapIndexOntoNode;
     }
 
+    // ------------------------------------------------------------------------
+    //! Map of jet source index onto input node
+    // ------------------------------------------------------------------------
+    // TODO particle input still needs to be added
+    inline IndexOntoNode BimapSrcOntoNode() {
+      static IndexOntoNode bimapSrcOntoNode;
+      bimapSrcOntoNode.insert( IndexOntoNode::value_type(Jet::SRC::CEMC_CLUSTER, "CLUSTER_CEMC"));
+      bimapSrcOntoNode.insert( IndexOntoNode::value_type(Jet::SRC::HCALIN_CLUSTER, "CLUSTER_HCALIN"));
+      bimapSrcOntoNode.insert( IndexOntoNode::value_type(Jet::SRC::HCALOUT_CLUSTER, "CLUSTER_HCALOUT"));
+      bimapSrcOntoNode.insert( IndexOntoNode::value_type(Jet::SRC::HCAL_TOPO_CLUSTER, "TOPOCLUSTER_HCAL"));
+      bimapSrcOntoNode.insert( IndexOntoNode::value_type(Jet::SRC::ECAL_TOPO_CLUSTER, "TOPOCLUSTER_EMCAL"));
+      bimapSrcOntoNode.insert( IndexOntoNode::value_type(Jet::SRC::ECAL_HCAL_TOPO_CLUSTER, "TOPOCLUSTER_ALLCALO"));
+      bimapSrcOntoNode.insert( IndexOntoNode::value_type(Jet::SRC::CEMC_TOWER_RETOWER, "TOWER_CALIB_CEMC_RETOWER"));
+      bimapSrcOntoNode.insert( IndexOntoNode::value_type(Jet::SRC::CEMC_TOWERINFO_RETOWER, "TOWERINFO_CALIB_CEMC_RETOWER"));
+      bimapSrcOntoNode.insert( IndexOntoNode::value_type(Jet::SRC::CEMC_TOWER, "TOWER_CALIB_CEMC"));
+      bimapSrcOntoNode.insert( IndexOntoNode::value_type(Jet::SRC::HCALIN_TOWER, "TOWER_CALIB_HCALIN"));
+      bimapSrcOntoNode.insert( IndexOntoNode::value_type(Jet::SRC::HCALOUT_TOWER, "TOWER_CALIB_HCALOUT"));
+      bimapSrcOntoNode.insert( IndexOntoNode::value_type(Jet::SRC::CEMC_TOWERINFO, "TOWERINFO_CALIB_CEMC"));
+      bimapSrcOntoNode.insert( IndexOntoNode::value_type(Jet::SRC::HCALIN_TOWERINFO, "TOWERINFO_CALIB_HCALIN"));
+      bimapSrcOntoNode.insert( IndexOntoNode::value_type(Jet::SRC::HCALOUT_TOWERINFO, "TOWERINFO_CALIB_HCALOUT"));
+      bimapSrcOntoNode.insert( IndexOntoNode::value_type(Jet::SRC::CEMC_TOWERINFO_EMBED, "TOWERINFO_CALIB_EMBED_CEMC"));
+      bimapSrcOntoNode.insert( IndexOntoNode::value_type(Jet::SRC::HCALIN_TOWERINFO_EMBED, "TOWERINFO_CALIB_EMBED_HCALIN"));
+      bimapSrcOntoNode.insert( IndexOntoNode::value_type(Jet::SRC::HCALOUT_TOWERINFO_EMBED, "TOWERINFO_CALIB_EMBED_HCALOUT"));
+      bimapSrcOntoNode.insert( IndexOntoNode::value_type(Jet::SRC::CEMC_TOWERINFO_SIM, "TOWERINFO_CALIB_SIM_CEMC"));
+      bimapSrcOntoNode.insert( IndexOntoNode::value_type(Jet::SRC::HCALIN_TOWERINFO_SIM, "TOWERINFO_CALIB_SIM_HCALIN"));
+      bimapSrcOntoNode.insert( IndexOntoNode::value_type(Jet::SRC::HCALOUT_TOWERINFO_SIM, "TOWERINFO_CALIB_SIM_HCALOUT"));
+      bimapSrcOntoNode.insert( IndexOntoNode::value_type(Jet::SRC::CEMC_TOWER_SUB1, "TOWER_CALIB_CEMC_RETOWER_SUB1"));
+      bimapSrcOntoNode.insert( IndexOntoNode::value_type(Jet::SRC::HCALIN_TOWER_SUB1, "TOWER_CALIB_HCALIN_SUB1"));
+      bimapSrcOntoNode.insert( IndexOntoNode::value_type(Jet::SRC::HCALOUT_TOWER_SUB1, "TOWER_CALIB_HCALOUT_SUB1"));
+      bimapSrcOntoNode.insert( IndexOntoNode::value_type(Jet::SRC::CEMC_TOWERINFO_SUB1, "TOWERINFO_CALIB_CEMC_RETOWER_SUB1"));
+      bimapSrcOntoNode.insert( IndexOntoNode::value_type(Jet::SRC::HCALIN_TOWERINFO_SUB1, "TOWERINFO_CALIB_HCALIN_SUB1"));
+      bimapSrcOntoNode.insert( IndexOntoNode::value_type(Jet::SRC::HCALOUT_TOWERINFO_SUB1, "TOWERINFO_CALIB_HCALOUT_SUB1"));
+      bimapSrcOntoNode.insert( IndexOntoNode::value_type(Jet::SRC::CEMC_TOWER_SUB1CS, "TOWER_CALIB_CEMC_RETOWER_SUB1CS"));
+      bimapSrcOntoNode.insert( IndexOntoNode::value_type(Jet::SRC::HCALIN_TOWER_SUB1CS, "TOWER_CALIB_HCALIN_SUB1CS"));
+      bimapSrcOntoNode.insert( IndexOntoNode::value_type(Jet::SRC::HCALOUT_TOWER_SUB1CS, "TOWER_CALIB_HCALOUT_SUB1CS"));
+      bimapSrcOntoNode.insert( IndexOntoNode::value_type(Jet::SRC::TRACK, "SvtxTrackMap"));
+      return bimapSrcOntoNode;
+    }
+
   }  // end Const namespace
 }  // end SColdQcdCorrealtorAnalysis namespace
 
