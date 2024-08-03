@@ -1,11 +1,12 @@
-// ----------------------------------------------------------------------------
-// 'Constants.h'
-// Derek Anderson
-// 11.16.2023
-//
-// Various constants used throughout the SColdQcdCorrelatorAnalysis
-// namespace are collected here.
-// ----------------------------------------------------------------------------
+/// ---------------------------------------------------------------------------
+/*! \file   Constants.h
+ *  \author Derek Anderson
+ *  \date   11.16.2023
+ *
+ * Various constants used throughout the SColdQcdCorrelatorAnalysis
+ * namespace are collected here.
+ */
+/// ---------------------------------------------------------------------------
 
 #ifndef SCORRELATORUTILITIES_CONSTANTS_H
 #define SCORRELATORUTILITIES_CONSTANTS_H
@@ -28,40 +29,58 @@ using namespace std;
 namespace SColdQcdCorrelatorAnalysis {
   namespace Const {
 
-    // enums ------------------------------------------------------------------
+    // enums ==================================================================
 
-    // info intialization options
+    // ------------------------------------------------------------------------
+    //! Intialization options for analysis types
+    // ------------------------------------------------------------------------
     enum class Init {Minimize, Maximize};
 
-    // jet types
+    // ------------------------------------------------------------------------
+    //! Jet types
+    // ------------------------------------------------------------------------
     enum class JetType {Charged, Neutral, Full};
 
-    // particle charge subsets
+    // ------------------------------------------------------------------------
+    //! Particle charge subsets
+    // ------------------------------------------------------------------------
     enum class Subset {All, Charged, Neutral};
 
-    // object types
+    // ------------------------------------------------------------------------
+    //! Object types
+    // ------------------------------------------------------------------------
     enum Object {Track, Cluster, Flow, Particle, Unknown};
 
-    // subsystem indices
+    // ------------------------------------------------------------------------
+    //! Subsystem indices
+    // ------------------------------------------------------------------------
     enum Subsys {Mvtx, Intt, Tpc, EMCal, IHCal, OHCal};
 
-    // subevent options
+    // ------------------------------------------------------------------------
+    //! Subevent options
+    // ------------------------------------------------------------------------
     enum SubEvtOpt {Everything, OnlySignal, AllBkgd, PrimaryBkgd, Pileup, Specific};
 
-    // special subevent indices
+    // ------------------------------------------------------------------------
+    //! Special subevent indices
+    // ------------------------------------------------------------------------
     enum SubEvt {
       Background     = 0,
       NotEmbedSignal = 1,
       EmbedSignal    = 2
     };
 
-    // hard scatter product statuses
+    // ------------------------------------------------------------------------
+    //! Hard scatter product statuses
+    // ------------------------------------------------------------------------
     enum HardScatterStatus {
       First  = 23,
       Second = 24
     };
 
-    // parton pdg codes
+    // ------------------------------------------------------------------------
+    //! Parton pdg codes
+    // ------------------------------------------------------------------------
     enum Parton {
       Down    = 1,
       Up      = 2,
@@ -74,35 +93,51 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-    // constants --------------------------------------------------------------
+    // constants ==============================================================
 
-    // tracking-related constants
+    // ------------------------------------------------------------------------
+    //! No. of MVTX layers
+    // ------------------------------------------------------------------------
     inline uint16_t const &NMvtxLayer() {
       static uint16_t nMvtxLayer = 3;
       return nMvtxLayer;
     }
 
+    // ------------------------------------------------------------------------
+    //! No. of INTT layers
+    // ------------------------------------------------------------------------
     inline uint16_t const &NInttLayer() {
       static uint16_t nInttLayer = 8;
       return nInttLayer;
     }
 
+    // ------------------------------------------------------------------------
+    //! No. of TPC layers
+    // ------------------------------------------------------------------------
     inline uint16_t const &NTpcLayer() {
       static uint16_t nTpcLayer = 48;
       return nTpcLayer;
     }
 
+    // ------------------------------------------------------------------------
+    //! No. of TPC sectors
+    // ------------------------------------------------------------------------
     inline uint16_t const &NTpcSector() {
       static uint16_t nTpcSector = 12;
       return nTpcSector;
     }
 
+    // ------------------------------------------------------------------------
+    //! Fit function for calculating DCA nSigma
+    // ------------------------------------------------------------------------
     inline string const &SigmaDcaFunc() {
       static string sigmaDcaFunc = "[0]+[1]/x+[2]/(x*x)";
       return sigmaDcaFunc;
     }
 
-    // charged pion mass in GeV/c^2
+    // ------------------------------------------------------------------------
+    //! Charged pion mass in GeV/c^2
+    // ------------------------------------------------------------------------
     inline double const &MassPion() {
       static double mPion = 0.140;
       return mPion;
@@ -110,9 +145,11 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-    // maps -------------------------------------------------------------------
+    // maps ===================================================================
 
-    // map of PID onto charges
+    // ------------------------------------------------------------------------
+    //! Map of PID onto charges
+    // ------------------------------------------------------------------------
     inline map<int, float> &MapPidOntoCharge() {
       static map<int, float> mapPidOntoCharge = {
         {1, -1./3.},
@@ -154,7 +191,9 @@ namespace SColdQcdCorrelatorAnalysis {
       return mapPidOntoCharge;
     }
 
-    // map of node name onto subsystem index
+    // ------------------------------------------------------------------------
+    //! Map of node name onto subsystem index
+    // ------------------------------------------------------------------------
     inline map<string, int> MapNodeOntoIndex() {
       static map<string, int> mapNodeOntoIndex = {
         {"CLUSTER_CEMC",    Subsys::EMCal},
@@ -164,7 +203,9 @@ namespace SColdQcdCorrelatorAnalysis {
       return mapNodeOntoIndex;
     }
 
-    // map of subsytem index onto node names
+    // ------------------------------------------------------------------------
+    //! Map of subsytem index onto node names
+    // ------------------------------------------------------------------------
     inline map<int, string> MapIndexOntoNode() {
       static map<int, string> mapIndexOntoNode = {
         {Subsys::EMCal, "CLUSTER_CEMC"},
@@ -174,7 +215,9 @@ namespace SColdQcdCorrelatorAnalysis {
       return mapIndexOntoNode;
     }
 
-    // map of subsystem index onto jet source index
+    // ------------------------------------------------------------------------
+    //! Map of subsystem index onto jet source index
+    // ------------------------------------------------------------------------
     inline map<int, Jet::SRC> MapIndexOntoSrc() {
       static map<int, Jet::SRC> mapIndexOntoSrc = {
         {Subsys::EMCal, Jet::SRC::CEMC_CLUSTER},
@@ -184,7 +227,9 @@ namespace SColdQcdCorrelatorAnalysis {
       return mapIndexOntoSrc;
     }
 
-    // map of forbidden strings onto good ones
+    // ------------------------------------------------------------------------
+    //! Map of forbidden strings onto good ones
+    // ------------------------------------------------------------------------
     inline map<string, string> MapBadOntoGoodStrings() {
       static map<string, string> mapBadOntoGoodStrings = {
         {"/", "_"},
@@ -197,7 +242,9 @@ namespace SColdQcdCorrelatorAnalysis {
       return mapBadOntoGoodStrings;
     }
 
-    // map of strings onto fastjet algorithms
+    // ------------------------------------------------------------------------
+    //! Map of strings onto fastjet algorithms
+    // ------------------------------------------------------------------------
     inline map<string, fastjet::JetAlgorithm> MapStringOntoFJAlgo() {
       static map<string, fastjet::JetAlgorithm> mapStringOntoAlgo = {
         {"kt",            fastjet::JetAlgorithm::kt_algorithm},
@@ -213,7 +260,9 @@ namespace SColdQcdCorrelatorAnalysis {
       return mapStringOntoAlgo;
     }
 
-    // map of strings onto fastjet recombination schemes
+    // ------------------------------------------------------------------------
+    //! Map of strings onto fastjet recombination schemes
+    // ------------------------------------------------------------------------
     inline map<string, fastjet::RecombinationScheme> MapStringOntoFJRecomb() {
       static map<string, fastjet::RecombinationScheme> mapStringOntoRecomb = {
         {"e",        fastjet::RecombinationScheme::E_scheme},
@@ -230,7 +279,9 @@ namespace SColdQcdCorrelatorAnalysis {
       return mapStringOntoRecomb;
     }
 
-    // map of strings onto fastjet area types
+    // ------------------------------------------------------------------------
+    //! Map of strings onto fastjet area types
+    // ------------------------------------------------------------------------
     inline map<string, fastjet::AreaType> MapStringOntoFJArea() {
       static map<string, fastjet::AreaType> mapStringOntoArea = {
         {"active",            fastjet::AreaType::active_area},
