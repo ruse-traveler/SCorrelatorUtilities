@@ -146,12 +146,19 @@ namespace SColdQcdCorrelatorAnalysis {
   // --------------------------------------------------------------------------
   //! Pull relevant information from a F4A SvtxTrack
   // --------------------------------------------------------------------------
-  void Types::CstInfo::SetInfo(SvtxTrack& track) {
+  void Types::CstInfo::SetInfo(SvtxTrack* track) {
 
-    /* TODO fill in*/
+    cstID = track -> get_id();
+    pt    = track -> get_pt();
+    px    = track -> get_px();
+    py    = track -> get_py();
+    pz    = track -> get_pz();
+    ene   = hypot(track -> get_p(), Const::MassPion());
+    eta   = track -> get_eta();
+    phi   = track -> get_phi();
     return;
 
-  }  // end 'SetInfo(SvtxTrack&)'
+  }  // end 'SetInfo(SvtxTrack*)'
 
 
 
@@ -421,11 +428,11 @@ namespace SColdQcdCorrelatorAnalysis {
   // --------------------------------------------------------------------------
   //! Constructor accepting a F4A SvtxTrack
   // --------------------------------------------------------------------------
-  Types::CstInfo::CstInfo(SvtxTrack& track) {
+  Types::CstInfo::CstInfo(SvtxTrack* track) {
 
     SetInfo(track);
 
-  }  // end ctor(SvtxTrack&)
+  }  // end ctor(SvtxTrack*)
 
 }  // end SColdQcdCorrelatorAnalysis namespace
 

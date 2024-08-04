@@ -116,7 +116,7 @@ namespace SColdQcdCorrelatorAnalysis {
         void SetInfo(RawCluster& cluster);
         void SetInfo(TowerInfo& info);
         void SetInfo(RawTower& tower);
-        void SetInfo(SvtxTrack& track);
+        void SetInfo(SvtxTrack* track);
         void SetJetInfo(const Types::JetInfo& jet);
         bool IsInAcceptance(const CstInfo& minimum, const CstInfo& maximum) const;
         bool IsInAcceptance(const pair<CstInfo, CstInfo>& range) const;
@@ -140,7 +140,7 @@ namespace SColdQcdCorrelatorAnalysis {
         CstInfo(RawCluster& cluster);
         CstInfo(TowerInfo& info);
         CstInfo(RawTower& tower);
-        CstInfo(SvtxTrack& track);
+        CstInfo(SvtxTrack* track);
 
       // identify this class to ROOT
       ClassDefNV(CstInfo, 1)
