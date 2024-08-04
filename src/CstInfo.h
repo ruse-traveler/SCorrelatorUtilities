@@ -21,6 +21,7 @@
 // root libraries
 #include <Rtypes.h>
 #include <Math/Vector3D.h>
+#include <Math/Vector4D.h>
 // fastjet libraries
 #include <fastjet/PseudoJet.hh>
 // calobase libraries
@@ -32,6 +33,7 @@
 // analysis utilities
 #include "JetInfo.h"
 #include "Constants.h"
+#include "ClustTools.h"
 
 // make common namespaces implicit
 using namespace std;
@@ -113,7 +115,7 @@ namespace SColdQcdCorrelatorAnalysis {
         // public methods
         void Reset();
         void SetInfo(fastjet::PseudoJet& pseudojet);
-        void SetInfo(RawCluster& cluster);
+        void SetInfo(RawCluster* cluster, optional<ROOT::Math::XYZVector> vtx = nullopt);
         void SetInfo(TowerInfo& info);
         void SetInfo(RawTower& tower);
         void SetInfo(SvtxTrack* track);
@@ -137,7 +139,7 @@ namespace SColdQcdCorrelatorAnalysis {
         // ctors accepting arguments
         CstInfo(const Const::Init init);
         CstInfo(fastjet::PseudoJet& pseudojet);
-        CstInfo(RawCluster& cluster);
+        CstInfo(RawCluster* cluster, optional<ROOT::Math::XYZVector> vtx = nullopt);
         CstInfo(TowerInfo& info);
         CstInfo(RawTower& tower);
         CstInfo(SvtxTrack* track);
