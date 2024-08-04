@@ -1,11 +1,12 @@
-// ----------------------------------------------------------------------------
-// 'ClustTools.cc'
-// Derek Anderson
-// 03.29.2024
-//
-// Collection of frequent cluster-related methods utilized
-// in the sPHENIX Cold QCD Energy-Energy Correlator analysis.
-// ----------------------------------------------------------------------------
+/// ---------------------------------------------------------------------------
+/*! \file   ClustTools.cc
+ *  \author Derek Anderson
+ *  \date   03.29.2024
+ *
+ *  Collection of frequent cluster-related methods utilized
+ *  in the sPHENIX Cold QCD Energy-Energy Correlator analysis.
+ */
+/// ---------------------------------------------------------------------------
 
 #define SCORRELATORUTILITIES_CLUSTTOOLS_CC
 
@@ -19,6 +20,9 @@ using namespace std;
 
 namespace SColdQcdCorrelatorAnalysis {
 
+  // --------------------------------------------------------------------------
+  //! Get displacement of cluster relative to a vertex
+  // --------------------------------------------------------------------------
   ROOT::Math::XYZVector Tools::GetDisplacement(const ROOT::Math::XYZVector pos, const ROOT::Math::XYZVector vtx) {
 
     return pos - vtx;
@@ -27,6 +31,9 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
+  // --------------------------------------------------------------------------
+  //! Get 4-momentum for a cluster
+  // --------------------------------------------------------------------------
   ROOT::Math::PxPyPzEVector Tools::GetClustMomentum(const double energy, const ROOT::Math::XYZVector pos, const ROOT::Math::XYZVector vtx) {
 
     // get displacement
@@ -42,7 +49,7 @@ namespace SColdQcdCorrelatorAnalysis {
   }  // end 'GetClustMomentum(double, ROOT::Math::XYZVector)'
 
 
-}  // end SColdQcdCorrealtorAnalysis namespace
+}  // end SColdQcdCorrelatorAnalysis namespace
 
 
 // end ------------------------------------------------------------------------

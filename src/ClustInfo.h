@@ -1,11 +1,12 @@
-// ----------------------------------------------------------------------------
-// 'ClustInfo.h'
-// Derek Anderson
-// 03.01.2024
-//
-// Utility class to hold information from
-// calorimeter clusters.
-// ----------------------------------------------------------------------------
+/// ---------------------------------------------------------------------------
+/*! \file   ClustInfo.h
+ *  \author Derek Anderson
+ *  \date   03.01.2024
+ *
+ *  Utility class to hold information from
+ *  calorimeter clusters.
+ */
+/// ---------------------------------------------------------------------------
 
 #ifndef SCORRELATORUTILITIES_CLUSTINFO_H
 #define SCORRELATORUTILITIES_CLUSTINFO_H
@@ -34,8 +35,12 @@ using namespace std;
 namespace SColdQcdCorrelatorAnalysis {
   namespace Types {
 
-    // ClustInfo definition ---------------------------------------------------
-
+    // ------------------------------------------------------------------------
+    //! Cluster info
+    // ------------------------------------------------------------------------
+    /*! A class to consolidate information
+     *  about calorimeter clusters.
+     */
     class ClustInfo {
 
       private:
