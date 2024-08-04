@@ -117,7 +117,7 @@ namespace SColdQcdCorrelatorAnalysis {
         void SetInfo(fastjet::PseudoJet& pseudojet);
         void SetInfo(RawCluster* cluster, optional<ROOT::Math::XYZVector> vtx = nullopt);
         void SetInfo(TowerInfo& info);
-        void SetInfo(RawTower& tower);
+        void SetInfo(RawTower* tower, optional<ROOT::Math::XYZVector> vtx = nullopt);
         void SetInfo(SvtxTrack* track);
         void SetJetInfo(const Types::JetInfo& jet);
         bool IsInAcceptance(const CstInfo& minimum, const CstInfo& maximum) const;
@@ -141,7 +141,7 @@ namespace SColdQcdCorrelatorAnalysis {
         CstInfo(fastjet::PseudoJet& pseudojet);
         CstInfo(RawCluster* cluster, optional<ROOT::Math::XYZVector> vtx = nullopt);
         CstInfo(TowerInfo& info);
-        CstInfo(RawTower& tower);
+        CstInfo(RawTower* tower, optional<ROOT::Math::XYZVector> vtx = nullopt);
         CstInfo(SvtxTrack* track);
 
       // identify this class to ROOT

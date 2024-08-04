@@ -1,10 +1,11 @@
-// ----------------------------------------------------------------------------
-// 'Types.h'
-// Derek Anderson
-// 03.04.2023
-//
-// All-in-one header for utility data types.
-// ----------------------------------------------------------------------------
+/// ---------------------------------------------------------------------------
+/*! \file   Types.h
+ *  \author Derek Anderson
+ *  \date   03.04.2023
+ *
+ *  All-in-one header for utility data types.
+ */
+/// ---------------------------------------------------------------------------
 
 #ifndef SCORRELATORUTILITIES_TYPES_H
 #define SCORRELATORUTILITIES_TYPES_H
@@ -17,6 +18,7 @@
 #include "ParInfo.h"
 #include "RecoInfo.h"
 #include "TrkInfo.h"
+#include "TwrInfo.h"
 
 #endif
 

@@ -161,12 +161,36 @@ namespace SColdQcdCorrelatorAnalysis {
   // --------------------------------------------------------------------------
   //! Pull relevant information from a F4A RawTower
   // --------------------------------------------------------------------------
-  void Types::CstInfo::SetInfo(RawTower& tower) {
+  void Types::CstInfo::SetInfo(RawTower* tower, optional<ROOT::Math::XYZVector> vtx) {
 
-    /* TODO fill in*/
+    // if no vertex provided, use origin
+    ROOT::Math::XYZVector vtxToUse(0., 0., 0.);
+    if (vtx.has_value()) {
+      vtxToUse = vtx.value();
+    }
+
+    // grab position
+    //   - TODO implement position getter in tools
+    ROOT::Math::XYZVector position(0., 0., 0.);
+
+    // grab momentum
+    ROOT::Math::PxPyPzEVector momentum = Tools::GetClustMomentum(
+      tower -> get_energy(),
+      position,
+      vtxToUse
+    );
+
+    cstID = tower -> get_id();
+    ene   = tower -> get_energy();
+    px    = momentum.Px();
+    py    = momentum.Py();
+    pz    = momentum.Pz();
+    pt    = hypot(px, py);
+    eta   = momentum.Eta();
+    phi   = momentum.Phi();
     return;
 
-  }  // end 'SetInfo(RawTower&)'
+  }  // end 'SetInfo(RawTower*, optional<ROOT::Math::XYZVector>)'
 
 
 
@@ -444,11 +468,11 @@ namespace SColdQcdCorrelatorAnalysis {
   // --------------------------------------------------------------------------
   //! Constructor accepting a F4A RawTower
   // --------------------------------------------------------------------------
-  Types::CstInfo::CstInfo(RawTower& tower) {
+  Types::CstInfo::CstInfo(RawTower* tower, optional<ROOT::Math::XYZVector> vtx) {
 
-    SetInfo(tower);
+    SetInfo(tower, vtx);
 
-  }  // end ctor(RawTower&)
+  }  // end ctor(RawTower*, optional<ROOT::Math::XYZVector>)
 
 
 

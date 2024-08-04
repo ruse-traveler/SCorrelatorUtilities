@@ -32,6 +32,9 @@ pkginclude_HEADERS = \
   TrkInfo.h \
   TrkInterfaces.h \
   TrkTools.h \
+  TwrInfo.h \
+  TwrInterfaces.h \
+  TwrTools.h \
   TupleInterfaces.h \
   VtxInterfaces.h \
   Constants.h \
@@ -66,6 +69,9 @@ libscorrelatorutilities_la_SOURCES = \
   TrkTools.cc \
   TrkInterfaces.cc \
   TupleInterfaces.cc \
+  TwrInfo.cc \
+  TwrInterfaces.cc \
+  TwrTools.cc \
   VtxInterfaces.cc
 
 libscorrelatorutilities_la_LDFLAGS = \

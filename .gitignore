@@ -42,6 +42,12 @@ old/*
 !src/TrkInterfaces.h
 !src/TrkTools.cc
 !src/TrkTools.h
+!src/TwrInfo.cc
+!src/TwrInfo.h
+!src/TwrInterfaces.cc
+!src/TwrInterfaces.h
+!src/TwrTools.cc
+!src/TwrTools.h
 !src/Tools.h
 !src/TupleInterfaces.cc
 !src/TupleInterfaces.h
