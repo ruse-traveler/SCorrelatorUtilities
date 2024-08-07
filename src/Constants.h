@@ -284,14 +284,25 @@ namespace SColdQcdCorrelatorAnalysis {
     }
 
     // ------------------------------------------------------------------------
-    //! Map of subsytem index onto node names
+    //! Map of subsytem index onto cluster node names
     // ------------------------------------------------------------------------
-    inline IndexOntoNode BimapIndexOntoNode() {
-      static IndexOntoNode bimapIndexOntoNode;
-      bimapIndexOntoNode.insert( IndexOntoNode::value_type(Subsys::EMCal, "CLUSTER_CEMC")    );
-      bimapIndexOntoNode.insert( IndexOntoNode::value_type(Subsys::IHCal, "CLUSTER_HCALIN")  );
-      bimapIndexOntoNode.insert( IndexOntoNode::value_type(Subsys::OHCal, "CLUSTER_HCALOUT") );
-      return bimapIndexOntoNode;
+    inline IndexOntoNode BimapIndexOntoClusters() {
+      static IndexOntoNode bimapIndexOntoClusters;
+      bimapIndexOntoClusters.insert( IndexOntoNode::value_type(Subsys::EMCal, "CLUSTER_CEMC")    );
+      bimapIndexOntoClusters.insert( IndexOntoNode::value_type(Subsys::IHCal, "CLUSTER_HCALIN")  );
+      bimapIndexOntoClusters.insert( IndexOntoNode::value_type(Subsys::OHCal, "CLUSTER_HCALOUT") );
+      return bimapIndexOntoClusters;
+    }
+
+    // ------------------------------------------------------------------------
+    //! Map of subsystem index onto raw tower geometry containers
+    // ------------------------------------------------------------------------
+    inline IndexOntoNode BimapIndexOntoTowerGeom() {
+      static IndexOntoNode bimapIndexOntoTowerGeom;
+      bimapIndexOntoTowerGeom.insert( IndexOntoNode::value_type(Subsys::EMCal, "TOWERGEOM_CEMC")    );
+      bimapIndexOntoTowerGeom.insert( IndexOntoNode::value_type(Subsys::IHCal, "TOWERGEOM_HCALIN")  );
+      bimapIndexOntoTowerGeom.insert( IndexOntoNode::value_type(Subsys::OHCal, "TOWERGEOM_HCALOUT") );
+      return bimapIndexOntoTowerGeom;
     }
 
     // ------------------------------------------------------------------------
