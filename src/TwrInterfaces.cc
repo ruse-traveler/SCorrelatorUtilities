@@ -25,7 +25,7 @@ namespace SColdQcdCorrelatorAnalysis {
   // --------------------------------------------------------------------------
   //! Get raw tower container from node tree
   // --------------------------------------------------------------------------
-  RawTowerContainer* Interfaces::GetTowerStore(PHCompositeNode* topNode, const string node) {
+  RawTowerContainer* Interfaces::GetRawTowerStore(PHCompositeNode* topNode, const string node) {
 
     // grab clusters
     RawTowerContainer* towerStore = getClass<RawTowerContainer>(topNode, node.data());
@@ -37,7 +37,45 @@ namespace SColdQcdCorrelatorAnalysis {
     }
     return towerStore;
 
-  }  // end 'GetTowerStore(PHCompositeNode*, string)'
+  }  // end 'GetRawTowerStore(PHCompositeNode*, string)'
+
+
+
+  // --------------------------------------------------------------------------
+  //! Get tower info container from node tree
+  // --------------------------------------------------------------------------
+  TowerInfoContainer* Interfaces::GetTowerInfoStore(PHCompositeNode* topNode, const string node) {
+
+    // grab clusters
+    TowerInfoContainer* towerStore = getClass<TowerInfoContainer>(topNode, node.data());
+    if (!towerStore) {
+      cout << PHWHERE
+           << "PANIC: " << node << " node is missing!"
+           << endl;
+      assert(towerStore);
+    }
+    return towerStore;
+
+  }  // end 'GetTowerInfoStore(PHCompositeNode*, string)'
+
+
+
+  // --------------------------------------------------------------------------
+  //! Get tower geometry container from node tree
+  // --------------------------------------------------------------------------
+  RawTowerGeomContainer* Interfaces::GetTowerGeomtry(PHCompositeNode* topNode, const string node) {
+
+    // grab container
+    RawTowerGeomContainer* geometry = getClass<RawTowerGeomContainer>(topNode, node.data());
+    if (!geomtry) {
+      cout << PHWHERE
+           << "PANIC: " << node << " node is missing!"
+           << endl;
+      assert(geomtry);
+    }
+    return geomtry;
+
+  }  // end 'GetTowerGeomtry(PHCompositeNode*, string)'
 
 
 

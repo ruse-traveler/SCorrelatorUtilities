@@ -27,6 +27,7 @@
 #include <calobase/TowerInfo.h>
 #include <calobase/RawTowerContainer.h>
 #include <calobase/TowerInfoContainer.h>
+#include <calobase/RawTowerGeomContainer.h>
 
 // make common namespaces implicit
 using namespace std;
@@ -39,11 +40,11 @@ namespace SColdQcdCorrelatorAnalysis {
     // tower interfaces -----------------------------------------------------
 
     RawTowerContainer*            GetRawTowerStore(PHCompositeNode* topNode, const string node);
+    TowerInfoContainer*           GetTowerInfoStore(PHCompositeNode* topNode, const string node);
+    RawTowerGeomContainer*        GetTowerGeometry(PHCompositeNode* topNode, const string node);
     RawTowerContainer::ConstRange GetRawTowers(PHCompositeNode* topNode, const string store);
 
     /* TODO
-     *   - Add geometry getter (EMCal, IHCal, OHCal)' 
-     *   - Add tower info store getter
      *   - Add tower info range getter
      */
 
