@@ -104,6 +104,7 @@ namespace SColdQcdCorrelatorAnalysis {
         void SetInfo(const TowerInfo* tower, optional<ROOT::Math::XYZVector> vtx = nullopt, optional<int> sys = nullopt);
         bool IsInAcceptance(const TwrInfo& minimum, const TwrInfo& maximum) const;
         bool IsInAcceptance(const pair<TwrInfo, TwrInfo>& range) const;
+        bool IsGood() const;
 
         // static methods
         static vector<string> GetListOfMembers();
