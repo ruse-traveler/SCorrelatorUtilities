@@ -58,7 +58,7 @@ namespace SColdQcdCorrelatorAnalysis {
     // ------------------------------------------------------------------------
     //! Object types
     // ------------------------------------------------------------------------
-    enum Object {Track, Cluster, Flow, Particle, Unknown};
+    enum Object {Track, Cluster, Flow, Particle, Mystery};
 
     // ------------------------------------------------------------------------
     //! Subsystem indices
