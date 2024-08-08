@@ -48,19 +48,20 @@ namespace SColdQcdCorrelatorAnalysis {
       private:
 
         // data members
-        int     system = numeric_limits<int>::max();
-        int     status = numeric_limits<int>::max();
-        int     id     = numeric_limits<int>::max();
-        double  ene    = numeric_limits<double>::max();
-        double  rho    = numeric_limits<double>::max();
-        double  eta    = numeric_limits<double>::max();
-        double  phi    = numeric_limits<double>::max();
-        double  px     = numeric_limits<double>::max();
-        double  py     = numeric_limits<double>::max();
-        double  pz     = numeric_limits<double>::max();
-        double  rx     = numeric_limits<double>::max();
-        double  ry     = numeric_limits<double>::max();
-        double  rz     = numeric_limits<double>::max();
+        int     system  = numeric_limits<int>::max();
+        int     status  = numeric_limits<int>::max();
+        int     channel = numeric_limits<int>::max();
+        int     id      = numeric_limits<int>::max();
+        double  ene     = numeric_limits<double>::max();
+        double  rho     = numeric_limits<double>::max();
+        double  eta     = numeric_limits<double>::max();
+        double  phi     = numeric_limits<double>::max();
+        double  px      = numeric_limits<double>::max();
+        double  py      = numeric_limits<double>::max();
+        double  pz      = numeric_limits<double>::max();
+        double  rx      = numeric_limits<double>::max();
+        double  ry      = numeric_limits<double>::max();
+        double  rz      = numeric_limits<double>::max();
 
         // internal methods
         void Minimize();
@@ -69,34 +70,36 @@ namespace SColdQcdCorrelatorAnalysis {
       public:
 
         // getters
-        int     GetSystem() const {return system;}
-        int     GetStatus() const {return status;}
-        int     GetID()     const {return id;}
-        double  GetEne()    const {return ene;}
-        double  GetRho()    const {return rho;}
-        double  GetEta()    const {return eta;}
-        double  GetPhi()    const {return phi;}
-        double  GetPX()     const {return px;}
-        double  GetPY()     const {return py;}
-        double  GetPZ()     const {return pz;}
-        double  GetRX()     const {return rx;}
-        double  GetRY()     const {return ry;}
-        double  GetRZ()     const {return rz;}
+        int     GetSystem()  const {return system;}
+        int     GetStatus()  const {return status;}
+        int     GetChannel() const {return channel;}
+        int     GetID()      const {return id;}
+        double  GetEne()     const {return ene;}
+        double  GetRho()     const {return rho;}
+        double  GetEta()     const {return eta;}
+        double  GetPhi()     const {return phi;}
+        double  GetPX()      const {return px;}
+        double  GetPY()      const {return py;}
+        double  GetPZ()      const {return pz;}
+        double  GetRX()      const {return rx;}
+        double  GetRY()      const {return ry;}
+        double  GetRZ()      const {return rz;}
 
         // setters
-        void SetSystem(const int arg_sys)    {system = arg_sys;}
-        void SetStatus(const int arg_stat)   {status = arg_stat;}
-        void SetID(const int arg_id)         {id     = arg_id;}
-        void SetEne(const double arg_ene)    {ene    = arg_ene;}
-        void SetRho(const double arg_rho)    {rho    = arg_rho;}
-        void SetEta(const double arg_eta)    {eta    = arg_eta;}
-        void SetPhi(const double arg_phi)    {phi    = arg_phi;}
-        void SetPX(const double arg_px)      {px     = arg_px;}
-        void SetPY(const double arg_py)      {py     = arg_py;}
-        void SetPZ(const double arg_pz)      {pz     = arg_pz;}
-        void SetRX(const double arg_rx)      {rx     = arg_rx;}
-        void SetRY(const double arg_ry)      {ry     = arg_ry;}
-        void SetRZ(const double arg_rz)      {rz     = arg_rz;}
+        void SetSystem(const int arg_sys)    {system  = arg_sys;}
+        void SetStatus(const int arg_stat)   {status  = arg_stat;}
+        void SetChannel(const int arg_chan)  {channel = arg_chan;}
+        void SetID(const int arg_id)         {id      = arg_id;}
+        void SetEne(const double arg_ene)    {ene     = arg_ene;}
+        void SetRho(const double arg_rho)    {rho     = arg_rho;}
+        void SetEta(const double arg_eta)    {eta     = arg_eta;}
+        void SetPhi(const double arg_phi)    {phi     = arg_phi;}
+        void SetPX(const double arg_px)      {px      = arg_px;}
+        void SetPY(const double arg_py)      {py      = arg_py;}
+        void SetPZ(const double arg_pz)      {pz      = arg_pz;}
+        void SetRX(const double arg_rx)      {rx      = arg_rx;}
+        void SetRY(const double arg_ry)      {ry      = arg_ry;}
+        void SetRZ(const double arg_rz)      {rz      = arg_rz;}
 
         // public methods
         void Reset();

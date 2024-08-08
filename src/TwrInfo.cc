@@ -29,6 +29,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
     system  = -1 * numeric_limits<int>::max();
     status  = -1 * numeric_limits<int>::max();
+    channel = -1 * numeric_limits<int>::max();
     id      = -1 * numeric_limits<int>::max();
     ene     = -1. * numeric_limits<double>::max();
     rho     = -1. * numeric_limits<double>::max();
@@ -53,6 +54,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
     system  = numeric_limits<int>::max();
     status  = numeric_limits<int>::max();
+    channel = numeric_limits<int>::max();
     id      = numeric_limits<int>::max();
     ene     = numeric_limits<double>::max();
     rho     = numeric_limits<double>::max();
@@ -185,6 +187,7 @@ namespace SColdQcdCorrelatorAnalysis {
     vector<string> members = {
       "system",
       "stat",
+      "channel",
       "id",
       "ene",
       "rho",
