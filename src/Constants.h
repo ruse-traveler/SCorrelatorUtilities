@@ -66,6 +66,11 @@ namespace SColdQcdCorrelatorAnalysis {
     enum Subsys {Mvtx, Intt, Tpc, EMCal, IHCal, OHCal};
 
     // ------------------------------------------------------------------------
+    //! Calorimeter tower statuses
+    // ------------------------------------------------------------------------
+    enum TowerStatus {Good, Hot, BadTime, BadChi, NotInstr, NoCalib, Unknown};
+
+    // ------------------------------------------------------------------------
     //! Subevent options
     // ------------------------------------------------------------------------
     enum SubEvtOpt {Everything, OnlySignal, AllBkgd, PrimaryBkgd, Pileup, Specific};
