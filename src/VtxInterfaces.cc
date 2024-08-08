@@ -3,7 +3,7 @@
  *  \author Derek Anderson
  *  \date   03.05.2024
  *
- *  Collection of vertex-related interfaces.
+ *  Vertex-related interfaces.
  */
 /// ---------------------------------------------------------------------------
 
