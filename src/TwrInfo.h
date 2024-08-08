@@ -49,6 +49,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
         // data members
         int     system = numeric_limits<int>::max();
+        int     status = numeric_limits<int>::max();
         int     id     = numeric_limits<int>::max();
         double  ene    = numeric_limits<double>::max();
         double  rho    = numeric_limits<double>::max();
@@ -69,6 +70,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
         // getters
         int     GetSystem() const {return system;}
+        int     GetStatus() const {return status;}
         int     GetID()     const {return id;}
         double  GetEne()    const {return ene;}
         double  GetRho()    const {return rho;}
@@ -83,6 +85,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
         // setters
         void SetSystem(const int arg_sys)    {system = arg_sys;}
+        void SetStatus(const int arg_stat)   {status = arg_stat;}
         void SetID(const int arg_id)         {id     = arg_id;}
         void SetEne(const double arg_ene)    {ene    = arg_ene;}
         void SetRho(const double arg_rho)    {rho    = arg_rho;}

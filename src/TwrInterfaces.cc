@@ -63,17 +63,17 @@ namespace SColdQcdCorrelatorAnalysis {
   // --------------------------------------------------------------------------
   //! Get tower geometry container from node tree
   // --------------------------------------------------------------------------
-  RawTowerGeomContainer* Interfaces::GetTowerGeomtry(PHCompositeNode* topNode, const string node) {
+  RawTowerGeomContainer* Interfaces::GetTowerGeometry(PHCompositeNode* topNode, const string node) {
 
     // grab container
     RawTowerGeomContainer* geometry = getClass<RawTowerGeomContainer>(topNode, node.data());
-    if (!geomtry) {
+    if (!geometry) {
       cout << PHWHERE
            << "PANIC: " << node << " node is missing!"
            << endl;
-      assert(geomtry);
+      assert(geometry);
     }
-    return geomtry;
+    return geometry;
 
   }  // end 'GetTowerGeomtry(PHCompositeNode*, string)'
 
@@ -85,7 +85,7 @@ namespace SColdQcdCorrelatorAnalysis {
   RawTowerContainer::ConstRange Interfaces::GetRawTowers(PHCompositeNode* topNode, const string store) {
 
     // get store and return range of clusters
-    RawTowerContainer* towerStore = GetTowerStore(topNode, store);
+    RawTowerContainer* towerStore = GetRawTowerStore(topNode, store);
     return towerStore -> getTowers();
 
   }  // end 'GetRawTowers(PHCompositeNode*, string)'

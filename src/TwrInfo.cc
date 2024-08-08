@@ -28,6 +28,7 @@ namespace SColdQcdCorrelatorAnalysis {
   void Types::TwrInfo::Minimize() {
 
     system  = -1 * numeric_limits<int>::max();
+    status  = -1 * numeric_limits<int>::max();
     id      = -1 * numeric_limits<int>::max();
     ene     = -1. * numeric_limits<double>::max();
     rho     = -1. * numeric_limits<double>::max();
@@ -51,6 +52,7 @@ namespace SColdQcdCorrelatorAnalysis {
   void Types::TwrInfo::Maximize() {
 
     system  = numeric_limits<int>::max();
+    status  = numeric_limits<int>::max();
     id      = numeric_limits<int>::max();
     ene     = numeric_limits<double>::max();
     rho     = numeric_limits<double>::max();
@@ -87,6 +89,7 @@ namespace SColdQcdCorrelatorAnalysis {
   // --------------------------------------------------------------------------
   void Types::TwrInfo::SetInfo(const RawTower* tower, optional<ROOT::Math::XYZVector> vtx, optional<int> sys) {
 
+    /* TODO fill in
     // if no vertex provided, use origin
     ROOT::Math::XYZVector vtxToUse(0., 0., 0.);
     if (vtx.has_value()) {
@@ -120,6 +123,7 @@ namespace SColdQcdCorrelatorAnalysis {
     rx   = position.X();
     ry   = position.Y();
     rz   = position.Z();
+    */
     return;
 
   }  // end 'SetInfo(RawTower*, optional<ROOT::Math::XYZVector>, optional<int>)'
@@ -168,7 +172,8 @@ namespace SColdQcdCorrelatorAnalysis {
   vector<string> Types::TwrInfo::GetListOfMembers() {
 
     vector<string> members = {
-      "sys",
+      "system",
+      "stat",
       "id",
       "ene",
       "rho",
@@ -196,7 +201,6 @@ namespace SColdQcdCorrelatorAnalysis {
 
     // note that some quantities aren't relevant for this comparison
     const bool isLessThan = (
-      (lhs.nTwr < rhs.nTwr) &&
       (lhs.ene  < rhs.ene)  &&
       (lhs.rho  < rhs.rho)  &&
       (lhs.eta  < rhs.eta)  &&
@@ -221,7 +225,6 @@ namespace SColdQcdCorrelatorAnalysis {
 
     // note that some quantities aren't relevant for this comparison
     const bool isGreaterThan = (
-      (lhs.nTwr > rhs.nTwr) &&
       (lhs.ene  > rhs.ene)  &&
       (lhs.rho  > rhs.rho)  &&
       (lhs.eta  > rhs.eta)  &&
@@ -246,7 +249,6 @@ namespace SColdQcdCorrelatorAnalysis {
 
     // note that some quantities aren't relevant for this comparison
     const bool isLessThanOrEqualTo = (
-      (lhs.nTwr <= rhs.nTwr) &&
       (lhs.ene  <= rhs.ene)  &&
       (lhs.rho  <= rhs.rho)  &&
       (lhs.eta  <= rhs.eta)  &&
@@ -271,7 +273,6 @@ namespace SColdQcdCorrelatorAnalysis {
 
     // note that some quantities aren't relevant for this comparison
     const bool isGreaterThanOrEqualTo = (
-      (lhs.nTwr >= rhs.nTwr) &&
       (lhs.ene  >= rhs.ene)  &&
       (lhs.rho  >= rhs.rho)  &&
       (lhs.eta  >= rhs.eta)  &&
@@ -296,7 +297,7 @@ namespace SColdQcdCorrelatorAnalysis {
   // --------------------------------------------------------------------------
   Types::TwrInfo::TwrInfo() {
 
-     // nothing to do //
+     /* nothing to do */
 
   }  // end ctor()
 
@@ -307,7 +308,7 @@ namespace SColdQcdCorrelatorAnalysis {
   // --------------------------------------------------------------------------
   Types::TwrInfo::~TwrInfo() {
 
-    // nothing to do //
+    /* nothing to do */
 
   }  // end dtor()
 
