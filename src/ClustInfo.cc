@@ -159,7 +159,7 @@ namespace SColdQcdCorrelatorAnalysis {
   vector<string> Types::ClustInfo::GetListOfMembers() {
 
     vector<string> members = {
-      "sys",
+      "system",
       "id",
       "nTwr",
       "ene",
@@ -288,7 +288,7 @@ namespace SColdQcdCorrelatorAnalysis {
   // --------------------------------------------------------------------------
   Types::ClustInfo::ClustInfo() {
 
-     // nothing to do //
+     /* nothing to do */
 
   }  // end ctor()
 
@@ -299,7 +299,7 @@ namespace SColdQcdCorrelatorAnalysis {
   // --------------------------------------------------------------------------
   Types::ClustInfo::~ClustInfo() {
 
-    // nothing to do //
+    /* nothing to do */
 
   }  // end dtor()
 
