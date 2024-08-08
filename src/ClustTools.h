@@ -17,6 +17,7 @@
 #include <Math/Vector3D.h>
 #include <Math/Vector4D.h>
 // analysis utilities
+#include "VtxTools.h"
 #include "Constants.h"
 
 // make common namespaces implicit
