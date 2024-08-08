@@ -25,6 +25,8 @@
 #include <fastjet/AreaDefinition.hh>
 // sphenix jet base
 #include <jetbase/Jet.h>
+// sphenix calo base
+#include <calobase/RawTowerDefs.h>
 
 #pragma GCC diagnostic pop
 
@@ -269,18 +271,19 @@ namespace SColdQcdCorrelatorAnalysis {
     // bijective maps =========================================================
 
     // bimap types
-    typedef boost::bimap<int, Jet::SRC> IndexOntoSrc;
+    typedef boost::bimap<int, int>      IndexOntoIndex;
     typedef boost::bimap<int, string>   IndexOntoNode;
+    typedef boost::bimap<int, Jet::SRC> IndexOntoSrc;
 
     // ------------------------------------------------------------------------
-    //! Map of subsystem index onto jet source index
+    //! Map of subsytem index onto calorimeter ID
     // ------------------------------------------------------------------------
-    inline IndexOntoSrc BimapIndexOntoSrc() {
-      static IndexOntoSrc bimapIndexOntoSrc;
-      bimapIndexOntoSrc.insert( IndexOntoSrc::value_type(Subsys::EMCal, Jet::SRC::CEMC_CLUSTER)    );
-      bimapIndexOntoSrc.insert( IndexOntoSrc::value_type(Subsys::IHCal, Jet::SRC::HCALIN_CLUSTER)  );
-      bimapIndexOntoSrc.insert( IndexOntoSrc::value_type(Subsys::OHCal, Jet::SRC::HCALOUT_CLUSTER) );
-      return bimapIndexOntoSrc;
+    inline IndexOntoIndex BimapIndexOntoID() {
+      static IndexOntoIndex bimapIndexOntoID;
+      bimapIndexOntoID.insert( IndexOntoIndex::value_type(Subsys::EMCal, RawTowerDefs::CalorimeterId::CEMC)    );
+      bimapIndexOntoID.insert( IndexOntoIndex::value_type(Subsys::IHCal, RawTowerDefs::CalorimeterId::HCALIN)  );
+      bimapIndexOntoID.insert( IndexOntoIndex::value_type(Subsys::OHCal, RawTowerDefs::CalorimeterId::HCALOUT) );
+      return bimapIndexOntoID;
     }
 
     // ------------------------------------------------------------------------
@@ -303,6 +306,17 @@ namespace SColdQcdCorrelatorAnalysis {
       bimapIndexOntoTowerGeom.insert( IndexOntoNode::value_type(Subsys::IHCal, "TOWERGEOM_HCALIN")  );
       bimapIndexOntoTowerGeom.insert( IndexOntoNode::value_type(Subsys::OHCal, "TOWERGEOM_HCALOUT") );
       return bimapIndexOntoTowerGeom;
+    }
+
+    // ------------------------------------------------------------------------
+    //! Map of subsystem index onto jet source index
+    // ------------------------------------------------------------------------
+    inline IndexOntoSrc BimapIndexOntoSrc() {
+      static IndexOntoSrc bimapIndexOntoSrc;
+      bimapIndexOntoSrc.insert( IndexOntoSrc::value_type(Subsys::EMCal, Jet::SRC::CEMC_CLUSTER)    );
+      bimapIndexOntoSrc.insert( IndexOntoSrc::value_type(Subsys::IHCal, Jet::SRC::HCALIN_CLUSTER)  );
+      bimapIndexOntoSrc.insert( IndexOntoSrc::value_type(Subsys::OHCal, Jet::SRC::HCALOUT_CLUSTER) );
+      return bimapIndexOntoSrc;
     }
 
     // ------------------------------------------------------------------------
