@@ -29,7 +29,6 @@ namespace SColdQcdCorrelatorAnalysis {
 
     // cluster methods --------------------------------------------------------
 
-    ROOT::Math::XYZVector     GetDisplacement(const ROOT::Math::XYZVector pos, const ROOT::Math::XYZVector vtx);
     ROOT::Math::PxPyPzEVector GetClustMomentum(const double energy, const ROOT::Math::XYZVector pos, const ROOT::Math::XYZVector vtx);
 
   }  // end Tools namespace

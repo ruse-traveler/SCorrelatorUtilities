@@ -16,6 +16,7 @@
 #include "RecoTools.h"
 #include "TrkTools.h"
 #include "TwrTools.h"
+#include "VtxTools.h"
 
 #endif
 

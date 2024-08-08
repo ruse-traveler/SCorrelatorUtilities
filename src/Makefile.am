@@ -37,6 +37,7 @@ pkginclude_HEADERS = \
   TwrTools.h \
   TupleInterfaces.h \
   VtxInterfaces.h \
+  VtxTools.h \
   Constants.h \
   Interfaces.h \
   Tools.h \
@@ -72,7 +73,8 @@ libscorrelatorutilities_la_SOURCES = \
   TwrInfo.cc \
   TwrInterfaces.cc \
   TwrTools.cc \
-  VtxInterfaces.cc
+  VtxInterfaces.cc \
+  VtxTools.cc
 
 libscorrelatorutilities_la_LDFLAGS = \
   -L$(libdir) \

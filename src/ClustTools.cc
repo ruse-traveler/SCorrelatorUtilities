@@ -22,15 +22,6 @@ using namespace std;
 
 namespace SColdQcdCorrelatorAnalysis {
 
-  // --------------------------------------------------------------------------
-  //! Get displacement of cluster relative to a vertex
-  // --------------------------------------------------------------------------
-  ROOT::Math::XYZVector Tools::GetDisplacement(const ROOT::Math::XYZVector pos, const ROOT::Math::XYZVector vtx) {
-
-    return pos - vtx;
-
-  }  // end 'GetDisplacement(ROOT::Math::XYZVector pos, ROOT::Math::XYZVector)'
-
 
 
   // --------------------------------------------------------------------------
