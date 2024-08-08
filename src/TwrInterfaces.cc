@@ -90,12 +90,6 @@ namespace SColdQcdCorrelatorAnalysis {
 
   }  // end 'GetRawTowers(PHCompositeNode*, string)'
 
-  /* TODO
-   *   - Add geometry getter (EMCal, IHCal, OHCal)' 
-   *   - Add tower info store getter
-   *   - Add tower info range getter
-   */
-
 }  // end SColdQcdCorrealtorAnalysis namespace
 
 // end ------------------------------------------------------------------------

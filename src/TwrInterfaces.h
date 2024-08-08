@@ -44,10 +44,6 @@ namespace SColdQcdCorrelatorAnalysis {
     RawTowerGeomContainer*        GetTowerGeometry(PHCompositeNode* topNode, const string node);
     RawTowerContainer::ConstRange GetRawTowers(PHCompositeNode* topNode, const string store);
 
-    /* TODO
-     *   - Add tower info range getter
-     */
-
   }  // end Interfaces namespace
 }  // end SColdQcdCorrealtorAnalysis namespace
 
