@@ -25,9 +25,12 @@
 // CaloBase libraries
 #include <calobase/RawTower.h>
 #include <calobase/TowerInfo.h>
+#include <calobase/RawTowerGeom.h>
 #include <calobase/RawTowerContainer.h>
 #include <calobase/TowerInfoContainer.h>
 #include <calobase/RawTowerGeomContainer.h>
+// analysis utilities
+#include "Constants.h"
 
 // make common namespaces implicit
 using namespace std;
@@ -41,8 +44,9 @@ namespace SColdQcdCorrelatorAnalysis {
 
     RawTowerContainer*            GetRawTowerStore(PHCompositeNode* topNode, const string node);
     TowerInfoContainer*           GetTowerInfoStore(PHCompositeNode* topNode, const string node);
-    RawTowerGeomContainer*        GetTowerGeometry(PHCompositeNode* topNode, const string node);
     RawTowerContainer::ConstRange GetRawTowers(PHCompositeNode* topNode, const string store);
+    RawTowerGeomContainer*        GetTowerGeometries(PHCompositeNode* topNode, const string node);
+    RawTowerGeom*                 GetTowerGeometry(PHCompositeNode* topNode, const int subsys, const int rawKey); 
 
   }  // end Interfaces namespace
 }  // end SColdQcdCorrealtorAnalysis namespace
