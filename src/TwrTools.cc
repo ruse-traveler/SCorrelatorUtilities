@@ -59,7 +59,7 @@ namespace SColdQcdCorrelatorAnalysis {
     // grab container & key
     TowerInfoContainer* towers = Interfaces::GetTowerInfoStore(
       topNode,
-      /* TODO need a map of subsystem onto tower info nodes */
+      Const::MapIndexOntoTowerInfo()[ subsys ]
     );
     const uint32_t key = towers -> encode_key(channel);
 
@@ -111,8 +111,6 @@ namespace SColdQcdCorrelatorAnalysis {
 
   }  // end 'GetTowerMomentum(double, ROOT::Math::XYZVector, ROOT::Math::XYZVector)'
 
-
 }  // end SColdQcdCorrelatorAnalysis namespace
-
 
 // end ------------------------------------------------------------------------

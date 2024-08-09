@@ -63,7 +63,7 @@ namespace SColdQcdCorrelatorAnalysis {
     // ------------------------------------------------------------------------
     //! Subsystem indices
     // ------------------------------------------------------------------------
-    enum Subsys {Mvtx, Intt, Tpc, EMCal, IHCal, OHCal};
+    enum Subsys {Mvtx, Intt, Tpc, EMCal, RECal, IHCal, OHCal};
 
     // ------------------------------------------------------------------------
     //! Calorimeter tower statuses
@@ -271,9 +271,24 @@ namespace SColdQcdCorrelatorAnalysis {
       return mapStringOntoArea;
     }
 
+    // ----------------------------------------------------------------------
+    //! Map of subsystem index onto tower info node names
+    // ----------------------------------------------------------------------
+    inline map<int, string> MapIndexOntoTowerInfo() {
+      static map<int, string> mapIndexOntoTowerInfo = {
+        {Subsys::EMCal, "TOWERINFO_CALIB_CEMC"},
+        {Subsys::RECal, "TOWERINFO_CALIB_CEMC_RETOWER"},
+        {Subsys::IHCal, "TOWERINFO_CALIB_HCALIN"},
+        {Subsys::OHCal, "TOWERINFO_CALIB_HCALOUT"}
+      };
+      return mapIndexOntoTowerInfo;
+    }
+
 
 
     // bijective maps =========================================================
+    //   - TODO this might not be the right approach... It might be better
+    //     just to use unidirectional maps...
 
     // bimap types
     typedef boost::bimap<int, int>      IndexOntoIndex;
