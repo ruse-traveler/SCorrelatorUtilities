@@ -159,7 +159,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-    // surjective maps ========================================================
+    // maps ===================================================================
 
     // ------------------------------------------------------------------------
     //! Map of PID to charges
@@ -271,6 +271,31 @@ namespace SColdQcdCorrelatorAnalysis {
       return mapStringOntoArea;
     }
 
+    // ------------------------------------------------------------------------
+    //! Map of subsytem index onto calorimeter ID
+    // ------------------------------------------------------------------------
+    inline map<int, int> MapIndexOntoID() {
+      static map<int, int> mapIndexOntoID = {
+        {Subsys::EMCal, RawTowerDefs::CalorimeterId::CEMC},
+        {Subsys::IHCal, RawTowerDefs::CalorimeterId::HCALIN},
+        {Subsys::OHCal, RawTowerDefs::CalorimeterId::HCALOUT}
+      };
+      return mapIndexOntoID;
+    }
+
+    // ----------------------------------------------------------------------
+    //! Map of subsystem index onto raw tower node names
+    // ----------------------------------------------------------------------
+    inline map<int, string> MapIndexOntoRawTowers() {
+      static map<int, string> mapIndexOntoRawTowers = {
+        {Subsys::EMCal, "TOWER_CALIB_CEMC"},
+        {Subsys::RECal, "TOWER_CALIB_CEMC_RETOWER"},
+        {Subsys::IHCal, "TOWER_CALIB_HCALIN"},
+        {Subsys::OHCal, "TOWER_CALIB_HCALOUT"}
+      };
+      return mapIndexOntoRawTowers;
+    }
+
     // ----------------------------------------------------------------------
     //! Map of subsystem index onto tower info node names
     // ----------------------------------------------------------------------
@@ -284,98 +309,82 @@ namespace SColdQcdCorrelatorAnalysis {
       return mapIndexOntoTowerInfo;
     }
 
-
-
-    // bijective maps =========================================================
-    //   - TODO this might not be the right approach... It might be better
-    //     just to use unidirectional maps...
-
-    // bimap types
-    typedef boost::bimap<int, int>      IndexOntoIndex;
-    typedef boost::bimap<int, string>   IndexOntoNode;
-    typedef boost::bimap<int, Jet::SRC> IndexOntoSrc;
-
-    // ------------------------------------------------------------------------
-    //! Map of subsytem index onto calorimeter ID
-    // ------------------------------------------------------------------------
-    inline IndexOntoIndex BimapIndexOntoID() {
-      static IndexOntoIndex bimapIndexOntoID;
-      bimapIndexOntoID.insert( IndexOntoIndex::value_type(Subsys::EMCal, RawTowerDefs::CalorimeterId::CEMC)    );
-      bimapIndexOntoID.insert( IndexOntoIndex::value_type(Subsys::IHCal, RawTowerDefs::CalorimeterId::HCALIN)  );
-      bimapIndexOntoID.insert( IndexOntoIndex::value_type(Subsys::OHCal, RawTowerDefs::CalorimeterId::HCALOUT) );
-      return bimapIndexOntoID;
-    }
-
     // ------------------------------------------------------------------------
     //! Map of subsytem index onto cluster node names
     // ------------------------------------------------------------------------
-    inline IndexOntoNode BimapIndexOntoClusters() {
-      static IndexOntoNode bimapIndexOntoClusters;
-      bimapIndexOntoClusters.insert( IndexOntoNode::value_type(Subsys::EMCal, "CLUSTER_CEMC")    );
-      bimapIndexOntoClusters.insert( IndexOntoNode::value_type(Subsys::IHCal, "CLUSTER_HCALIN")  );
-      bimapIndexOntoClusters.insert( IndexOntoNode::value_type(Subsys::OHCal, "CLUSTER_HCALOUT") );
-      return bimapIndexOntoClusters;
+    inline map<int, string> MapIndexOntoClusters() {
+      static map<int, string> mapIndexOntoClusters = {
+        {Subsys::EMCal, "CLUSTER_CEMC"},
+        {Subsys::IHCal, "CLUSTER_HCALIN"},
+        {Subsys::OHCal, "CLUSTER_HCALOUT"}
+      };
+      return mapIndexOntoClusters;
     }
 
     // ------------------------------------------------------------------------
     //! Map of subsystem index onto raw tower geometry containers
     // ------------------------------------------------------------------------
-    inline IndexOntoNode BimapIndexOntoTowerGeom() {
-      static IndexOntoNode bimapIndexOntoTowerGeom;
-      bimapIndexOntoTowerGeom.insert( IndexOntoNode::value_type(Subsys::EMCal, "TOWERGEOM_CEMC")    );
-      bimapIndexOntoTowerGeom.insert( IndexOntoNode::value_type(Subsys::IHCal, "TOWERGEOM_HCALIN")  );
-      bimapIndexOntoTowerGeom.insert( IndexOntoNode::value_type(Subsys::OHCal, "TOWERGEOM_HCALOUT") );
-      return bimapIndexOntoTowerGeom;
+    inline map<int, string> MapIndexOntoTowerGeom() {
+      static map<int, string> mapIndexOntoTowerGeom = {
+        {Subsys::EMCal, "TOWERGEOM_CEMC"},
+        {Subsys::RECal, "TOWERGEOM_HCALIN"},
+        {Subsys::IHCal, "TOWERGEOM_HCALIN"},
+        {Subsys::OHCal, "TOWERGEOM_HCALOUT"}
+      };
+      return mapIndexOntoTowerGeom;
     }
 
     // ------------------------------------------------------------------------
     //! Map of subsystem index onto jet source index
     // ------------------------------------------------------------------------
-    inline IndexOntoSrc BimapIndexOntoSrc() {
-      static IndexOntoSrc bimapIndexOntoSrc;
-      bimapIndexOntoSrc.insert( IndexOntoSrc::value_type(Subsys::EMCal, Jet::SRC::CEMC_CLUSTER)    );
-      bimapIndexOntoSrc.insert( IndexOntoSrc::value_type(Subsys::IHCal, Jet::SRC::HCALIN_CLUSTER)  );
-      bimapIndexOntoSrc.insert( IndexOntoSrc::value_type(Subsys::OHCal, Jet::SRC::HCALOUT_CLUSTER) );
-      return bimapIndexOntoSrc;
+    // FIXME this might not be necessary...
+    inline map<int, Jet::SRC> MapIndexOntoSrc() {
+      static map<int, Jet::SRC> mapIndexOntoSrc = {
+        {Subsys::EMCal, Jet::SRC::CEMC_CLUSTER},
+        {Subsys::IHCal, Jet::SRC::HCALIN_CLUSTER},
+        {Subsys::OHCal, Jet::SRC::HCALOUT_CLUSTER}
+      };
+      return mapIndexOntoSrc;
     }
 
     // ------------------------------------------------------------------------
     //! Map of jet source index onto input node
     // ------------------------------------------------------------------------
     // TODO particle input still needs to be added
-    inline IndexOntoNode BimapSrcOntoNode() {
-      static IndexOntoNode bimapSrcOntoNode;
-      bimapSrcOntoNode.insert( IndexOntoNode::value_type(Jet::SRC::CEMC_CLUSTER, "CLUSTER_CEMC"));
-      bimapSrcOntoNode.insert( IndexOntoNode::value_type(Jet::SRC::HCALIN_CLUSTER, "CLUSTER_HCALIN"));
-      bimapSrcOntoNode.insert( IndexOntoNode::value_type(Jet::SRC::HCALOUT_CLUSTER, "CLUSTER_HCALOUT"));
-      bimapSrcOntoNode.insert( IndexOntoNode::value_type(Jet::SRC::HCAL_TOPO_CLUSTER, "TOPOCLUSTER_HCAL"));
-      bimapSrcOntoNode.insert( IndexOntoNode::value_type(Jet::SRC::ECAL_TOPO_CLUSTER, "TOPOCLUSTER_EMCAL"));
-      bimapSrcOntoNode.insert( IndexOntoNode::value_type(Jet::SRC::ECAL_HCAL_TOPO_CLUSTER, "TOPOCLUSTER_ALLCALO"));
-      bimapSrcOntoNode.insert( IndexOntoNode::value_type(Jet::SRC::CEMC_TOWER_RETOWER, "TOWER_CALIB_CEMC_RETOWER"));
-      bimapSrcOntoNode.insert( IndexOntoNode::value_type(Jet::SRC::CEMC_TOWERINFO_RETOWER, "TOWERINFO_CALIB_CEMC_RETOWER"));
-      bimapSrcOntoNode.insert( IndexOntoNode::value_type(Jet::SRC::CEMC_TOWER, "TOWER_CALIB_CEMC"));
-      bimapSrcOntoNode.insert( IndexOntoNode::value_type(Jet::SRC::HCALIN_TOWER, "TOWER_CALIB_HCALIN"));
-      bimapSrcOntoNode.insert( IndexOntoNode::value_type(Jet::SRC::HCALOUT_TOWER, "TOWER_CALIB_HCALOUT"));
-      bimapSrcOntoNode.insert( IndexOntoNode::value_type(Jet::SRC::CEMC_TOWERINFO, "TOWERINFO_CALIB_CEMC"));
-      bimapSrcOntoNode.insert( IndexOntoNode::value_type(Jet::SRC::HCALIN_TOWERINFO, "TOWERINFO_CALIB_HCALIN"));
-      bimapSrcOntoNode.insert( IndexOntoNode::value_type(Jet::SRC::HCALOUT_TOWERINFO, "TOWERINFO_CALIB_HCALOUT"));
-      bimapSrcOntoNode.insert( IndexOntoNode::value_type(Jet::SRC::CEMC_TOWERINFO_EMBED, "TOWERINFO_CALIB_EMBED_CEMC"));
-      bimapSrcOntoNode.insert( IndexOntoNode::value_type(Jet::SRC::HCALIN_TOWERINFO_EMBED, "TOWERINFO_CALIB_EMBED_HCALIN"));
-      bimapSrcOntoNode.insert( IndexOntoNode::value_type(Jet::SRC::HCALOUT_TOWERINFO_EMBED, "TOWERINFO_CALIB_EMBED_HCALOUT"));
-      bimapSrcOntoNode.insert( IndexOntoNode::value_type(Jet::SRC::CEMC_TOWERINFO_SIM, "TOWERINFO_CALIB_SIM_CEMC"));
-      bimapSrcOntoNode.insert( IndexOntoNode::value_type(Jet::SRC::HCALIN_TOWERINFO_SIM, "TOWERINFO_CALIB_SIM_HCALIN"));
-      bimapSrcOntoNode.insert( IndexOntoNode::value_type(Jet::SRC::HCALOUT_TOWERINFO_SIM, "TOWERINFO_CALIB_SIM_HCALOUT"));
-      bimapSrcOntoNode.insert( IndexOntoNode::value_type(Jet::SRC::CEMC_TOWER_SUB1, "TOWER_CALIB_CEMC_RETOWER_SUB1"));
-      bimapSrcOntoNode.insert( IndexOntoNode::value_type(Jet::SRC::HCALIN_TOWER_SUB1, "TOWER_CALIB_HCALIN_SUB1"));
-      bimapSrcOntoNode.insert( IndexOntoNode::value_type(Jet::SRC::HCALOUT_TOWER_SUB1, "TOWER_CALIB_HCALOUT_SUB1"));
-      bimapSrcOntoNode.insert( IndexOntoNode::value_type(Jet::SRC::CEMC_TOWERINFO_SUB1, "TOWERINFO_CALIB_CEMC_RETOWER_SUB1"));
-      bimapSrcOntoNode.insert( IndexOntoNode::value_type(Jet::SRC::HCALIN_TOWERINFO_SUB1, "TOWERINFO_CALIB_HCALIN_SUB1"));
-      bimapSrcOntoNode.insert( IndexOntoNode::value_type(Jet::SRC::HCALOUT_TOWERINFO_SUB1, "TOWERINFO_CALIB_HCALOUT_SUB1"));
-      bimapSrcOntoNode.insert( IndexOntoNode::value_type(Jet::SRC::CEMC_TOWER_SUB1CS, "TOWER_CALIB_CEMC_RETOWER_SUB1CS"));
-      bimapSrcOntoNode.insert( IndexOntoNode::value_type(Jet::SRC::HCALIN_TOWER_SUB1CS, "TOWER_CALIB_HCALIN_SUB1CS"));
-      bimapSrcOntoNode.insert( IndexOntoNode::value_type(Jet::SRC::HCALOUT_TOWER_SUB1CS, "TOWER_CALIB_HCALOUT_SUB1CS"));
-      bimapSrcOntoNode.insert( IndexOntoNode::value_type(Jet::SRC::TRACK, "SvtxTrackMap"));
-      return bimapSrcOntoNode;
+    inline map<Jet::SRC, string> MapSrcOntoNode() {
+      static map<Jet::SRC, string> mapSrcOntoNode = {
+        {Jet::SRC::CEMC_CLUSTER, "CLUSTER_CEMC"},
+        {Jet::SRC::HCALIN_CLUSTER, "CLUSTER_HCALIN"},
+        {Jet::SRC::HCALOUT_CLUSTER, "CLUSTER_HCALOUT"},
+        {Jet::SRC::HCAL_TOPO_CLUSTER, "TOPOCLUSTER_HCAL"},
+        {Jet::SRC::ECAL_TOPO_CLUSTER, "TOPOCLUSTER_EMCAL"},
+        {Jet::SRC::ECAL_HCAL_TOPO_CLUSTER, "TOPOCLUSTER_ALLCALO"},
+        {Jet::SRC::CEMC_TOWER_RETOWER, "TOWER_CALIB_CEMC_RETOWER"},
+        {Jet::SRC::CEMC_TOWERINFO_RETOWER, "TOWERINFO_CALIB_CEMC_RETOWER"},
+        {Jet::SRC::CEMC_TOWER, "TOWER_CALIB_CEMC"},
+        {Jet::SRC::HCALIN_TOWER, "TOWER_CALIB_HCALIN"},
+        {Jet::SRC::HCALOUT_TOWER, "TOWER_CALIB_HCALOUT"},
+        {Jet::SRC::CEMC_TOWERINFO, "TOWERINFO_CALIB_CEMC"},
+        {Jet::SRC::HCALIN_TOWERINFO, "TOWERINFO_CALIB_HCALIN"},
+        {Jet::SRC::HCALOUT_TOWERINFO, "TOWERINFO_CALIB_HCALOUT"},
+        {Jet::SRC::CEMC_TOWERINFO_EMBED, "TOWERINFO_CALIB_EMBED_CEMC"},
+        {Jet::SRC::HCALIN_TOWERINFO_EMBED, "TOWERINFO_CALIB_EMBED_HCALIN"},
+        {Jet::SRC::HCALOUT_TOWERINFO_EMBED, "TOWERINFO_CALIB_EMBED_HCALOUT"},
+        {Jet::SRC::CEMC_TOWERINFO_SIM, "TOWERINFO_CALIB_SIM_CEMC"},
+        {Jet::SRC::HCALIN_TOWERINFO_SIM, "TOWERINFO_CALIB_SIM_HCALIN"},
+        {Jet::SRC::HCALOUT_TOWERINFO_SIM, "TOWERINFO_CALIB_SIM_HCALOUT"},
+        {Jet::SRC::CEMC_TOWER_SUB1, "TOWER_CALIB_CEMC_RETOWER_SUB1"},
+        {Jet::SRC::HCALIN_TOWER_SUB1, "TOWER_CALIB_HCALIN_SUB1"},
+        {Jet::SRC::HCALOUT_TOWER_SUB1, "TOWER_CALIB_HCALOUT_SUB1"},
+        {Jet::SRC::CEMC_TOWERINFO_SUB1, "TOWERINFO_CALIB_CEMC_RETOWER_SUB1"},
+        {Jet::SRC::HCALIN_TOWERINFO_SUB1, "TOWERINFO_CALIB_HCALIN_SUB1"},
+        {Jet::SRC::HCALOUT_TOWERINFO_SUB1, "TOWERINFO_CALIB_HCALOUT_SUB1"},
+        {Jet::SRC::CEMC_TOWER_SUB1CS, "TOWER_CALIB_CEMC_RETOWER_SUB1CS"},
+        {Jet::SRC::HCALIN_TOWER_SUB1CS, "TOWER_CALIB_HCALIN_SUB1CS"},
+        {Jet::SRC::HCALOUT_TOWER_SUB1CS, "TOWER_CALIB_HCALOUT_SUB1CS"},
+        {Jet::SRC::TRACK, "SvtxTrackMap"}
+      };
+      return mapSrcOntoNode;
     }
 
   }  // end Const namespace
