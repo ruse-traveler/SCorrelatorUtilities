@@ -144,7 +144,19 @@ namespace SColdQcdCorrelatorAnalysis {
   // --------------------------------------------------------------------------
   ROOT::Math::PxPyPzEVector Tools::GetTowerMomentum(const double energy, const ROOT::Math::RhoEtaPhiVector pos) {
 
-    return ROOT::Math::PxPyPzEVector(0., 0., 0., 0.);  // TODO finish filling in
+    // grab eta, phi, and pt
+    const double hTwr  = pos.Eta();
+    const double fTwr  = pos.Phi();
+    const double ptTwr = energy / cosh(hTwr);
+
+    // fill in 4-vector
+    ROOT::Math::PxPyPzEVector mom(
+      ptTwr * cos(fTwr),
+      ptTwr * sin(fTwr),
+      ptTwr * sinh(hTwr),
+      energy
+    );
+    return mom;  // TODO finish filling in
 
   }  // end 'GetTowerMomentum(double, ROOT::Math::XYZVector, ROOT::Math::XYZVector)'
 
