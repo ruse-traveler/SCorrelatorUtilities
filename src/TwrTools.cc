@@ -48,6 +48,22 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
   // --------------------------------------------------------------------------
+  //! Get raw tower key based on tower indices
+  // --------------------------------------------------------------------------
+  int Tools::GetRawTowerKey(const int idGeo, const tuple<int, int, int> indices) {
+
+    const int key = (int) RawTowerDefs::encode_towerid(
+      (RawTowerDefs::CalorimeterId) idGeo,
+      get<1>(indices),
+      get<2>(indices)
+    );
+    return key;
+
+  }  // end 'GetRawTowerKey(int, tuple<int, int, int>)'
+
+
+
+  // --------------------------------------------------------------------------
   //! Get key and eta-phi indices for a TowerInfo object
   // --------------------------------------------------------------------------
   tuple<int, int, int> Tools::GetTowerIndices(
@@ -75,39 +91,60 @@ namespace SColdQcdCorrelatorAnalysis {
   // --------------------------------------------------------------------------
   //! Get tower coordinates in (x, y, z)
   // --------------------------------------------------------------------------
-  ROOT::Math::XYZVector Tools::GetTowerPositionXYZ() {
+  ROOT::Math::XYZVector Tools::GetTowerPositionXYZ(const int rawKey, const int subsys, PHCompositeNode* topNode) {
 
-    return ROOT::Math::XYZVector(0., 0., 0.);  // TODO fill in
+    // get corresponding geometry
+    RawTowerGeom* geometry = Interfaces::GetTowerGeometry(topNode, subsys, rawKey);
 
-  }  // end 'GetTowerPositionXYZ()'
+    // grab (x, y, z) coordinates
+    ROOT::Math::XYZVector position(
+      geometry -> get_center_x(),
+      geometry -> get_center_y(),
+      geometry -> get_center_z()
+    );
+    return position;
+
+  }  // end 'GetTowerPositionXYZ(int, int, PHCompositeNode*)'
 
 
 
   // --------------------------------------------------------------------------
   //! Get tower coordinates in (r, eta, phi)
   // --------------------------------------------------------------------------
-  ROOT::Math::RhoEtaPhiVector Tools::GetTowerPositionRhoEtaPhi() {
+  ROOT::Math::RhoEtaPhiVector Tools::GetTowerPositionRhoEtaPhi(
+    const int rawKey,
+    const int subsys,
+    const float zVtx,
+    PHCompositeNode* topNode
+  ) {
 
-    return ROOT::Math::RhoEtaPhiVector(0., 0., 0.);  // TODO fill in
+    // get corresponding geometry
+    RawTowerGeom* geometry = Interfaces::GetTowerGeometry(topNode, subsys, rawKey);
 
-  }  // end 'GetTowerPositionRhoEtaPhi()'
+    // calculate variables
+    const float zShift = (geometry -> get_center_z()) - zVtx;
+    const float radius = geometry -> get_center_radius();
+    const float eta    = asinh(zShift / radius);
+    const float phi    = atan2(geometry -> get_center_y(), geometry -> get_center_x());
+
+    // grab (rho, eta, phi) coordinates
+    ROOT::Math::RhoEtaPhiVector position(
+      radius,
+      eta,
+      phi
+    );
+    return position;
+
+  }  // end 'GetTowerPositionRhoEtaPhi(int, int, float, PHCompositeNode*)'
 
 
 
   // --------------------------------------------------------------------------
   //! Get 4-momentum for a tower
   // --------------------------------------------------------------------------
-  ROOT::Math::PxPyPzEVector Tools::GetTowerMomentum(const double energy, const ROOT::Math::XYZVector pos, const ROOT::Math::XYZVector vtx) {
+  ROOT::Math::PxPyPzEVector Tools::GetTowerMomentum(const double energy, const ROOT::Math::RhoEtaPhiVector pos) {
 
-    // get displacement
-    ROOT::Math::XYZVector displace = GetDisplacement(pos, vtx);
-
-    // get magnitdue of 3-momentum
-    const double magnitude = sqrt((energy * energy) - (Const::MassPion() * Const::MassPion()));
-
-    // now get components and return
-    ROOT::Math::XYZVector momentum = displace.Unit() * magnitude;
-    return ROOT::Math::PxPyPzEVector(momentum.X(), momentum.Y(), momentum.Z(), energy);
+    return ROOT::Math::PxPyPzEVector(0., 0., 0., 0.);  // TODO finish filling in
 
   }  // end 'GetTowerMomentum(double, ROOT::Math::XYZVector, ROOT::Math::XYZVector)'
 

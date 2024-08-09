@@ -22,8 +22,8 @@
 // calobase libraries
 #include <calobase/TowerInfo.h>
 #include <calobase/RawTowerDefs.h>
+#include <calobase/RawTowerGeom.h>
 #include <calobase/TowerInfoContainer.h>
-#include <calobase/RawTowerGeomContainer.h>
 // analysis utilities
 #include "VtxTools.h"
 #include "Constants.h"
@@ -40,10 +40,11 @@ namespace SColdQcdCorrelatorAnalysis {
     // tower methods ----------------------------------------------------------
 
     int                         GetTowerStatus(TowerInfo* tower);
+    int                         GetRawTowerKey(const int idGeo, const tuple<int, int, int> indices);
     tuple<int, int, int>        GetTowerIndices(const int channel, const int subsys, PHCompositeNode* topNode);
-    ROOT::Math::XYZVector       GetTowerPositionXYZ();
-    ROOT::Math::RhoEtaPhiVector GetTowerPositionRhoEtaPhi();
-    ROOT::Math::PxPyPzEVector   GetTowerMomentum(const double energy, const ROOT::Math::XYZVector pos, const ROOT::Math::XYZVector vtx);
+    ROOT::Math::XYZVector       GetTowerPositionXYZ(const int rawKey, const int subsys, PHCompositeNode* topNode);
+    ROOT::Math::RhoEtaPhiVector GetTowerPositionRhoEtaPhi(const int rawKey, const int subsys, const float zVtx, PHCompositeNode* topNode);
+    ROOT::Math::PxPyPzEVector   GetTowerMomentum(const double energy, const ROOT::Math::RhoEtaPhiVector pos);
 
   }  // end Tools namespace
 }  // end SColdQcdCorrelatorAnalysis namespace
