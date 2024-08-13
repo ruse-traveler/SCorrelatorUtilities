@@ -18,8 +18,6 @@
 #include <map>
 #include <string>
 #include <cstdint>
-// boost libraries
-#include <boost/bimap.hpp>
 // fastjet libraries
 #include <fastjet/JetDefinition.hh>
 #include <fastjet/AreaDefinition.hh>
