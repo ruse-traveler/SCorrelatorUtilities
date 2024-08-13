@@ -25,7 +25,7 @@ namespace SColdQcdCorrelatorAnalysis {
   // --------------------------------------------------------------------------
   /*! NOTE: only applies to TowerInfo objects.
    */
-  int Tools::GetTowerStatus(TowerInfo* tower) {
+  int Tools::GetTowerStatus(const TowerInfo* tower) {
 
     int status = Const::TowerStatus::Unknown;
     if (tower -> get_isHot()) {

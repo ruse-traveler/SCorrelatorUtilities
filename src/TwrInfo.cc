@@ -89,58 +89,123 @@ namespace SColdQcdCorrelatorAnalysis {
   // --------------------------------------------------------------------------
   //! Pull relevant information from a F4A RawTower
   // --------------------------------------------------------------------------
-  void Types::TwrInfo::SetInfo(const RawTower* tower, optional<ROOT::Math::XYZVector> vtx, optional<int> sys) {
+  void Types::TwrInfo::SetInfo(
+    const int sys,
+    const RawTower* tower,
+    PHCompositeNode* topNode,
+    optional<ROOT::Math::XYZVector> vtx
+  ) {
 
-    /* TODO fill in
     // if no vertex provided, use origin
     ROOT::Math::XYZVector vtxToUse(0., 0., 0.);
     if (vtx.has_value()) {
       vtxToUse = vtx.value();
     }
 
-    // if subsystem ID provided, set data member
-    if (sys.has_value()) {
-      system = sys.value();
-    }
+    // grab raw key for geometry
+    const int rawKey = tower -> get_key();
 
-    // grab position
-    ROOT::Math::XYZVector position(
-      tower -> get_position().x(),
-      tower -> get_position().y(),
-      tower -> get_position().z()
+    // grab position in (x, y, z)
+    ROOT::Math::XYZVector xyzPos = Tools::GetTowerPositionXYZ(
+      rawKey,
+      sys,
+      topNode
+    );
+
+    // grab position in (rho, eta, phi)
+    ROOT::Math::RhoEtaPhiVector rhfPos = Tools::GetTowerPositionRhoEtaPhi(
+      rawKey,
+      sys,
+      vtxToUse.z(),
+      topNode
     );
 
     // grab momentum
-    ROOT::Math::PxPyPzEVector momentum = Tools::GetTwrMomentum(tower -> get_energy(), position, vtxToUse);
+    ROOT::Math::PxPyPzEVector momentum = Tools::GetTowerMomentum(
+      tower -> get_energy(),
+      rhfPos
+    );
 
     // set remaining members
-    id   = tower -> get_id();
-    ene  = tower -> get_energy();
-    rho  = tower -> get_r();
-    eta  = momentum.Eta();
-    phi  = momentum.Phi();
-    px   = momentum.Px();
-    py   = momentum.Py();
-    pz   = momentum.Pz();
-    rx   = position.X();
-    ry   = position.Y();
-    rz   = position.Z();
-    */
+    system  = sys;
+    status  = Const::TowerStatus::NA;
+    id      = rawKey;
+    ene     = tower -> get_energy();
+    rho     = rhfPos.Rho();
+    eta     = rhfPos.Eta();
+    phi     = rhfPos.Phi();
+    px      = momentum.Px();
+    py      = momentum.Py();
+    pz      = momentum.Pz();
+    rx      = xyzPos.x();
+    ry      = xyzPos.y();
+    rz      = xyzPos.z();
     return;
 
-  }  // end 'SetInfo(RawTower*, optional<ROOT::Math::XYZVector>, optional<int>)'
+  }  // end 'SetInfo(int, RawTower*, PHCompositeNode*, optional<ROOT::Math::XYZVector>)'
 
 
 
   // --------------------------------------------------------------------------
   //! Pull relevant information from a F4A TowerInfo
   // --------------------------------------------------------------------------
-  void Types::TwrInfo::SetInfo(const TowerInfo* tower, optional<ROOT::Math::XYZVector> vtx, optional<int> sys) {
+  void Types::TwrInfo::SetInfo(
+    const int sys,
+    const int chan,
+    TowerInfo* tower,
+    PHCompositeNode* topNode, 
+    optional<ROOT::Math::XYZVector> vtx
+  ) {
 
-    /* TODO fill in */
+    // if no vertex provided, use origin
+    ROOT::Math::XYZVector vtxToUse(0., 0., 0.);
+    if (vtx.has_value()) {
+      vtxToUse = vtx.value();
+    }
+
+    // get raw tower key 
+    const auto indices = Tools::GetTowerIndices(chan, sys, topNode);
+    const int  rawKey  = Tools::GetRawTowerKey(Const::MapIndexOntoID()[ sys ], indices); 
+
+    // grab position in (x, y, z)
+    ROOT::Math::XYZVector xyzPos = Tools::GetTowerPositionXYZ(
+      rawKey,
+      sys,
+      topNode
+    );
+
+    // grab position in (rho, eta, phi)
+    ROOT::Math::RhoEtaPhiVector rhfPos = Tools::GetTowerPositionRhoEtaPhi(
+      rawKey,
+      sys,
+      vtxToUse.z(),
+      topNode
+    );
+
+    // grab momentum
+    ROOT::Math::PxPyPzEVector momentum = Tools::GetTowerMomentum(
+      tower -> get_energy(),
+      rhfPos
+    );
+
+    // set remaining members
+    system  = sys;
+    status  = Tools::GetTowerStatus(tower);
+    channel = chan;
+    id      = get<0>(indices);
+    ene     = tower -> get_energy();
+    rho     = rhfPos.Rho();
+    eta     = rhfPos.Eta();
+    phi     = rhfPos.Phi();
+    px      = momentum.Px();
+    py      = momentum.Py();
+    pz      = momentum.Pz();
+    rx      = xyzPos.x();
+    ry      = xyzPos.y();
+    rz      = xyzPos.z();
     return;
 
-  }  // end 'SetInfo(TowerInfo*, optional<ROOT::Math::XYZVector>, optional<int>)'
+  }  // end 'SetInfo(int, int, TowerInfo*, PHCompositeNode*, optional<ROOT::Math::XYZVector>)'
 
 
 
@@ -171,7 +236,10 @@ namespace SColdQcdCorrelatorAnalysis {
   // --------------------------------------------------------------------------
   bool Types::TwrInfo::IsGood() const {
 
-    return (status == Const::TowerStatus::Good);
+    return (
+      (status == Const::TowerStatus::Good) ||
+      (status == Const::TowerStatus::NA)
+    );
 
   }  // end 'IsGood()'
 
@@ -186,7 +254,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
     vector<string> members = {
       "system",
-      "stat",
+      "status",
       "channel",
       "id",
       "ene",
@@ -350,24 +418,24 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
   // --------------------------------------------------------------------------
-  //! Constructor accepting a F4A RawTower and possibly a vertex
+  //! Constructor accepting a F4A RawTower
   // --------------------------------------------------------------------------
-  Types::TwrInfo::TwrInfo(const RawTower* tower, optional<ROOT::Math::XYZVector> vtx, optional<int> sys) {
+  Types::TwrInfo::TwrInfo(const int sys, const RawTower* tower, PHCompositeNode* topNode, optional<ROOT::Math::XYZVector> vtx) {
 
-    SetInfo(tower, vtx, sys);
+    SetInfo(sys, tower, topNode, vtx);
 
-  }  // end ctor(RawTower*, optional<ROOT::Math::XYZVector>, optional<int>)'
+  }  // end ctor(int, RawTower*, PHCompositeNode*, optional<ROOT::Math::XYZVector>)'
 
 
 
   // --------------------------------------------------------------------------
-  //! Constructor accepting a F4A TowerInfo and possibly a vertex
+  //! Constructor accepting a F4A TowerInfo
   // --------------------------------------------------------------------------
-  Types::TwrInfo::TwrInfo(const TowerInfo* tower, optional<ROOT::Math::XYZVector> vtx, optional<int> sys) {
+  Types::TwrInfo::TwrInfo(const int sys, const int chan, TowerInfo* tower, PHCompositeNode* topNode, optional<ROOT::Math::XYZVector> vtx) {
 
-    SetInfo(tower, vtx, sys);
+    SetInfo(sys, chan, tower, topNode, vtx);
 
-  }  // end ctor(TowerInfo*, optional<ROOT::Math::XYZVector>, optional<int>)'
+  }  // end ctor(int, int, TowerInfo*, PHCompositeNode*, optional<ROOT::Math::XYZVector>)'
 
 }  // end SColdQcdCorrelatorAnalysis namespace
 

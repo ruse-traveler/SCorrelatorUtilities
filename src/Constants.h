@@ -68,7 +68,7 @@ namespace SColdQcdCorrelatorAnalysis {
     // ------------------------------------------------------------------------
     //! Calorimeter tower statuses
     // ------------------------------------------------------------------------
-    enum TowerStatus {Good, Hot, BadTime, BadChi, NotInstr, NoCalib, Unknown};
+    enum TowerStatus {Good, Hot, BadTime, BadChi, NotInstr, NoCalib, Unknown, NA};
 
     // ------------------------------------------------------------------------
     //! Subevent options

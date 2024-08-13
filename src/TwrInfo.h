@@ -103,8 +103,8 @@ namespace SColdQcdCorrelatorAnalysis {
 
         // public methods
         void Reset();
-        void SetInfo(const RawTower* tower, optional<ROOT::Math::XYZVector> vtx = nullopt, optional<int> sys = nullopt);
-        void SetInfo(const TowerInfo* tower, optional<ROOT::Math::XYZVector> vtx = nullopt, optional<int> sys = nullopt);
+        void SetInfo(const int sys, const RawTower* tower, PHCompositeNode* topNode, optional<ROOT::Math::XYZVector> vtx = nullopt);
+        void SetInfo(const int sys, const int chan, TowerInfo* tower, PHCompositeNode* topNode, optional<ROOT::Math::XYZVector> vtx = nullopt);
         bool IsInAcceptance(const TwrInfo& minimum, const TwrInfo& maximum) const;
         bool IsInAcceptance(const pair<TwrInfo, TwrInfo>& range) const;
         bool IsGood() const;
@@ -124,8 +124,8 @@ namespace SColdQcdCorrelatorAnalysis {
 
         // ctors accepting arguments
         TwrInfo(const Const::Init init);
-        TwrInfo(const RawTower* tower, optional<ROOT::Math::XYZVector> vtx = nullopt, optional<int> sys = nullopt);
-        TwrInfo(const TowerInfo* tower, optional<ROOT::Math::XYZVector> vtx = nullopt, optional<int> sys = nullopt);
+        TwrInfo(const int sys, const RawTower* tower, PHCompositeNode* topNode, optional<ROOT::Math::XYZVector> vtx = nullopt);
+        TwrInfo(const int sys, const int chan, TowerInfo* tower, PHCompositeNode* topNode, optional<ROOT::Math::XYZVector> vtx = nullopt);
 
       // identify this class to ROOT
       ClassDefNV(TwrInfo, 1)
