@@ -46,7 +46,7 @@ namespace SColdQcdCorrelatorAnalysis {
     // ------------------------------------------------------------------------
     //! Jet types
     // ------------------------------------------------------------------------
-    enum class JetType {Charged, Neutral, Full};
+    enum class JetType {Charged, Cluster, Tower, Full};
 
     // ------------------------------------------------------------------------
     //! Particle charge subsets
