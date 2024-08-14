@@ -165,7 +165,7 @@ namespace SColdQcdCorrelatorAnalysis {
 
     // get raw tower key 
     const auto indices = Tools::GetTowerIndices(chan, sys, topNode);
-    const int  rawKey  = Tools::GetRawTowerKey(Const::MapIndexOntoID()[ sys ], indices); 
+    const int  rawKey  = Tools::GetRawTowerKey(Const::MapIndexOntoID()[ sys ], indices);
 
     // grab position in (x, y, z)
     ROOT::Math::XYZVector xyzPos = Tools::GetTowerPositionXYZ(

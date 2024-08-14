@@ -275,6 +275,7 @@ namespace SColdQcdCorrelatorAnalysis {
     inline map<int, int> MapIndexOntoID() {
       static map<int, int> mapIndexOntoID = {
         {Subsys::EMCal, RawTowerDefs::CalorimeterId::CEMC},
+        {Subsys::RECal, RawTowerDefs::CalorimeterId::HCALIN},
         {Subsys::IHCal, RawTowerDefs::CalorimeterId::HCALIN},
         {Subsys::OHCal, RawTowerDefs::CalorimeterId::HCALOUT}
       };
