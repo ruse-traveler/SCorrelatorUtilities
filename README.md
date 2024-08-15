@@ -1,8 +1,10 @@
 # SCorrelatorUtilities 
 
 Collected here useful types, methods, and constant used throughout the sPHENIX Cold QCD Energy-Energy
-Correlator analysis. There are three components:
+Correlator analysis. There are four components:
 
+  - `Constants::`: enums and methods used to consolidate important constants as well as mappings between
+     various flags, nodes, etc.;
   - `Types::`: classes used to consolidate relevant information and operations on said information from things
      like tracks, calorimeter clusters, jets, etc.;
   - `Tools::`: methods defining frequently used operations and calculations; and
