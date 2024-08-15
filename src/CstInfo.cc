@@ -212,7 +212,25 @@ namespace SColdQcdCorrelatorAnalysis {
   // --------------------------------------------------------------------------
   void Types::CstInfo::SetInfo(PHG4Particle* particle, const int event) {
 
-    /* TODO implement */
+    // get (pt, eta, phi) vector
+    ROOT::Math::PxPyPzEVector momentum(
+      particle -> get_px(),
+      particle -> get_py(),
+      particle -> get_pz(),
+      particle -> get_e()
+    );
+
+    type    = Const::Object::Particle;
+    cstID   = particle -> get_barcode();
+    embedID = event;
+    pid     = particle -> get_pid();
+    ene     = particle -> get_e();
+    px      = particle -> get_px();
+    py      = particle -> get_py();
+    pz      = particle -> get_pz();
+    pt      = momentum.Pt();
+    eta     = momentum.Eta();
+    phi     = momentum.Phi();
     return;
 
   }  // end 'SetInfo(PHG4Particle*, int)'
