@@ -20,14 +20,22 @@
 #include <phool/PHCompositeNode.h>
 // PHG4 libraries
 #include <g4main/PHG4Particle.h>
+#include <g4main/PHG4TruthInfoContainer.h>
 // calobase libraries
 #include <calobase/RawTower.h>
 #include <calobase/TowerInfo.h>
 #include <calobase/RawCluster.h>
+#include <calobase/RawTowerContainer.h>
+#include <calobase/TowerInfoContainer.h>
+#include <calobase/RawClusterContainer.h>
 // trackbase libraries
 #include <trackbase_historic/SvtxTrack.h>
+#include <trackbase_historic/SvtxTrackMap.h>
 // particle flow libraries
 #include <particleflowreco/ParticleFlowElement.h>
+#include <particleflowreco/ParticleFlowElementContainer.h>
+// jet libraries
+#include <jetbase/Jet.h>
 // analysis utilities
 #include "ParInterfaces.h"
 #include "TrkInterfaces.h"
@@ -45,12 +53,12 @@ namespace SColdQcdCorrelatorAnalysis {
 
     // cst interfaces -------------------------------------------------------
 
-    SvtxTrack*           FindTrack(const int idToFind, PHCompositeNode* topNode);
-    ParticleFlowElement* FindFlow(const int idToFind, PHCompositeNode* topNode);
-    RawTower*            FindRawTower(const int idToFind, PHCompositeNode* topNode);
-    TowerInfo*           FindTowerInfo(const int idToFind, PHCompositeNode* topNode);    
-    RawCluster*          FindCluster(const int idToFind, PHCompositeNode* topNode);
-    PHG4Particle*        FindParticle(const int idToFind, PHCompositeNode* topNode);
+    SvtxTrack*           FindTrack(const uint32_t idToFind, PHCompositeNode* topNode);
+    ParticleFlowElement* FindFlow(const uint32_t idToFind, PHCompositeNode* topNode);
+    RawTower*            FindRawTower(const uint32_t idToFind, const Jet::SRC source, PHCompositeNode* topNode);
+    TowerInfo*           FindTowerInfo(const uint32_t idToFind, const Jet::SRC source, PHCompositeNode* topNode);    
+    RawCluster*          FindCluster(const uint32_t idToFind, const Jet::SRC source, PHCompositeNode* topNode);
+    PHG4Particle*        FindParticle(const int32_t idToFind, PHCompositeNode* topNode);
 
   }  // end Interfaces namespace
 }  // end SColdQcdCorrealtorAnalysis namespace
