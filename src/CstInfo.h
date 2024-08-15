@@ -120,10 +120,10 @@ namespace SColdQcdCorrelatorAnalysis {
         void Reset();
         void SetInfo(fastjet::PseudoJet& pseudojet);
         void SetInfo(SvtxTrack* track);
-        void SetInfo(ParticleFlowElement* flow);
+        void SetInfo(const ParticleFlowElement* flow);
         void SetInfo(TowerInfo* info);
         void SetInfo(RawTower* tower, optional<ROOT::Math::XYZVector> vtx = nullopt);
-        void SetInfo(RawCluster* cluster, optional<ROOT::Math::XYZVector> vtx = nullopt);
+        void SetInfo(const RawCluster* cluster, optional<ROOT::Math::XYZVector> vtx = nullopt);
         void SetInfo(PHG4Particle* particle, const int event);
         void SetJetInfo(const int id, const Types::JetInfo& jet);
         bool IsInAcceptance(const CstInfo& minimum, const CstInfo& maximum) const;
@@ -146,10 +146,10 @@ namespace SColdQcdCorrelatorAnalysis {
         CstInfo(const Const::Init init);
         CstInfo(fastjet::PseudoJet& pseudojet);
         CstInfo(SvtxTrack* track);
-        CstInfo(ParticleFlowElement* flow);
+        CstInfo(const ParticleFlowElement* flow);
         CstInfo(TowerInfo* info);
         CstInfo(RawTower* tower, optional<ROOT::Math::XYZVector> vtx = nullopt);
-        CstInfo(RawCluster* cluster, optional<ROOT::Math::XYZVector> vtx = nullopt);
+        CstInfo(const RawCluster* cluster, optional<ROOT::Math::XYZVector> vtx = nullopt);
         CstInfo(PHG4Particle* particle, const int event);
 
       // identify this class to ROOT

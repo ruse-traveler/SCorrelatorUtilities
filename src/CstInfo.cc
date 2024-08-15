@@ -130,7 +130,7 @@ namespace SColdQcdCorrelatorAnalysis {
   // --------------------------------------------------------------------------
   //! Pull relevant information from a F4A PFO
   // --------------------------------------------------------------------------
-  void Types::CstInfo::SetInfo(ParticleFlowElement* flow) {
+  void Types::CstInfo::SetInfo(const ParticleFlowElement* flow) {
 
     type  = Const::Object::Flow;
     cstID = flow -> get_id();
@@ -174,9 +174,33 @@ namespace SColdQcdCorrelatorAnalysis {
   // --------------------------------------------------------------------------
   //! Pull relevant information from a F4A RawCluster
   // --------------------------------------------------------------------------
-  void Types::CstInfo::SetInfo(RawCluster* cluster, optional<ROOT::Math::XYZVector> vtx) {
+  void Types::CstInfo::SetInfo(const RawCluster* clust, optional<ROOT::Math::XYZVector> vtx) {
 
-    /* TODO implement */
+    // if no vertex provided, use origin
+    ROOT::Math::XYZVector vtxToUse(0., 0., 0.);
+    if (vtx.has_value()) {
+      vtxToUse = vtx.value();
+    }
+
+    // grab position
+    ROOT::Math::XYZVector position(
+      clust -> get_position().x(),
+      clust -> get_position().y(),
+      clust -> get_position().z()
+    );
+
+    // grab momentum
+    ROOT::Math::PxPyPzEVector momentum = Tools::GetClustMomentum(clust -> get_energy(), position, vtxToUse);
+
+    type  = Const::Object::Cluster;
+    cstID = clust -> get_id();
+    pt    = momentum.Pt();
+    px    = momentum.Px();
+    py    = momentum.Py();
+    pz    = momentum.Pz();
+    ene   = momentum.E();
+    eta   = momentum.Eta();
+    phi   = momentum.Phi();
     return;
 
   }  // end 'SetInfo(RawCluster*, optional<ROOT::Math::XYZVector>)'
@@ -440,7 +464,7 @@ namespace SColdQcdCorrelatorAnalysis {
   // --------------------------------------------------------------------------
   //! Constructor accepting a F4A PFO
   // --------------------------------------------------------------------------
-  Types::CstInfo::CstInfo(ParticleFlowElement* flow) {
+  Types::CstInfo::CstInfo(const ParticleFlowElement* flow) {
 
     SetInfo(flow);
 
@@ -473,7 +497,7 @@ namespace SColdQcdCorrelatorAnalysis {
   // --------------------------------------------------------------------------
   //! Constructor accepting a F4A RawCluster
   // --------------------------------------------------------------------------
-  Types::CstInfo::CstInfo(RawCluster* cluster, optional<ROOT::Math::XYZVector> vtx) {
+  Types::CstInfo::CstInfo(const RawCluster* cluster, optional<ROOT::Math::XYZVector> vtx) {
 
     SetInfo(cluster, vtx);
 
