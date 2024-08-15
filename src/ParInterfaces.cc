@@ -46,7 +46,7 @@ namespace SColdQcdCorrelatorAnalysis {
   PHG4TruthInfoContainer::ConstRange Interfaces::GetPrimaries(PHCompositeNode* topNode) {
 
     PHG4TruthInfoContainer* particles = GetTruthContainer(topNode);
-    return particles -> GetPrimaryParticleRange;
+    return particles -> GetPrimaryParticleRange();
 
   }  // end 'GetPrimaries(PHCompositeNode*)'
 
