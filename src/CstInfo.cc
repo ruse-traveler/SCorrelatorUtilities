@@ -150,12 +150,49 @@ namespace SColdQcdCorrelatorAnalysis {
   // --------------------------------------------------------------------------
   //! Pull relevant information from a F4A RawTower
   // --------------------------------------------------------------------------
-  void Types::CstInfo::SetInfo(RawTower* tower, optional<ROOT::Math::XYZVector> vtx) {
+  void Types::CstInfo::SetInfo(
+    const int sys,
+    RawTower* tower,
+    PHCompositeNode* topNode,
+    optional<ROOT::Math::XYZVector> vtx
+  ) {
 
-    /* TODO implement */
+    // if no vertex provided, use origin
+    ROOT::Math::XYZVector vtxToUse(0., 0., 0.);
+    if (vtx.has_value()) {
+      vtxToUse = vtx.value();
+    }
+
+    // grab raw key for geometry
+    const int rawKey = tower -> get_key();
+
+    // grab position in (rho, eta, phi)
+    ROOT::Math::RhoEtaPhiVector rhfPos = Tools::GetTowerPositionRhoEtaPhi(
+      rawKey,
+      sys,
+      vtxToUse.z(),
+      topNode
+    );
+
+    // grab momentum
+    ROOT::Math::PxPyPzEVector momentum = Tools::GetTowerMomentum(
+      tower -> get_energy(),
+      rhfPos
+    );
+
+
+    type  = Const::Object::Tower;
+    cstID = rawKey;
+    pt    = momentum.Pt();
+    px    = momentum.Px();
+    py    = momentum.Py();
+    pz    = momentum.Pz();
+    ene   = momentum.E();
+    eta   = momentum.Eta();
+    phi   = momentum.Phi();
     return;
 
-  }  // end 'SetInfo(RawTower*, optional<ROOT::Math::XYZVector>)'
+  }  // end 'SetInfo(int, RawTower*, PHCompositeNode*, optional<ROOT::Math::XYZVector>)'
 
 
 
@@ -531,11 +568,16 @@ namespace SColdQcdCorrelatorAnalysis {
   // --------------------------------------------------------------------------
   //! Constructor accepting a F4A RawTower
   // --------------------------------------------------------------------------
-  Types::CstInfo::CstInfo(RawTower* tower, optional<ROOT::Math::XYZVector> vtx) {
+  Types::CstInfo::CstInfo(
+    const int sys,
+    RawTower* tower,
+    PHCompositeNode* topNode,
+    optional<ROOT::Math::XYZVector> vtx
+  ) {
 
-    SetInfo(tower, vtx);
+    SetInfo(sys, tower, topNode, vtx);
 
-  }  // end ctor(RawTower*, optional<ROOT::Math::XYZVector>)
+  }  // end ctor(int, RawTower*, PHCompositeNode*, optional<ROOT::Math::XYZVector>)
 
 
 
