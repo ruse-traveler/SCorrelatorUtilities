@@ -21,6 +21,8 @@
 #include <Rtypes.h>
 #include <Math/Vector3D.h>
 #include <Math/Vector4D.h>
+// phool libraries
+#include <phool/PHCompositeNode.h>
 // CaloBase libraries
 #include <calobase/RawTower.h>
 #include <calobase/TowerInfo.h>
