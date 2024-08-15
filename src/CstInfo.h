@@ -24,6 +24,8 @@
 #include <Math/Vector4D.h>
 // fastjet libraries
 #include <fastjet/PseudoJet.hh>
+// phool libraries
+#include <phool/PHCompositeNode.h>
 // PHG4 libraries
 #include <g4main/PHG4Particle.h>
 // calobase libraries
@@ -37,6 +39,7 @@
 // analysis utilities
 #include "JetInfo.h"
 #include "Constants.h"
+#include "TwrTools.h"
 #include "ClustTools.h"
 
 // make common namespaces implicit
@@ -121,8 +124,8 @@ namespace SColdQcdCorrelatorAnalysis {
         void SetInfo(fastjet::PseudoJet& pseudojet);
         void SetInfo(SvtxTrack* track);
         void SetInfo(const ParticleFlowElement* flow);
-        void SetInfo(TowerInfo* info);
         void SetInfo(RawTower* tower, optional<ROOT::Math::XYZVector> vtx = nullopt);
+        void SetInfo(const int sys, const int chan, TowerInfo* info, PHCompositeNode* topNode, optional<ROOT::Math::XYZVector> vtx = nullopt);
         void SetInfo(const RawCluster* cluster, optional<ROOT::Math::XYZVector> vtx = nullopt);
         void SetInfo(PHG4Particle* particle, const int event);
         void SetJetInfo(const int id, const Types::JetInfo& jet);
@@ -147,8 +150,8 @@ namespace SColdQcdCorrelatorAnalysis {
         CstInfo(fastjet::PseudoJet& pseudojet);
         CstInfo(SvtxTrack* track);
         CstInfo(const ParticleFlowElement* flow);
-        CstInfo(TowerInfo* info);
         CstInfo(RawTower* tower, optional<ROOT::Math::XYZVector> vtx = nullopt);
+        CstInfo(const int sys, const int chan, TowerInfo* info, PHCompositeNode* topNode, optional<ROOT::Math::XYZVector> vtx = nullopt);
         CstInfo(const RawCluster* cluster, optional<ROOT::Math::XYZVector> vtx = nullopt);
         CstInfo(PHG4Particle* particle, const int event);
 
