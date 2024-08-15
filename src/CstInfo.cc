@@ -108,98 +108,13 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
   // --------------------------------------------------------------------------
-  //! Pull relevant information from a F4A RawCluster
-  // --------------------------------------------------------------------------
-  void Types::CstInfo::SetInfo(RawCluster* cluster, optional<ROOT::Math::XYZVector> vtx) {
-
-    // if no vertex provided, use origin
-    ROOT::Math::XYZVector vtxToUse(0., 0., 0.);
-    if (vtx.has_value()) {
-      vtxToUse = vtx.value();
-    }
-
-    // grab position
-    ROOT::Math::XYZVector position(
-      cluster -> get_position().x(),
-      cluster -> get_position().y(),
-      cluster -> get_position().z()
-    );
-
-    // grab momentum
-    ROOT::Math::PxPyPzEVector momentum = Tools::GetClustMomentum(
-      cluster -> get_energy(),
-      position,
-      vtxToUse
-    );
-
-    cstID = cluster -> get_id();
-    ene   = cluster -> get_energy();
-    px    = momentum.Px();
-    py    = momentum.Py();
-    pz    = momentum.Pz();
-    pt    = hypot(px, py);
-    eta   = momentum.Eta();
-    phi   = momentum.Phi();
-    return;
-
-  }  // end 'SetInfo(RawCluster*, optional<ROOT::Math::XYZVector>)'
-
-
-
-  // --------------------------------------------------------------------------
-  //! Pull relevant information from a F4A TowerInfo
-  // --------------------------------------------------------------------------
-  void Types::CstInfo::SetInfo(TowerInfo& info) {
-
-    /* TODO fill in*/
-    return;
-
-  }  // end 'SetInfo(TowerInfo&)'
-
-
-
-  // --------------------------------------------------------------------------
-  //! Pull relevant information from a F4A RawTower
-  // --------------------------------------------------------------------------
-  void Types::CstInfo::SetInfo(RawTower* tower, optional<ROOT::Math::XYZVector> vtx) {
-
-    // if no vertex provided, use origin
-    ROOT::Math::XYZVector vtxToUse(0., 0., 0.);
-    if (vtx.has_value()) {
-      vtxToUse = vtx.value();
-    }
-
-    // grab position
-    //   - TODO implement position getter in tools
-    ROOT::Math::XYZVector position(0., 0., 0.);
-
-    // grab momentum
-    ROOT::Math::PxPyPzEVector momentum = Tools::GetClustMomentum(
-      tower -> get_energy(),
-      position,
-      vtxToUse
-    );
-
-    cstID = tower -> get_id();
-    ene   = tower -> get_energy();
-    px    = momentum.Px();
-    py    = momentum.Py();
-    pz    = momentum.Pz();
-    pt    = hypot(px, py);
-    eta   = momentum.Eta();
-    phi   = momentum.Phi();
-    return;
-
-  }  // end 'SetInfo(RawTower*, optional<ROOT::Math::XYZVector>)'
-
-
-
-  // --------------------------------------------------------------------------
   //! Pull relevant information from a F4A SvtxTrack
   // --------------------------------------------------------------------------
   void Types::CstInfo::SetInfo(SvtxTrack* track) {
 
+    type  = Const::Object::Track;
     cstID = track -> get_id();
+    pid   = ((int) track -> get_charge()) * 211;
     pt    = track -> get_pt();
     px    = track -> get_px();
     py    = track -> get_py();
@@ -214,9 +129,69 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
   // --------------------------------------------------------------------------
+  //! Pull relevant information from a F4A PFO
+  // --------------------------------------------------------------------------
+  void Types::CstInfo::SetInfo(ParticleFlowElement* info) {
+
+    /* TODO implement */
+    return;
+
+  }  // end 'SetInfo(*)'
+
+
+
+  // --------------------------------------------------------------------------
+  //! Pull relevant information from a F4A TowerInfo
+  // --------------------------------------------------------------------------
+  void Types::CstInfo::SetInfo(TowerInfo* info) {
+
+    /* TODO implement */
+    return;
+
+  }  // end 'SetInfo(TowerInfo*)'
+
+
+
+  // --------------------------------------------------------------------------
+  //! Pull relevant information from a F4A RawTower
+  // --------------------------------------------------------------------------
+  void Types::CstInfo::SetInfo(RawTower* tower, optional<ROOT::Math::XYZVector> vtx) {
+
+    /* TODO implement */
+    return;
+
+  }  // end 'SetInfo(RawTower*, optional<ROOT::Math::XYZVector>)'
+
+
+
+  // --------------------------------------------------------------------------
+  //! Pull relevant information from a F4A RawCluster
+  // --------------------------------------------------------------------------
+  void Types::CstInfo::SetInfo(RawCluster* cluster, optional<ROOT::Math::XYZVector> vtx) {
+
+    /* TODO implement */
+    return;
+
+  }  // end 'SetInfo(RawCluster*, optional<ROOT::Math::XYZVector>)'
+
+
+
+  // --------------------------------------------------------------------------
+  //! Pull relevant information from a F4A PHG4Particle
+  // --------------------------------------------------------------------------
+  void Types::CstInfo::SetInfo(PHG4Particle* particle, const int event) {
+
+    /* TODO implement */
+    return;
+
+  }  // end 'SetInfo(PHG4Particle*, int)'
+
+
+
+  // --------------------------------------------------------------------------
   //! Calculate information relative to provided jet (e.g. momentum fraction)
   // --------------------------------------------------------------------------
-  void Types::CstInfo::SetJetInfo(const Types::JetInfo& jet) {
+  void Types::CstInfo::SetJetInfo(const int id, const Types::JetInfo& jet) {
 
     // grab 3-momenta
     ROOT::Math::XYZVector pJet(jet.GetPX(), jet.GetPY(), jet.GetPZ());
@@ -228,12 +203,13 @@ namespace SColdQcdCorrelatorAnalysis {
     const double dPhi = phi - jet.GetPhi();
 
     // set values and exit
-    z  = pCst.Dot(pJet) / pJet.Mag2();
-    dr = sqrt((dEta * dEta) + (dPhi * dPhi));
-    jt = sqrt( pCross.Mag2() ) / pJet.Mag2();
+    jetID = id;
+    z     = pCst.Dot(pJet) / pJet.Mag2();
+    dr    = sqrt((dEta * dEta) + (dPhi * dPhi));
+    jt    = sqrt( pCross.Mag2() ) / pJet.Mag2();
     return;
 
-  }  // end 'SetJetInfo(Types::JetInfo&)'
+  }  // end 'SetJetInfo(int, Types::JetInfo&)'
 
 
 
@@ -444,24 +420,35 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
   // --------------------------------------------------------------------------
-  //! Constructor accepting a F4A RawCluster
+  //! Constructor accepting a F4A SvtxTrack
   // --------------------------------------------------------------------------
-  Types::CstInfo::CstInfo(RawCluster* cluster, optional<ROOT::Math::XYZVector> vtx) {
+  Types::CstInfo::CstInfo(SvtxTrack* track) {
 
-    SetInfo(cluster, vtx);
+    SetInfo(track);
 
-  }  // end ctor(RawCluster*, optional<ROOT::Math::XYZVector>)
+  }  // end ctor(SvtxTrack*)
+
+
+
+  // --------------------------------------------------------------------------
+  //! Constructor accepting a F4A PFO
+  // --------------------------------------------------------------------------
+  Types::CstInfo::CstInfo(ParticleFlowElement* flow) {
+
+    SetInfo(flow);
+
+  }  // end ctor(ParticleFlowElement*)
 
 
 
   // --------------------------------------------------------------------------
   //! Constructor accepting a F4A TowerInfo
   // --------------------------------------------------------------------------
-  Types::CstInfo::CstInfo(TowerInfo& info) {
+  Types::CstInfo::CstInfo(TowerInfo* info) {
 
     SetInfo(info);
 
-  }  // end ctor(TowerInfo&)
+  }  // end ctor(TowerInfo*)
 
 
 
@@ -477,13 +464,24 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
   // --------------------------------------------------------------------------
-  //! Constructor accepting a F4A SvtxTrack
+  //! Constructor accepting a F4A RawCluster
   // --------------------------------------------------------------------------
-  Types::CstInfo::CstInfo(SvtxTrack* track) {
+  Types::CstInfo::CstInfo(RawCluster* cluster, optional<ROOT::Math::XYZVector> vtx) {
 
-    SetInfo(track);
+    SetInfo(cluster, vtx);
 
-  }  // end ctor(SvtxTrack*)
+  }  // end ctor(RawCluster*, optional<ROOT::Math::XYZVector>)
+
+
+
+  // --------------------------------------------------------------------------
+  //! Constructor accepting a F4A PHG4Particle
+  // --------------------------------------------------------------------------
+  Types::CstInfo::CstInfo(PHG4Particle* particle, const int event) {
+
+    SetInfo(particle, event);
+
+  }  // end ctor(PHG4Particle*, int)
 
 }  // end SColdQcdCorrelatorAnalysis namespace
 

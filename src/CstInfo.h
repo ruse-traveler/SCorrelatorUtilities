@@ -24,12 +24,16 @@
 #include <Math/Vector4D.h>
 // fastjet libraries
 #include <fastjet/PseudoJet.hh>
+// PHG4 libraries
+#include <g4main/PHG4Particle.h>
 // calobase libraries
 #include <calobase/RawTower.h>
 #include <calobase/TowerInfo.h>
 #include <calobase/RawCluster.h>
 // trackbase libraries
 #include <trackbase_historic/SvtxTrack.h>
+// particle flow libraries
+#include <particleflowreco/ParticleFlowElement.h>
 // analysis utilities
 #include "JetInfo.h"
 #include "Constants.h"
@@ -72,7 +76,7 @@ namespace SColdQcdCorrelatorAnalysis {
         double eta     = numeric_limits<double>::max();
         double phi     = numeric_limits<double>::max();
 
-        // internal methods
+        // private methods
         void Minimize();
         void Maximize();
 
@@ -115,11 +119,13 @@ namespace SColdQcdCorrelatorAnalysis {
         // public methods
         void Reset();
         void SetInfo(fastjet::PseudoJet& pseudojet);
-        void SetInfo(RawCluster* cluster, optional<ROOT::Math::XYZVector> vtx = nullopt);
-        void SetInfo(TowerInfo& info);
-        void SetInfo(RawTower* tower, optional<ROOT::Math::XYZVector> vtx = nullopt);
         void SetInfo(SvtxTrack* track);
-        void SetJetInfo(const Types::JetInfo& jet);
+        void SetInfo(ParticleFlowElement* flow);
+        void SetInfo(TowerInfo* info);
+        void SetInfo(RawTower* tower, optional<ROOT::Math::XYZVector> vtx = nullopt);
+        void SetInfo(RawCluster* cluster, optional<ROOT::Math::XYZVector> vtx = nullopt);
+        void SetInfo(PHG4Particle* particle, const int event);
+        void SetJetInfo(const int id, const Types::JetInfo& jet);
         bool IsInAcceptance(const CstInfo& minimum, const CstInfo& maximum) const;
         bool IsInAcceptance(const pair<CstInfo, CstInfo>& range) const;
 
@@ -139,10 +145,12 @@ namespace SColdQcdCorrelatorAnalysis {
         // ctors accepting arguments
         CstInfo(const Const::Init init);
         CstInfo(fastjet::PseudoJet& pseudojet);
-        CstInfo(RawCluster* cluster, optional<ROOT::Math::XYZVector> vtx = nullopt);
-        CstInfo(TowerInfo& info);
-        CstInfo(RawTower* tower, optional<ROOT::Math::XYZVector> vtx = nullopt);
         CstInfo(SvtxTrack* track);
+        CstInfo(ParticleFlowElement* flow);
+        CstInfo(TowerInfo* info);
+        CstInfo(RawTower* tower, optional<ROOT::Math::XYZVector> vtx = nullopt);
+        CstInfo(RawCluster* cluster, optional<ROOT::Math::XYZVector> vtx = nullopt);
+        CstInfo(PHG4Particle* particle, const int event);
 
       // identify this class to ROOT
       ClassDefNV(CstInfo, 1)
