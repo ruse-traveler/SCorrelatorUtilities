@@ -114,7 +114,6 @@ namespace SColdQcdCorrelatorAnalysis {
 
     type  = Const::Object::Track;
     cstID = track -> get_id();
-    pid   = ((int) track -> get_charge()) * 211;
     pt    = track -> get_pt();
     px    = track -> get_px();
     py    = track -> get_py();
@@ -131,9 +130,17 @@ namespace SColdQcdCorrelatorAnalysis {
   // --------------------------------------------------------------------------
   //! Pull relevant information from a F4A PFO
   // --------------------------------------------------------------------------
-  void Types::CstInfo::SetInfo(ParticleFlowElement* info) {
+  void Types::CstInfo::SetInfo(ParticleFlowElement* flow) {
 
-    /* TODO implement */
+    type  = Const::Object::Flow;
+    cstID = flow -> get_id();
+    pt    = flow -> get_pt();
+    px    = flow -> get_px();
+    py    = flow -> get_py();
+    pz    = flow -> get_pz();
+    ene   = flow -> get_e();
+    eta   = flow -> get_eta();
+    phi   = flow -> get_phi();
     return;
 
   }  // end 'SetInfo(*)'
