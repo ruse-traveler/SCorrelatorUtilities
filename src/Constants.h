@@ -349,7 +349,6 @@ namespace SColdQcdCorrelatorAnalysis {
     // ------------------------------------------------------------------------
     //! Map of jet source index onto input node
     // ------------------------------------------------------------------------
-    // TODO particle input still needs to be added
     inline map<Jet::SRC, string> MapSrcOntoNode() {
       static map<Jet::SRC, string> mapSrcOntoNode = {
         {Jet::SRC::CEMC_CLUSTER, "CLUSTER_CEMC"},
@@ -381,7 +380,8 @@ namespace SColdQcdCorrelatorAnalysis {
         {Jet::SRC::CEMC_TOWER_SUB1CS, "TOWER_CALIB_CEMC_RETOWER_SUB1CS"},
         {Jet::SRC::HCALIN_TOWER_SUB1CS, "TOWER_CALIB_HCALIN_SUB1CS"},
         {Jet::SRC::HCALOUT_TOWER_SUB1CS, "TOWER_CALIB_HCALOUT_SUB1CS"},
-        {Jet::SRC::TRACK, "SvtxTrackMap"}
+        {Jet::SRC::TRACK, "SvtxTrackMap"},
+        {Jet::SRC::PARTICLE, "G4TruthInfo"}
       };
       return mapSrcOntoNode;
     }
