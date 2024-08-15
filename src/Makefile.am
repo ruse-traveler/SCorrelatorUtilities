@@ -17,6 +17,7 @@ pkginclude_HEADERS = \
   ClustInterfaces.h \
   ClustTools.h \
   CstInfo.h \
+  CstInterfaces.h \
   FlowInfo.h \
   FlowInterfaces.h \
   GenInfo.h \
@@ -54,6 +55,7 @@ libscorrelatorutilities_la_SOURCES = \
   ClustInterfaces.cc \
   ClustTools.cc \
   CstInfo.cc \
+  CstInterfaces.cc \
   FlowInfo.cc \
   FlowInterfaces.cc \
   GenInfo.cc \

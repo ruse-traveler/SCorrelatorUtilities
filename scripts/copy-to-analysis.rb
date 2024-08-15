@@ -27,6 +27,8 @@ to_copy = [
   "src/Constants.h",
   "src/CstInfo.cc",
   "src/CstInfo.h",
+  "src/CstInterfaces.cc",
+  "src/CstInterfaces.h",
   "src/FlowInfo.cc",
   "src/FlowInfo.h",
   "src/FlowInterfaces.cc",

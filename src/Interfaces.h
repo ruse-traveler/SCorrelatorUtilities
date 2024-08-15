@@ -11,6 +11,7 @@
 #define SCORRELATORUTILITIES_INTERFACES_H
 
 #include "ClustInterfaces.h"
+#include "CstInterfaces.h"
 #include "FlowInterfaces.h"
 #include "NodeInterfaces.h"
 #include "ParInterfaces.h"
