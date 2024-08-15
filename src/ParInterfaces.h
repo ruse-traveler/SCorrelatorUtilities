@@ -1,10 +1,11 @@
-// ----------------------------------------------------------------------------
-// 'ParInterfaces.h'
-// Derek Anderson
-// 03.06.2024
-//
-// Particle-related interfaces.
-// ----------------------------------------------------------------------------
+/// ---------------------------------------------------------------------------
+/*! \file   ParTools.h
+ *  \author Derek Anderson
+ *  \file   03.06.2024
+ *
+ *  Particle-related interfaces.
+ */
+/// ---------------------------------------------------------------------------
 
 #ifndef SCORRELATORUTILITIES_PARINTERFACES_H
 #define SCORRELATORUTILITIES_PARINTERFACES_H
