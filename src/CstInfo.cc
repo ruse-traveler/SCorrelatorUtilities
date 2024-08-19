@@ -313,6 +313,164 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
   // --------------------------------------------------------------------------
+  //! Pull relevant information from a F4A jet component iterator
+  // --------------------------------------------------------------------------
+  void Types::CstInfo::SetInfo(const Jet::ITER_comp_vec& iter, PHCompositeNode* topNode) {
+
+    // select which node to look in based on source,
+    // and grab corresponding object based on
+    // "index" (NOT consistent across sources)
+    switch (iter -> first) {
+
+      // RawCluster
+      case Jet::SRC::CEMC_CLUSTER:
+        [[fallthrough]];
+
+      case Jet::SRC::HCALIN_CLUSTER:
+        [[fallthrough]];
+
+      case Jet::SRC::HCALOUT_CLUSTER:
+        [[fallthrough]];
+
+      case Jet::SRC::HCAL_TOPO_CLUSTER:
+        [[fallthrough]];
+
+      case Jet::SRC::ECAL_TOPO_CLUSTER:
+        [[fallthrough]];
+
+      case Jet::SRC::ECAL_HCAL_TOPO_CLUSTER:
+        {
+        RawCluster* cluster = Interfaces::FindCluster(
+          iter -> second,
+          iter -> first,
+          topNode
+        );
+        Minimize();
+        }
+        break;
+
+      // RawTower
+      case Jet::SRC::CEMC_TOWER:
+        [[fallthrough]];
+
+      case Jet::SRC::CEMC_TOWER_RETOWER:
+        [[fallthrough]];
+
+      case Jet::SRC::HCALIN_TOWER:
+        [[fallthrough]];
+
+      case Jet::SRC::HCALOUT_TOWER:
+        [[fallthrough]];
+
+      case Jet::SRC::CEMC_TOWER_SUB1:
+        [[fallthrough]];
+
+      case Jet::SRC::HCALIN_TOWER_SUB1:
+        [[fallthrough]];
+
+      case Jet::SRC::HCALOUT_TOWER_SUB1:
+        [[fallthrough]];
+
+      case Jet::SRC::CEMC_TOWER_SUB1CS:
+        [[fallthrough]];
+
+      case Jet::SRC::HCALIN_TOWER_SUB1CS:
+        [[fallthrough]];
+
+      case Jet::SRC::HCALOUT_TOWER_SUB1CS:
+        {
+        RawTower* raw = Interfaces::FindRawTower(
+          iter -> second,
+          iter -> first,
+          topNode
+        );
+        Minimize();
+        }
+        break;
+
+      // TowerInfo
+      case Jet::SRC::CEMC_TOWERINFO:
+        [[fallthrough]];
+
+      case Jet::SRC::CEMC_TOWERINFO_RETOWER:
+        [[fallthrough]];
+
+      case Jet::SRC::HCALIN_TOWERINFO:
+        [[fallthrough]];
+
+      case Jet::SRC::HCALOUT_TOWERINFO:
+        [[fallthrough]];
+
+      case Jet::SRC::CEMC_TOWERINFO_EMBED:
+        [[fallthrough]];
+
+      case Jet::SRC::HCALIN_TOWERINFO_EMBED:
+        [[fallthrough]];
+
+      case Jet::SRC::HCALOUT_TOWERINFO_EMBED:
+        [[fallthrough]];
+
+      case Jet::SRC::CEMC_TOWERINFO_SIM:
+        [[fallthrough]];
+
+      case Jet::SRC::HCALIN_TOWERINFO_SIM:
+        [[fallthrough]];
+
+      case Jet::SRC::HCALOUT_TOWERINFO_SIM:
+        [[fallthrough]];
+
+      case Jet::SRC::CEMC_TOWERINFO_SUB1:
+        [[fallthrough]];
+
+      case Jet::SRC::HCALIN_TOWERINFO_SUB1:
+        [[fallthrough]];
+
+      case Jet::SRC::HCALOUT_TOWERINFO_SUB1:
+        {
+        TowerInfo* info = Interfaces::FindTowerInfo(
+          iter -> second,
+          iter -> first,
+          topNode
+        );
+        Minimize();
+        }
+        break;
+
+      // SvtxTrack
+      case Jet::SRC::TRACK:
+        {
+        SvtxTrack* track = Interfaces::FindTrack(
+          iter -> second,
+          topNode
+        );
+        Minimize();
+        }
+        break;
+
+      // PHG4Particle
+      case Jet::SRC::PARTICLE:
+        {
+        PHG4Particle* particle = Interfaces::FindParticle(
+          iter -> second,
+          topNode
+        );
+        Minimize();
+        }
+        break;
+
+      // input not found, throw error
+      default:
+        Minimize();
+        break;
+
+    }
+    return;
+
+  }  // end 'SetInfo(Jet::ITER_comp_vec&, PHCompositeNode*)'
+
+
+
+  // --------------------------------------------------------------------------
   //! Calculate information relative to provided jet (e.g. momentum fraction)
   // --------------------------------------------------------------------------
   void Types::CstInfo::SetJetInfo(const int id, const Types::JetInfo& jet) {

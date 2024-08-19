@@ -36,11 +36,15 @@
 #include <trackbase_historic/SvtxTrack.h>
 // particle flow libraries
 #include <particleflowreco/ParticleFlowElement.h>
+// jetbase libraries
+#include <jetbase/Jet.h>
+#include <jetbase/JetContainer.h>
 // analysis utilities
 #include "JetInfo.h"
 #include "Constants.h"
 #include "TwrTools.h"
 #include "ClustTools.h"
+#include "CstInterfaces.h"
 
 // make common namespaces implicit
 using namespace std;
@@ -128,6 +132,7 @@ namespace SColdQcdCorrelatorAnalysis {
         void SetInfo(const int sys, const int chan, TowerInfo* info, PHCompositeNode* topNode, optional<ROOT::Math::XYZVector> vtx = nullopt);
         void SetInfo(const RawCluster* cluster, optional<ROOT::Math::XYZVector> vtx = nullopt);
         void SetInfo(PHG4Particle* particle, const int event);
+        void SetInfo(const Jet::ITER_comp_vec& iter, PHCompositeNode* topNode);
         void SetJetInfo(const int id, const Types::JetInfo& jet);
         bool IsInAcceptance(const CstInfo& minimum, const CstInfo& maximum) const;
         bool IsInAcceptance(const pair<CstInfo, CstInfo>& range) const;
