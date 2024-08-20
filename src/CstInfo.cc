@@ -781,6 +781,22 @@ namespace SColdQcdCorrelatorAnalysis {
 
   }  // end ctor(PHG4Particle*, int)
 
+
+
+  // --------------------------------------------------------------------------
+  //! Constructor accepting a F4A jet component iterator
+  // --------------------------------------------------------------------------
+  Types::CstInfo::CstInfo(
+    const Jet::ITER_comp_vec& iter,
+    const int event,
+    PHCompositeNode* topNode,
+    optional<ROOT::Math::XYZVector> vtx
+  ) {
+
+    SetInfo(iter, event, topNode, vtx);
+
+  }  // end ctor(Jet::ITER_comp_vec&, int, PHCompositeNode*, optional<ROOT::Math::XYZVector>)'
+
 }  // end SColdQcdCorrelatorAnalysis namespace
 
 // end ------------------------------------------------------------------------

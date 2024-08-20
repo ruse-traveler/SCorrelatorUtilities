@@ -160,6 +160,7 @@ namespace SColdQcdCorrelatorAnalysis {
         CstInfo(const int sys, const int chan, TowerInfo* info, PHCompositeNode* topNode, optional<ROOT::Math::XYZVector> vtx = nullopt);
         CstInfo(const RawCluster* cluster, optional<ROOT::Math::XYZVector> vtx = nullopt);
         CstInfo(PHG4Particle* particle, const int event);
+        CstInfo(const Jet::ITER_comp_vec& iter, const int event, PHCompositeNode* topNode, optional<ROOT::Math::XYZVector> vtx = nullopt);
 
       // identify this class to ROOT
       ClassDefNV(CstInfo, 1)
