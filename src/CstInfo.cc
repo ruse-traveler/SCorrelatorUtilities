@@ -327,30 +327,14 @@ namespace SColdQcdCorrelatorAnalysis {
     // "index" (NOT consistent across sources)
     switch (iter -> first) {
 
-      // RawCluster
-      case Jet::SRC::CEMC_CLUSTER:
-        [[fallthrough]];
-
-      case Jet::SRC::HCALIN_CLUSTER:
-        [[fallthrough]];
-
-      case Jet::SRC::HCALOUT_CLUSTER:
-        [[fallthrough]];
-
-      case Jet::SRC::HCAL_TOPO_CLUSTER:
-        [[fallthrough]];
-
-      case Jet::SRC::ECAL_TOPO_CLUSTER:
-        [[fallthrough]];
-
-      case Jet::SRC::ECAL_HCAL_TOPO_CLUSTER:
+      // SvtxTrack
+      case Jet::SRC::TRACK:
         {
-          RawCluster* cluster = Interfaces::FindCluster(
+          SvtxTrack* track = Interfaces::FindTrack(
             iter -> second,
-            iter -> first,
             topNode
           );
-          SetInfo(cluster, vtx);
+          SetInfo(track);
         }
         break;
 
@@ -441,14 +425,30 @@ namespace SColdQcdCorrelatorAnalysis {
         }
         break;
 
-      // SvtxTrack
-      case Jet::SRC::TRACK:
+      // RawCluster
+      case Jet::SRC::CEMC_CLUSTER:
+        [[fallthrough]];
+
+      case Jet::SRC::HCALIN_CLUSTER:
+        [[fallthrough]];
+
+      case Jet::SRC::HCALOUT_CLUSTER:
+        [[fallthrough]];
+
+      case Jet::SRC::HCAL_TOPO_CLUSTER:
+        [[fallthrough]];
+
+      case Jet::SRC::ECAL_TOPO_CLUSTER:
+        [[fallthrough]];
+
+      case Jet::SRC::ECAL_HCAL_TOPO_CLUSTER:
         {
-          SvtxTrack* track = Interfaces::FindTrack(
+          RawCluster* cluster = Interfaces::FindCluster(
             iter -> second,
+            iter -> first,
             topNode
           );
-          SetInfo(track);
+          SetInfo(cluster, vtx);
         }
         break;
 
