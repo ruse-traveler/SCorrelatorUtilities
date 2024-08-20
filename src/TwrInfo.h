@@ -43,7 +43,8 @@ namespace SColdQcdCorrelatorAnalysis {
     // ------------------------------------------------------------------------
     /*! A class to consolidate information
      *  about calorimeter towers. Can be
-     *  built from
+     *  built from F4A RawTower or
+     *  TowerInfo objects.
      */
     class TwrInfo {
 

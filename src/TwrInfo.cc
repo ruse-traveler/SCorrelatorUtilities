@@ -420,7 +420,12 @@ namespace SColdQcdCorrelatorAnalysis {
   // --------------------------------------------------------------------------
   //! Constructor accepting a F4A RawTower
   // --------------------------------------------------------------------------
-  Types::TwrInfo::TwrInfo(const int sys, const RawTower* tower, PHCompositeNode* topNode, optional<ROOT::Math::XYZVector> vtx) {
+  Types::TwrInfo::TwrInfo(
+    const int sys,
+    const RawTower* tower,
+    PHCompositeNode* topNode,
+    optional<ROOT::Math::XYZVector> vtx
+  ) {
 
     SetInfo(sys, tower, topNode, vtx);
 
@@ -431,7 +436,13 @@ namespace SColdQcdCorrelatorAnalysis {
   // --------------------------------------------------------------------------
   //! Constructor accepting a F4A TowerInfo
   // --------------------------------------------------------------------------
-  Types::TwrInfo::TwrInfo(const int sys, const int chan, TowerInfo* tower, PHCompositeNode* topNode, optional<ROOT::Math::XYZVector> vtx) {
+  Types::TwrInfo::TwrInfo(
+    const int sys,
+    const int chan,
+    TowerInfo* tower,
+    PHCompositeNode* topNode,
+    optional<ROOT::Math::XYZVector> vtx
+  ) {
 
     SetInfo(sys, chan, tower, topNode, vtx);
 
