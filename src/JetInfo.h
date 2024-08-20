@@ -5,6 +5,14 @@
 //
 // Utility class to hold information from jets.
 // ----------------------------------------------------------------------------
+/// ---------------------------------------------------------------------------
+/*! \file   JetInfo.h
+ *  \author Derek Anderson
+ *  \date   03.04.2024
+ *
+ *  Utility class to hold information from jets.
+ */
+/// ---------------------------------------------------------------------------
 
 #ifndef SCORRELATORUTILITIES_JETINFO_H
 #define SCORRELATORUTILITIES_JETINFO_H
@@ -31,9 +39,14 @@ using namespace std;
 namespace SColdQcdCorrelatorAnalysis {
   namespace Types {
 
-  // JetInfo definition -------------------------------------------------------
-
-  class JetInfo {
+    // ------------------------------------------------------------------------
+    //! Jet info
+    // ------------------------------------------------------------------------
+    /*! A class to consolidate information
+     *  about jets. Can be built from either
+     *  fastjet pseudojets or F4A Jet objects.
+     */
+    class JetInfo {
 
       private:
 
