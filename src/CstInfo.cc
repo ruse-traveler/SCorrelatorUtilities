@@ -315,7 +315,12 @@ namespace SColdQcdCorrelatorAnalysis {
   // --------------------------------------------------------------------------
   //! Pull relevant information from a F4A jet component iterator
   // --------------------------------------------------------------------------
-  void Types::CstInfo::SetInfo(const Jet::ITER_comp_vec& iter, PHCompositeNode* topNode) {
+  void Types::CstInfo::SetInfo(
+    const Jet::ITER_comp_vec& iter,
+    const int event,
+    PHCompositeNode* topNode,
+    optional<ROOT::Math::XYZVector> vtx
+  ) {
 
     // select which node to look in based on source,
     // and grab corresponding object based on
@@ -340,12 +345,12 @@ namespace SColdQcdCorrelatorAnalysis {
 
       case Jet::SRC::ECAL_HCAL_TOPO_CLUSTER:
         {
-        RawCluster* cluster = Interfaces::FindCluster(
-          iter -> second,
-          iter -> first,
-          topNode
-        );
-        Minimize();
+          RawCluster* cluster = Interfaces::FindCluster(
+            iter -> second,
+            iter -> first,
+            topNode
+          );
+          SetInfo(cluster, vtx);
         }
         break;
 
@@ -379,12 +384,12 @@ namespace SColdQcdCorrelatorAnalysis {
 
       case Jet::SRC::HCALOUT_TOWER_SUB1CS:
         {
-        RawTower* raw = Interfaces::FindRawTower(
-          iter -> second,
-          iter -> first,
-          topNode
-        );
-        Minimize();
+          RawTower* raw = Interfaces::FindRawTower(
+            iter -> second,
+            iter -> first,
+            topNode
+          );
+          SetInfo(0, raw, topNode, vtx);  // FIXME need to get system no. from a tower!
         }
         break;
 
@@ -427,46 +432,46 @@ namespace SColdQcdCorrelatorAnalysis {
 
       case Jet::SRC::HCALOUT_TOWERINFO_SUB1:
         {
-        TowerInfo* info = Interfaces::FindTowerInfo(
-          iter -> second,
-          iter -> first,
-          topNode
-        );
-        Minimize();
+          TowerInfo* info = Interfaces::FindTowerInfo(
+            iter -> second,
+            iter -> first,
+            topNode
+          );
+          SetInfo(0, 0, info, topNode, vtx);  // FIXME grab sys and channel index!
         }
         break;
 
       // SvtxTrack
       case Jet::SRC::TRACK:
         {
-        SvtxTrack* track = Interfaces::FindTrack(
-          iter -> second,
-          topNode
-        );
-        Minimize();
+          SvtxTrack* track = Interfaces::FindTrack(
+            iter -> second,
+            topNode
+          );
+          SetInfo(track);
         }
         break;
 
       // PHG4Particle
       case Jet::SRC::PARTICLE:
         {
-        PHG4Particle* particle = Interfaces::FindParticle(
-          iter -> second,
-          topNode
-        );
-        Minimize();
+          PHG4Particle* particle = Interfaces::FindParticle(
+            iter -> second,
+            topNode
+          );
+          SetInfo(particle, event);
         }
         break;
 
       // input not found, throw error
       default:
-        Minimize();
+        assert(Const::MapSrcOntoNode().find(iter -> first) != Const::MapSrcOntoNode().end());
         break;
 
     }
     return;
 
-  }  // end 'SetInfo(Jet::ITER_comp_vec&, PHCompositeNode*)'
+  }  // end 'SetInfo(Jet::ITER_comp_vec&, int, PHCompositeNode*, optional<ROOT::Math::XYZVector>)'
 
 
 
