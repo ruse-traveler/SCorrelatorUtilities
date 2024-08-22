@@ -316,22 +316,22 @@ namespace SColdQcdCorrelatorAnalysis {
   //! Pull relevant information from a F4A jet component iterator
   // --------------------------------------------------------------------------
   void Types::CstInfo::SetInfo(
-    const Jet::ITER_comp_vec& iter,
-    const int event,
+    const pair<Jet::SRC, unsigned int>& itCst,
     PHCompositeNode* topNode,
-    optional<ROOT::Math::XYZVector> vtx
+    optional<ROOT::Math::XYZVector> vtx,
+    optional<int> event
   ) {
 
     // select which node to look in based on source,
     // and grab corresponding object based on
     // "index" (NOT consistent across sources)
-    switch (iter -> first) {
+    switch (itCst.first) {
 
       // SvtxTrack
       case Jet::SRC::TRACK:
         {
           SvtxTrack* track = Interfaces::FindTrack(
-            iter -> second,
+            itCst.second,
             topNode
           );
           SetInfo(track);
@@ -369,8 +369,8 @@ namespace SColdQcdCorrelatorAnalysis {
       case Jet::SRC::HCALOUT_TOWER_SUB1CS:
         {
           RawTower* raw = Interfaces::FindRawTower(
-            iter -> second,
-            iter -> first,
+            itCst.second,
+            itCst.first,
             topNode
           );
           SetInfo(0, raw, topNode, vtx);  // FIXME need to get system no. from a tower!
@@ -417,8 +417,8 @@ namespace SColdQcdCorrelatorAnalysis {
       case Jet::SRC::HCALOUT_TOWERINFO_SUB1:
         {
           TowerInfo* info = Interfaces::FindTowerInfo(
-            iter -> second,
-            iter -> first,
+            itCst.second,
+            itCst.first,
             topNode
           );
           SetInfo(0, 0, info, topNode, vtx);  // FIXME grab sys and channel index!
@@ -444,8 +444,8 @@ namespace SColdQcdCorrelatorAnalysis {
       case Jet::SRC::ECAL_HCAL_TOPO_CLUSTER:
         {
           RawCluster* cluster = Interfaces::FindCluster(
-            iter -> second,
-            iter -> first,
+            itCst.second,
+            itCst.first,
             topNode
           );
           SetInfo(cluster, vtx);
@@ -455,23 +455,27 @@ namespace SColdQcdCorrelatorAnalysis {
       // PHG4Particle
       case Jet::SRC::PARTICLE:
         {
-          PHG4Particle* particle = Interfaces::FindParticle(
-            iter -> second,
-            topNode
-          );
-          SetInfo(particle, event);
+          if (event.has_value()) {
+            PHG4Particle* particle = Interfaces::FindParticle(
+              itCst.second,
+              topNode
+            );
+            SetInfo(particle, event.value());
+          } else {
+            assert(event.has_value());
+          }
         }
         break;
 
       // input not found, throw error
       default:
-        assert(Const::MapSrcOntoNode().find(iter -> first) != Const::MapSrcOntoNode().end());
+        assert(Const::MapSrcOntoNode().find(itCst.first) != Const::MapSrcOntoNode().end());
         break;
 
     }
     return;
 
-  }  // end 'SetInfo(Jet::ITER_comp_vec&, int, PHCompositeNode*, optional<ROOT::Math::XYZVector>)'
+  }  // end 'SetInfo(pair<Jet::SRC, unsigned int>&, PHCompositeNode*, optional<ROOT::Math::XYZVector>, optional<int> event)'
 
 
 
@@ -787,15 +791,15 @@ namespace SColdQcdCorrelatorAnalysis {
   //! Constructor accepting a F4A jet component iterator
   // --------------------------------------------------------------------------
   Types::CstInfo::CstInfo(
-    const Jet::ITER_comp_vec& iter,
-    const int event,
+    const pair<Jet::SRC, unsigned int>& itCst,
     PHCompositeNode* topNode,
-    optional<ROOT::Math::XYZVector> vtx
+    optional<ROOT::Math::XYZVector> vtx,
+    optional<int> event
   ) {
 
-    SetInfo(iter, event, topNode, vtx);
+    SetInfo(itCst, topNode, vtx, event);
 
-  }  // end ctor(Jet::ITER_comp_vec&, int, PHCompositeNode*, optional<ROOT::Math::XYZVector>)'
+  }  // end ctor(pair<Jet::SRC, unsigned int>&, PHCompositeNode*, optional<ROOT::Math::XYZVector>, optional<int>)'
 
 }  // end SColdQcdCorrelatorAnalysis namespace
 

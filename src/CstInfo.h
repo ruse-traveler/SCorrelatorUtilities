@@ -133,7 +133,7 @@ namespace SColdQcdCorrelatorAnalysis {
         void SetInfo(const int sys, const int chan, TowerInfo* info, PHCompositeNode* topNode, optional<ROOT::Math::XYZVector> vtx = nullopt);
         void SetInfo(const RawCluster* cluster, optional<ROOT::Math::XYZVector> vtx = nullopt);
         void SetInfo(PHG4Particle* particle, const int event);
-        void SetInfo(const Jet::ITER_comp_vec& iter, const int event, PHCompositeNode* topNode, optional<ROOT::Math::XYZVector> vtx = nullopt);
+        void SetInfo(const pair<Jet::SRC, unsigned int>& itCst, PHCompositeNode* topNode, optional<ROOT::Math::XYZVector> vtx = nullopt, optional<int> event = nullopt);
         void SetJetInfo(const int id, const Types::JetInfo& jet);
         bool IsInAcceptance(const CstInfo& minimum, const CstInfo& maximum) const;
         bool IsInAcceptance(const pair<CstInfo, CstInfo>& range) const;
@@ -160,7 +160,7 @@ namespace SColdQcdCorrelatorAnalysis {
         CstInfo(const int sys, const int chan, TowerInfo* info, PHCompositeNode* topNode, optional<ROOT::Math::XYZVector> vtx = nullopt);
         CstInfo(const RawCluster* cluster, optional<ROOT::Math::XYZVector> vtx = nullopt);
         CstInfo(PHG4Particle* particle, const int event);
-        CstInfo(const Jet::ITER_comp_vec& iter, const int event, PHCompositeNode* topNode, optional<ROOT::Math::XYZVector> vtx = nullopt);
+        CstInfo(const pair<Jet::SRC, unsigned int>& itCst, PHCompositeNode* topNode, optional<ROOT::Math::XYZVector> vtx = nullopt, optional<int> event = nullopt);
 
       // identify this class to ROOT
       ClassDefNV(CstInfo, 1)
