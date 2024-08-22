@@ -1,11 +1,12 @@
-// ----------------------------------------------------------------------------
-// 'ParTools.cc'
-// Derek Anderson
-// 03.06.2024
-//
-// Collection of frequent particle-related methods utilized
-// in the sPHENIX Cold QCD Energy-Energy Correlator analysis.
-// ----------------------------------------------------------------------------
+/// ---------------------------------------------------------------------------
+/*! \file   ParTools.cc
+ *  \author Derek Anderson
+ *  \date   03.06.2024
+ *
+ *  Collection of frequent particle-related methods utilized in
+ *  the sPHENIX Cold QCD Energy-Energy Correlator analysis.
+ */
+/// ---------------------------------------------------------------------------
 
 #define SCORRELATORUTILITIES_PARTOOLS_CC
 
@@ -17,8 +18,13 @@ using namespace std;
 
 
 
+// particle methods ===========================================================
+
 namespace SColdQcdCorrelatorAnalysis {
 
+  // --------------------------------------------------------------------------
+  //! Get Embedding ID from a subevent
+  // --------------------------------------------------------------------------
   int Tools::GetEmbedID(PHCompositeNode* topNode, const int iEvtToGrab) {
 
     // grab mc event & return embedding id
@@ -29,6 +35,9 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
+  // --------------------------------------------------------------------------
+  //! Check if a status is final state
+  // --------------------------------------------------------------------------
   bool Tools::IsFinalState(const int status) {
 
     return (status == 1);
@@ -37,7 +46,14 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-  bool Tools::IsSubEvtGood(const int embedID, const int option, const bool isEmbed) {
+  // --------------------------------------------------------------------------
+  //! Check if a subevent is good wrt. a provided subevent option
+  // --------------------------------------------------------------------------
+  bool Tools::IsSubEvtGood(
+    const int embedID,
+    const int option,
+    const bool isEmbed
+  ) {
 
     // set ID of signal
     int signalID = Const::SubEvt::NotEmbedSignal;
@@ -84,6 +100,9 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
+  // --------------------------------------------------------------------------
+  //! Check if a subevent falls in a list of subevents to use 
+  // --------------------------------------------------------------------------
   bool Tools::IsSubEvtGood(const int embedID, vector<int> subEvtsToUse) {
 
     bool isSubEvtGood = false;
@@ -99,6 +118,9 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
+  // --------------------------------------------------------------------------
+  //! Get charge of a particle based on PID
+  // --------------------------------------------------------------------------
   float Tools::GetParticleCharge(const int pid) {
 
     // particle charge
@@ -114,7 +136,13 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-  vector<int> Tools::GrabSubevents(PHCompositeNode* topNode, vector<int> subEvtsToUse) {
+  // --------------------------------------------------------------------------
+  //! Get list of embedding IDs to use
+  // --------------------------------------------------------------------------
+  vector<int> Tools::GrabSubevents(
+    PHCompositeNode* topNode,
+    vector<int> subEvtsToUse
+  ) {
 
     // instantiate vector to hold subevents
     vector<int> subevents;
@@ -148,6 +176,9 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
+  // --------------------------------------------------------------------------
+  //! Get subevents based on a specified option
+  // --------------------------------------------------------------------------
   vector<int> Tools::GrabSubevents(
     PHCompositeNode* topNode,
     const int option,
@@ -177,7 +208,13 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-  PHG4Particle* Tools::GetPHG4ParticleFromBarcode(const int barcode, PHCompositeNode* topNode) {
+  // --------------------------------------------------------------------------
+  //! Find a PHG4Particle based on its barcode
+  // --------------------------------------------------------------------------
+  PHG4Particle* Tools::GetPHG4ParticleFromBarcode(
+    const int barcode,
+    PHCompositeNode* topNode
+  ) {
 
     // by default, return null pointer
     PHG4Particle* parToGrab = NULL;
@@ -203,6 +240,9 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
+  // --------------------------------------------------------------------------
+  //! Find a PHG4Particle based on its "track code"
+  // --------------------------------------------------------------------------
   PHG4Particle* Tools::GetPHG4ParticleFromTrackID(const int id, PHCompositeNode* topNode) {
 
     // by default, return null pointer
@@ -229,7 +269,13 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
 
-  HepMC::GenParticle* Tools::GetHepMCGenParticleFromBarcode(const int barcode, PHCompositeNode* topNode) {
+  // --------------------------------------------------------------------------
+  //! Find a HepMC GenParticle based on its barcode
+  // --------------------------------------------------------------------------
+  HepMC::GenParticle* Tools::GetHepMCGenParticleFromBarcode(
+    const int barcode,
+    PHCompositeNode* topNode
+  ) {
 
     // by default, return null pointer
     HepMC::GenParticle* parToGrab = NULL;

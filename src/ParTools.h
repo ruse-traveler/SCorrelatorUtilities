@@ -1,11 +1,12 @@
-// ----------------------------------------------------------------------------
-// 'ParTools.h'
-// Derek Anderson
-// 03.06.2024
-//
-// Collection of frequent particle-related methods utilized
-// in the sPHENIX Cold QCD Energy-Energy Correlator analysis.
-// ----------------------------------------------------------------------------
+/// ---------------------------------------------------------------------------
+/*! \file   ParTools.h
+ *  \author Derek Anderson
+ *  \date   03.06.2024
+ *
+ *  Collection of frequent particle-related methods utilized in
+ *  the sPHENIX Cold QCD Energy-Energy Correlator analysis.
+ */
+/// ---------------------------------------------------------------------------
 
 #ifndef SCORRELATORUTILITIES_PARTOOLS_H
 #define SCORRELATORUTILITIES_PARTOOLS_H
@@ -46,7 +47,7 @@ using namespace std;
 namespace SColdQcdCorrelatorAnalysis {
   namespace Tools {
 
-    // particle tools ---------------------------------------------------------
+    // particle methods -------------------------------------------------------
 
     int                 GetEmbedID(PHCompositeNode* topNode, const int iEvtToGrab);
     bool                IsFinalState(const int status);
