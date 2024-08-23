@@ -36,6 +36,48 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
   // --------------------------------------------------------------------------
+  //! Get an embedding ID for a given barcode
+  // --------------------------------------------------------------------------
+  int Tools::GetEmbedIDFromBarcode(const int barcode, PHCompositeNode* topNode) {
+
+    // by default, return <SOMETHING>
+    int  idEmbed      = 0;
+    bool foundBarcode = false;
+
+    // loop over all subevents to search
+    PHHepMCGenEventMap* mcEvtMap = Interfaces::GetMcEventMap(topNode);
+    for (
+      PHHepMCGenEventMap::ConstIter genEvt = mcEvtMap -> begin();
+      genEvt != mcEvtMap -> end();
+      ++genEvt
+    ) {
+
+      // loop over particles
+      for (
+        HepMC::GenEvent::particle_const_iterator hepPar = genEvt -> second -> getEvent() -> particles_begin();
+        hepPar != genEvt -> second -> getEvent() -> particles_end();
+        ++hepPar
+      ) {
+
+        // break if barcode found
+        if ((*hepPar) -> barcode() == barcode) {
+          idEmbed      = genEvt -> first;
+          foundBarcode = true;
+          break;
+        }
+      }  // end particle loop
+
+      // if found barcode, break
+      if (foundBarcode) break;
+
+    }  // end subevent loop
+    return idEmbed;
+
+  }  // end 'GetEmbedIDFromBarcode(int, PHCompositeNode*)'
+
+
+
+  // --------------------------------------------------------------------------
   //! Check if a status is final state
   // --------------------------------------------------------------------------
   bool Tools::IsFinalState(const int status) {
@@ -278,7 +320,8 @@ namespace SColdQcdCorrelatorAnalysis {
   ) {
 
     // by default, return null pointer
-    HepMC::GenParticle* parToGrab = NULL;
+    HepMC::GenParticle* parToGrab    = NULL;
+    bool                foundBarcode = false;
 
     // loop over all subevents to search
     PHHepMCGenEventMap* mcEvtMap = Interfaces::GetMcEventMap(topNode);
@@ -287,16 +330,25 @@ namespace SColdQcdCorrelatorAnalysis {
       genEvt != mcEvtMap -> end();
       ++genEvt
     ) {
+
+      // loop over particles
       for (
         HepMC::GenEvent::particle_const_iterator hepPar = genEvt -> second -> getEvent() -> particles_begin();
         hepPar != genEvt -> second -> getEvent() -> particles_end();
         ++hepPar
       ) {
+
+        // break if barcode found
         if ((*hepPar) -> barcode() == barcode) {
-          parToGrab = *hepPar;
+          parToGrab    = *hepPar;
+          foundBarcode = true;
           break;
         }
       }  // end particle loop
+
+      // if found barcode, break
+      if (foundBarcode) break;
+
     }  // end subevent loop
     return parToGrab;
 
