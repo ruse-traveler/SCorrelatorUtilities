@@ -40,6 +40,7 @@ namespace SColdQcdCorrelatorAnalysis {
     // tower methods ----------------------------------------------------------
 
     int                         GetTowerStatus(const TowerInfo* tower);
+    int                         GetCaloIDFromRawTower(RawTower* tower);
     int                         GetRawTowerKey(const int idGeo, const tuple<int, int, int> indices);
     tuple<int, int, int>        GetTowerIndices(const int channel, const int subsys, PHCompositeNode* topNode);
     ROOT::Math::XYZVector       GetTowerPositionXYZ(const int rawKey, const int subsys, PHCompositeNode* topNode);

@@ -338,32 +338,59 @@ namespace SColdQcdCorrelatorAnalysis {
         }
         break;
 
-      // RawTower
+      // EMCal RawTower
       case Jet::SRC::CEMC_TOWER:
-        [[fallthrough]];
-
-      case Jet::SRC::CEMC_TOWER_RETOWER:
-        [[fallthrough]];
-
-      case Jet::SRC::HCALIN_TOWER:
-        [[fallthrough]];
-
-      case Jet::SRC::HCALOUT_TOWER:
         [[fallthrough]];
 
       case Jet::SRC::CEMC_TOWER_SUB1:
         [[fallthrough]];
 
+      case Jet::SRC::CEMC_TOWER_SUB1CS:
+        {
+          RawTower* raw = Interfaces::FindRawTower(
+            itCst.second,
+            itCst.first,
+            topNode
+          );
+          SetInfo(Const::Subsys::EMCal, raw, topNode, vtx);
+        }
+        break;
+
+      // RECal RawTower
+      case Jet::SRC::CEMC_TOWER_RETOWER:
+        {
+          RawTower* raw = Interfaces::FindRawTower(
+            itCst.second,
+            itCst.first,
+            topNode
+          );
+          SetInfo(Const::Subsys::RECal, raw, topNode, vtx);
+        }
+        break;
+
+      // IHCal RawTower
+      case Jet::SRC::HCALIN_TOWER:
+        [[fallthrough]];
+
       case Jet::SRC::HCALIN_TOWER_SUB1:
         [[fallthrough]];
 
-      case Jet::SRC::HCALOUT_TOWER_SUB1:
-        [[fallthrough]];
-
-      case Jet::SRC::CEMC_TOWER_SUB1CS:
-        [[fallthrough]];
-
       case Jet::SRC::HCALIN_TOWER_SUB1CS:
+        {
+          RawTower* raw = Interfaces::FindRawTower(
+            itCst.second,
+            itCst.first,
+            topNode
+          );
+          SetInfo(Const::Subsys::IHCal, raw, topNode, vtx);
+        }
+        break;
+
+      // OHCal RawTower
+      case Jet::SRC::HCALOUT_TOWER:
+        [[fallthrough]];
+
+      case Jet::SRC::HCALOUT_TOWER_SUB1:
         [[fallthrough]];
 
       case Jet::SRC::HCALOUT_TOWER_SUB1CS:
@@ -373,45 +400,72 @@ namespace SColdQcdCorrelatorAnalysis {
             itCst.first,
             topNode
           );
-          SetInfo(0, raw, topNode, vtx);  // FIXME need to get system no. from a tower!
+          SetInfo(Const::Subsys::OHCal, raw, topNode, vtx);
         }
         break;
 
-      // TowerInfo
+      // EMCal TowerInfo
       case Jet::SRC::CEMC_TOWERINFO:
-        [[fallthrough]];
-
-      case Jet::SRC::CEMC_TOWERINFO_RETOWER:
-        [[fallthrough]];
-
-      case Jet::SRC::HCALIN_TOWERINFO:
-        [[fallthrough]];
-
-      case Jet::SRC::HCALOUT_TOWERINFO:
         [[fallthrough]];
 
       case Jet::SRC::CEMC_TOWERINFO_EMBED:
         [[fallthrough]];
 
-      case Jet::SRC::HCALIN_TOWERINFO_EMBED:
-        [[fallthrough]];
-
-      case Jet::SRC::HCALOUT_TOWERINFO_EMBED:
-        [[fallthrough]];
-
       case Jet::SRC::CEMC_TOWERINFO_SIM:
+        [[fallthrough]];
+
+      case Jet::SRC::CEMC_TOWERINFO_SUB1:
+        {
+          TowerInfo* info = Interfaces::FindTowerInfo(
+            itCst.second,
+            itCst.first,
+            topNode
+          );
+          SetInfo(Const::Subsys::EMCal, itCst.second, info, topNode, vtx);
+        }
+        break;
+
+      // RECal TowerInfo
+      case Jet::SRC::CEMC_TOWERINFO_RETOWER:
+        {
+          TowerInfo* info = Interfaces::FindTowerInfo(
+            itCst.second,
+            itCst.first,
+            topNode
+          );
+          SetInfo(Const::Subsys::RECal, itCst.second, info, topNode, vtx);
+        }
+        break;
+
+      // IHCal TowerInfo
+      case Jet::SRC::HCALIN_TOWERINFO:
+        [[fallthrough]];
+
+      case Jet::SRC::HCALIN_TOWERINFO_EMBED:
         [[fallthrough]];
 
       case Jet::SRC::HCALIN_TOWERINFO_SIM:
         [[fallthrough]];
 
-      case Jet::SRC::HCALOUT_TOWERINFO_SIM:
-        [[fallthrough]];
-
-      case Jet::SRC::CEMC_TOWERINFO_SUB1:
-        [[fallthrough]];
-
       case Jet::SRC::HCALIN_TOWERINFO_SUB1:
+        {
+          TowerInfo* info = Interfaces::FindTowerInfo(
+            itCst.second,
+            itCst.first,
+            topNode
+          );
+          SetInfo(Const::Subsys::IHCal, itCst.second, info, topNode, vtx);
+        }
+        break;
+
+      // OHCal TowerInfo
+      case Jet::SRC::HCALOUT_TOWERINFO:
+        [[fallthrough]];
+
+      case Jet::SRC::HCALOUT_TOWERINFO_EMBED:
+        [[fallthrough]];
+
+      case Jet::SRC::HCALOUT_TOWERINFO_SIM:
         [[fallthrough]];
 
       case Jet::SRC::HCALOUT_TOWERINFO_SUB1:
@@ -421,7 +475,7 @@ namespace SColdQcdCorrelatorAnalysis {
             itCst.first,
             topNode
           );
-          SetInfo(0, 0, info, topNode, vtx);  // FIXME grab sys and channel index!
+          SetInfo(Const::Subsys::OHCal, itCst.second, info, topNode, vtx);
         }
         break;
 

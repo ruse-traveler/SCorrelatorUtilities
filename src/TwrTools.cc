@@ -50,6 +50,18 @@ namespace SColdQcdCorrelatorAnalysis {
 
 
   // --------------------------------------------------------------------------
+  //! Get Calorimeter ID from a RawTower
+  // --------------------------------------------------------------------------
+  int Tools::GetCaloIDFromRawTower(RawTower* tower) {
+
+    auto rawKey = tower -> get_id();
+    return RawTowerDefs::decode_caloid(rawKey);
+
+  }  // end 'GetCaloIDFromRawTower(RawTower*)'
+
+
+
+  // --------------------------------------------------------------------------
   //! Get raw tower key based on tower indices
   // --------------------------------------------------------------------------
   int Tools::GetRawTowerKey(const int idGeo, const tuple<int, int, int> indices) {
@@ -158,7 +170,7 @@ namespace SColdQcdCorrelatorAnalysis {
       ptTwr * sinh(hTwr),
       energy
     );
-    return mom;  // TODO finish filling in
+    return mom;
 
   }  // end 'GetTowerMomentum(double, ROOT::Math::XYZVector, ROOT::Math::XYZVector)'
 
