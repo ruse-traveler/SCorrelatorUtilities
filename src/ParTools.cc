@@ -23,6 +23,17 @@ using namespace std;
 namespace SColdQcdCorrelatorAnalysis {
 
   // --------------------------------------------------------------------------
+  //! Get index of signal subevent for embedding vs. not
+  // --------------------------------------------------------------------------
+  int Tools::GetSignal(const bool isEmbed) {
+
+    return isEmbed ? Const::SubEvt::EmbedSignal : Const::SubEvt::NotEmbedSignal;
+
+  }
+
+
+
+  // --------------------------------------------------------------------------
   //! Get Embedding ID from a subevent
   // --------------------------------------------------------------------------
   int Tools::GetEmbedID(PHCompositeNode* topNode, const int iEvtToGrab) {
@@ -40,8 +51,8 @@ namespace SColdQcdCorrelatorAnalysis {
   // --------------------------------------------------------------------------
   int Tools::GetEmbedIDFromBarcode(const int barcode, PHCompositeNode* topNode) {
 
-    // by default, return <SOMETHING>
-    int  idEmbed      = 0;
+    // by default, return signal
+    int  idEmbed      = Const::SubEvt::NotEmbedSignal;
     bool foundBarcode = false;
 
     // loop over all subevents to search
@@ -74,6 +85,21 @@ namespace SColdQcdCorrelatorAnalysis {
     return idEmbed;
 
   }  // end 'GetEmbedIDFromBarcode(int, PHCompositeNode*)'
+
+
+
+  // --------------------------------------------------------------------------
+  //! Get an embedding ID for a given track ID
+  // --------------------------------------------------------------------------
+  int Tools::GetEmbedIDFromTrackID(const int idTrack, PHCompositeNode* topNode) {
+
+    // grab truth container
+    PHG4TruthInfoContainer* info = Interfaces::GetTruthContainer(topNode);
+
+    // return embedding id
+    return info -> isEmbeded(idTrack);
+
+  }  // end 'GetEmbedIDFromTrackID(int, PHCompositeNode*)'
 
 
 

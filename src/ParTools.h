@@ -49,8 +49,10 @@ namespace SColdQcdCorrelatorAnalysis {
 
     // particle methods -------------------------------------------------------
 
+    int                 GetSignal(const bool isEmbed);
     int                 GetEmbedID(PHCompositeNode* topNode, const int iEvtToGrab);
     int                 GetEmbedIDFromBarcode(const int barcode, PHCompositeNode* topNode);
+    int                 GetEmbedIDFromTrackID(const int idTrack, PHCompositeNode* topNode);
     bool                IsFinalState(const int status);
     bool                IsSubEvtGood(const int embedID, const int option, const bool isEmbed);
     bool                IsSubEvtGood(const int embedID, vector<int> subEvtsToUse);
