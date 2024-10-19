@@ -39,7 +39,6 @@ namespace SColdQcdCorrelatorAnalysis {
 
   }  // end 'GetClustMomentum(double, ROOT::Math::XYZVector)'
 
-
 }  // end SColdQcdCorrelatorAnalysis namespace
 
 
