@@ -14,13 +14,10 @@ Each component has an "all-in-one" header which collects all of the relevant con
 For example, to use a data type in another module make sure to include the following with your other includes:
 
 ```
+// includes
 #include "<path-to-install>/scorrelatorutilities/Types.h"
-```
 
-And if you are utilizing a data-type in ROOT I/O operations, don't forget to load the utilities library in
-the driver macro:
-
-```
+// and where you load libraries
 R__LOAD_LIBRARY(<path-to-install>/libscorrelatorutilities.so)
 ```
 
