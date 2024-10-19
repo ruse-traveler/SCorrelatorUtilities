@@ -1,10 +1,3 @@
-// ----------------------------------------------------------------------------
-// 'JetInfo.h'
-// Derek Anderson
-// 03.04.2024
-//
-// Utility class to hold information from jets.
-// ----------------------------------------------------------------------------
 /// ---------------------------------------------------------------------------
 /*! \file   JetInfo.h
  *  \author Derek Anderson
@@ -62,7 +55,7 @@ namespace SColdQcdCorrelatorAnalysis {
         double   phi   = numeric_limits<double>::max();
         double   area  = numeric_limits<double>::max();
 
-        // internal methods
+        // private methods
         void Minimize();
         void Maximize();
 

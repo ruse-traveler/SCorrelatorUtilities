@@ -60,7 +60,7 @@ namespace SColdQcdCorrelatorAnalysis {
         double  ry     = numeric_limits<double>::max();
         double  rz     = numeric_limits<double>::max();
 
-        // internal methods
+        // private methods
         void Minimize();
         void Maximize();
 
