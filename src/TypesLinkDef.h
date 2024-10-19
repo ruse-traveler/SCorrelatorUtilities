@@ -15,10 +15,10 @@
 #include "ClustInfo.h"
 #include "CstInfo.h"
 #include "FlowInfo.h"
-#include "GenInfo.h"
+#include "GEvtInfo.h"
 #include "JetInfo.h"
 #include "ParInfo.h"
-#include "RecoInfo.h"
+#include "REvtInfo.h"
 #include "TrkInfo.h"
 #include "TwrInfo.h"
 
@@ -30,10 +30,10 @@
 #pragma link C++ class ClustInfo+;
 #pragma link C++ class CstInfo+;
 #pragma link C++ class FlowInfo+;
-#pragma link C++ class GenInfo+;
+#pragma link C++ class GEvtInfo+;
 #pragma link C++ class JetInfo+;
 #pragma link C++ class ParInfo+;
-#pragma link C++ class RecoInfo+;
+#pragma link C++ class REvtInfo+;
 #pragma link C++ class TrkInfo+;
 #pragma link C++ class TwrInfo+;
 

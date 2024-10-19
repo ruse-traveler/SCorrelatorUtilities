@@ -13,10 +13,10 @@
 #include "ClustInfo.h"
 #include "CstInfo.h"
 #include "FlowInfo.h"
-#include "GenInfo.h"
+#include "GEvtInfo.h"
 #include "JetInfo.h"
 #include "ParInfo.h"
-#include "RecoInfo.h"
+#include "REvtInfo.h"
 #include "TrkInfo.h"
 #include "TwrInfo.h"
 

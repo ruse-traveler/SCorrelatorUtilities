@@ -11,9 +11,9 @@
 #define SCORRELATORUTILITIES_TOOLS_H
 
 #include "ClustTools.h"
-#include "GenTools.h"
+#include "GEvtTools.h"
 #include "ParTools.h"
-#include "RecoTools.h"
+#include "REvtTools.h"
 #include "TrkTools.h"
 #include "TwrTools.h"
 #include "VtxTools.h"
