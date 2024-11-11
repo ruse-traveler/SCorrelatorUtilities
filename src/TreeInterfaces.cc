@@ -21,6 +21,8 @@ using namespace std;
 
 namespace SColdQcdCorrelatorAnalysis {
 
+  // helper methods ===========================================================
+
   // --------------------------------------------------------------------------
   //! Get a particular entry from a generic TTree-derived object
   // --------------------------------------------------------------------------
@@ -79,6 +81,24 @@ namespace SColdQcdCorrelatorAnalysis {
   template int64_t Interfaces::LoadTree(TTree* tree, const uint64_t entry, int& current);
   template int64_t Interfaces::LoadTree(TChain* tree, const uint64_t entry, int& current);
   template int64_t Interfaces::LoadTree(TNtuple* tree, const uint64_t entry, int& current);
+
+
+
+  // BaseTreeIO methods =======================================================
+
+  // TODO
+  std::string Interfaces::BaseTreeIO::MakeBranchName() const {return "";}
+  std::string Interfaces::BaseTreeIO::MakeLeafList(const Typ type) const {return "";}
+
+  // TODO
+  void Interfaces::BaseTreeIO::SetInputBranch0D(const std::string name, <TYPE>& address, TTree* tree) {return;}
+  void Interfaces::BaseTreeIO::SetInputBranch1D(const std::string name, <TYPE>& address, TTree* tree) {return;}
+  void Interfaces::BaseTreeIO::SetInputBranch2D(const std::string name, <TYPE>& address, TTree* tree) {return;}
+
+  // TODO
+  void Interfaces::BaseTreeIO::SetOutputBranch0D(const std::string name, <TYPE>& address, TTree* tree) {return;}
+  void Interfaces::BaseTreeIO::SetOutputBranch1D(const std::string name, <TYPE>& address, TTree* tree) {return;}
+  void Interfaces::BaseTreeIO::SetOutputBranch2D(const std::string name, <TYPE>& address, TTree* tree) {return;}
 
 }  // end SColdQcdCorrelatorAnalysis namespace
 
